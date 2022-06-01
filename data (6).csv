@@ -1,0 +1,95 @@
+CLASS,SUBJECT,COURSE CODE,EXAM DAY,EXAM PERIOD
+JSS 1,Computer science,COM101,day_1,FIRST
+JSS 1,English language,ENG101,day_1,SECOND
+JSS 1,Basic science,BST101,day_1,THIRD
+JSS 1,Mathematics,MTH101,day_2,FIRST
+JSS 1,PHE,PHE101,day_2,SECOND
+JSS 1,Literature-in-English,LIT101,day_2,THIRD
+JSS 1,Business studies,BUS101,day_3,FIRST
+JSS 1,Home Economics,HEC101,day_3,SECOND
+JSS 1,CCA,CCA101,day_3,THIRD
+JSS 1,Agric science,AGR101,day_4,FIRST
+JSS 1,CRS,CRS101,day_4,SECOND
+JSS 1,RNV,RNV101,day_4,THIRD
+JSS 1,Yoruba,YOR101,day_5,FIRST
+JSS 1,French,FRE101,day_5,SECOND
+JSS 1,Music,MUS101,day_5,THIRD
+JSS 2,Computer science,COM201,day_1,FIRST
+JSS 2,English language,ENG201,day_1,SECOND
+JSS 2,Basic science,BST201,day_1,THIRD
+JSS 2,Mathematics,MTH201,day_2,FIRST
+JSS 2,PHE,PHE201,day_2,SECOND
+JSS 2,Literature-in-English,LIT201,day_2,THIRD
+JSS 2,Business studies,BUS201,day_3,FIRST
+JSS 2,Home Economics,HEC201,day_3,SECOND
+JSS 2,CCA,CCA201,day_3,THIRD
+JSS 2,Agric science,AGR201,day_4,FIRST
+JSS 2,CRS,CRS201,day_4,SECOND
+JSS 2,RNV,RNV201,day_4,THIRD
+JSS 2,Yoruba,YOR201,day_5,FIRST
+JSS 2,French,FRE201,day_5,SECOND
+JSS 2,Music,MUS201,day_5,THIRD
+JSS 3,Computer science,COM301,day_1,FIRST
+JSS 3,English language,ENG301,day_1,SECOND
+JSS 3,Basic science,BST301,day_1,THIRD
+JSS 3,Mathematics,MTH301,day_2,FIRST
+JSS 3,PHE,PHE301,day_2,SECOND
+JSS 3,Literature-in-English,LIT301,day_2,THIRD
+JSS 3,Business studies,BUS301,day_3,FIRST
+JSS 3,Home Economics,HEC301,day_3,SECOND
+JSS 3,CCA,CCA301,day_3,THIRD
+JSS 3,Agric science,AGR301,day_4,FIRST
+JSS 3,CRS,CRS301,day_4,SECOND
+JSS 3,RNV,RNV301,day_4,THIRD
+JSS 3,Yoruba,YOR301,day_5,FIRST
+JSS 3,French,FRE301,day_5,SECOND
+JSS 3,Music,MUS301,day_5,THIRD
+SSS 1,English language,ENG401,day_1,FIRST
+SSS 1,Government,GOV401,day_1,SECOND
+SSS 1,Physics,PHY401,day_1,THIRD
+SSS 1,Mathematics,MTH401,day_2,FIRST
+SSS 1,Computer,COM401,day_2,SECOND
+SSS 1,Agric science,AGR401,day_2,THIRD
+SSS 1,Further mathematics,FMT401,day_3,FIRST
+SSS 1,Biology,BIO401,day_3,SECOND
+SSS 1,Literature-in-English,LIT401,day_3,THIRD
+SSS 1,Economics,ECO401,day_4,FIRST
+SSS 1,Data processing,DAP401,day_4,SECOND
+SSS 1,Geography,GEO401,day_4,THIRD
+SSS 1,Civic education,CIV401,day_5,FIRST
+SSS 1,Chemistry,CHM401,day_5,SECOND
+SSS 1,Yoruba,YOR401,day_5,THIRD
+SSS 1,CRS,CRS401,day_5,FOURTH
+SSS 2,English language,ENG501,day_1,FIRST
+SSS 2,Government,GOV501,day_1,SECOND
+SSS 2,Physics,PHY501,day_1,THIRD
+SSS 2,Mathematics,MTH501,day_2,FIRST
+SSS 2,Computer,COM501,day_2,SECOND
+SSS 2,Agric science,AGR501,day_2,THIRD
+SSS 2,Further mathematics,FMT501,day_3,FIRST
+SSS 2,Biology,BIO501,day_3,SECOND
+SSS 2,Literature-in-English,LIT501,day_3,THIRD
+SSS 2,Economics,ECO501,day_4,FIRST
+SSS 2,Data processing,DAP501,day_4,SECOND
+SSS 2,Geography,GEO501,day_4,THIRD
+SSS 2,Civic education,CIV501,day_5,FIRST
+SSS 2,Chemistry,CHM501,day_5,SECOND
+SSS 2,Yoruba,YOR501,day_5,THIRD
+SSS 2,CRS,CRS501,day_5,FOURTH
+SSS 3,English language,ENG601,day_1,FIRST
+SSS 3,Government,GOV601,day_1,SECOND
+SSS 3,Physics,PHY601,day_1,THIRD
+SSS 3,Mathematics,MTH601,day_2,FIRST
+SSS 3,Computer,COM601,day_2,SECOND
+SSS 3,Agric science,AGR601,day_2,THIRD
+SSS 3,Further mathematics,FMT601,day_3,FIRST
+SSS 3,Biology,BIO601,day_3,SECOND
+SSS 3,Literature-in-English,LIT601,day_3,THIRD
+SSS 3,Economics,ECO601,day_4,FIRST
+SSS 3,Data processing,DAP601,day_4,SECOND
+SSS 3,Geography,GEO601,day_4,THIRD
+SSS 3,Civic education,CIV601,day_5,FIRST
+SSS 3,Chemistry,CHM601,day_5,SECOND
+SSS 3,Yoruba,YOR601,day_5,THIRD
+SSS 3,CRS,CRS601,day_5,FOURTH
+  ,,,,

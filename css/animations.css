@@ -1,0 +1,39 @@
+.glow {
+    font-size:40px;
+    color: rgb(59, 3, 47);
+    text-align: center;
+    -webkit-animation: glow 1s ease-in-out infinite alternate;
+    -moz-animation: glow 1s ease-in-out infinite alternate;
+    animation: glow 1s ease-in-out infinite alternate;
+  }
+  
+  @-webkit-keyframes glow {
+    from {
+      text-shadow: 0 0 10px rgb(7, 34, 185), 0 0 20px rgb(230, 178, 227), 0 0 30px #a505b3, 0 0 40px #e912e9,
+       0 0 50px #bec4bd, 0 0 60px #417a1a, 0 0 70px #0d9209;
+    }
+    to {
+      text-shadow: 0 0 20px #fff, 0 0 30px #53033f, 0 0 40px
+       #e60fd4, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #21b30e;
+    }
+  }
+
+  .glow2 {
+    font-size:40px;
+    color: rgb(14, 2, 29);
+    text-align: center;
+    -webkit-animation: glow 1s ease-in-out infinite alternate;
+    -moz-animation: glow 1s ease-in-out infinite alternate;
+    animation: glow 1s ease-in-out infinite alternate;
+  }
+
+  @-webkit-keyframes glow2 {
+    from {
+      text-shadow: 0 0 10px rgb(157, 25, 161), 0 0 20px rgb(37, 192, 107), 0 0 30px #6881d4, 0 0 40px #80b8e5,
+       0 0 50px #bec4bd, 0 0 60px #417a1a, 0 0 70px #0d9209;
+    }
+    to {
+      text-shadow: 0 0 20px #fff, 0 0 30px #9e7cdd, 0 0 40px
+       #e60fd4, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #21b30e;
+    }
+  }

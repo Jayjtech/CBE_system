@@ -1,0 +1,2 @@
+RewriteEngine ON
+RewriteRule ^question-uploader question_uploader.php [NC,L]

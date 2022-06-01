@@ -1,0 +1,3 @@
+RewriteEngine ON
+
+RewriteRule ^register-course register_subject.php [NC,L]

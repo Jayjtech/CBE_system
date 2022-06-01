@@ -1,0 +1,24 @@
+.form-group, .form-control
+    {
+        margin-right: 2%;
+        margin-bottom: 5%;
+        
+    }
+
+    .avatar 
+{
+    width:140px;
+    height:140px;
+    border: 1px solid green;
+    margin-left:110px;
+}
+body
+{
+    background: url(../images/alpha5.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.footer-bg
+{
+    
+}
