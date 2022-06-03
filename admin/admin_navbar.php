@@ -1,18 +1,18 @@
 <?php 
 if($_SESSION['position'] == "Proprietor"){
-$_SESSION['page'] = "admin_nav.php";
+$_SESSION['page'] = "admin-nav";
 }
 if($_SESSION['position'] == "Principal"){
-$_SESSION['page'] = "p_profile.php";
+$_SESSION['page'] = "principal";
 }
 if($_SESSION['position'] == "Teacher"){
-$_SESSION['page'] = "teacher_profile.php";
+$_SESSION['page'] = "teacher";
 }
 if($_SESSION['position'] == "Vice principal"){
-$_SESSION['page'] = "vp_profile.php";
+$_SESSION['page'] = "v-principal";
 }
 if($_SESSION['position'] == "Treasurer"){
-$_SESSION['page'] = "treasurer.php";
+$_SESSION['page'] = "treasurer";
 }
 ?>
 <div class="collapse navbar-collapse" id="ftco-nav">

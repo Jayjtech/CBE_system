@@ -1,0 +1,5 @@
+RewriteEngine ON
+RewriteRule ^question-uploader question_uploader.php [NC,L]
+RewriteRule ^edit_quest_single edit_quest_single.php [NC,L]
+RewriteRule ^edit_question_pro edit_question_pro.php [NC,L]
+RewriteRule ^questions questions.php [NC,L]

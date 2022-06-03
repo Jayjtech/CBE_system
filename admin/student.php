@@ -42,16 +42,6 @@
 <h4 class="text-center">Student Details</h4>
 <div class="container Scrollbar ftco-animate" style="overflow-x:auto; font-size:15px;">
 
-<?php
-if(isset($_SESSION['message'])): ?>
-
-    <div class="alert alert-<?=$_SESSION['msg_type']?>">
-        <?php
-        echo $_SESSION['message'];
-        unset($_SESSION['message']);
-        ?>
-    </div>
-    <?php endif ?>
     <?php 
     if ($countRes == 0){
         echo "<div class='alert alert-danger'>Student's table is Empty!</div>";
@@ -89,10 +79,11 @@ while($row = $result->fetch_assoc()):?>
         <td><?php echo $row['class']; ?></td>
         <td><?php echo $row['reg_date']; ?> / <?php echo $row['session']; ?></td>
         <td>
-            <form action="student_pro.php" method="post">
+            <a href="student_pro.php?adm_no=<?= $row['adm_no']; ?>" style="color:red;font-size:30px;" class="text-center"><i class="icon-trash"></i></a>
+            <!-- <form action="student_pro.php" method="post">
                 <input style="display:none;" type="text" name="user" value="<?php echo $row['username'];?>">
                 <input class="btn btn-danger" style="font-size:10px;" type="submit" name="pick" value="Delete">
-            </form>
+            </form> -->
         </td>
     </tr>
 <?php endwhile; ?>

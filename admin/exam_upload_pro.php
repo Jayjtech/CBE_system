@@ -1,13 +1,14 @@
 <?php  
- require "../config/db.php";
-$questions = "question";
- $answers ="answer";
- $instructions ="instruction";
+ include "../config/db.php";
+    $questions = "question";
+    $answers ="answer";
+    $instructions ="instruction";
+
+ //Teacher's token id very important here
+ $user_token = $_SESSION['token'];
 if(isset($_POST["submit"]))
-{
-  
+    {
     $category = mysqli_real_escape_string($conn,$_POST['category']);
-    $teacher = mysqli_real_escape_string($conn,$_POST['teacher']);
     $course_code = mysqli_real_escape_string($conn,$_POST['course_code']);
     //$term = mysqli_real_escape_string($conn,$_POST['term']);
     if($category == $questions){
@@ -16,8 +17,7 @@ if(isset($_POST["submit"]))
         $class = $row['class'];
         $subject = $row['subject'];
     }
-   
-   
+
   // Allowed mime types
   $csvMimes = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain');
     
@@ -95,27 +95,29 @@ if(isset($_POST["submit"]))
     $stmt->close();
     if($Count > 0){
         $_SESSION['message'] = "Sorry, Question Number already exist, please start from the next Question Number!";
-   $_SESSION['msg_type'] = "danger";//Message saved background
-   header("location: question_uploader.php");
+        $_SESSION['msg_type'] = "error";
+        $_SESSION['btn'] = "OK";
+        header("location: question-uploader");
 
     }
     //insert data from CSV file 
-    if($Count === 0) {
-    $query_a = "INSERT INTO $exam_tbl_A (session, teacher, subject, course_code, class, question_number, text, quest_code)
-     VALUES ('$current_session','$teacher', '$subject', '$course_code', '$class', '$question_number','$question_text', '$quest_code')";
+    if($Count == 0) {
+    $query_a = "INSERT INTO $exam_tbl_A (session, user_token, subject, course_code, class, question_number, text, quest_code)
+     VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$question_number','$question_text', '$quest_code')";
     mysqli_query($conn, $query_a);
 
-    $query_b = "INSERT INTO $exam_tbl_B (session, teacher, subject, course_code, class, question_number, text, quest_code)
-     VALUES ('$current_session','$teacher', '$subject', '$course_code', '$class', '$quest_no_type_B','$question_text', '$quest_code')";
+    $query_b = "INSERT INTO $exam_tbl_B (session, user_token, subject, course_code, class, question_number, text, quest_code)
+     VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_B','$question_text', '$quest_code')";
     mysqli_query($conn, $query_b);
 
-    $query_c = "INSERT INTO $exam_tbl_C (session, teacher, subject, course_code, class, question_number, text, quest_code)
-     VALUES ('$current_session','$teacher', '$subject', '$course_code', '$class', '$quest_no_type_C','$question_text', '$quest_code')";
+    $query_c = "INSERT INTO $exam_tbl_C (session, user_token, subject, course_code, class, question_number, text, quest_code)
+     VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_C','$question_text', '$quest_code')";
     mysqli_query($conn, $query_c);
 
     $_SESSION['message'] = "Questions has been Uploaded!";
-   $_SESSION['msg_type'] = "success";//Message saved background
-   header("location: question_uploader.php");
+    $_SESSION['msg_type'] = "success";
+    $_SESSION['btn'] = "Ok";
+    header("location: question-uploader");
            }
        }
    
@@ -134,11 +136,8 @@ if(isset($_POST["submit"]))
 
 
 
-  if(isset($_POST["submit"]))
-{
-  
+  if(isset($_POST["submit"])){
     $category = mysqli_real_escape_string($conn,$_POST['category']);
-    $teacher = mysqli_real_escape_string($conn,$_POST['teacher']);
     $course_code = mysqli_real_escape_string($conn,$_POST['course_code']);
     //$term = mysqli_real_escape_string($conn,$_POST['term']);
     if($category == $answers){
@@ -222,29 +221,31 @@ if(isset($_POST["submit"]))
              $result = $stmt->get_result();
              $Count = $result->num_rows;
              $stmt->close();
-             if($Count > 0){
-                 $_SESSION['message'] = "Sorry, Answer already exist!";
-            $_SESSION['msg_type'] = "danger";//Message saved background
-            header("location: question_uploader.php");
+            if($Count > 0){
+                $_SESSION['message'] = "Sorry, Answer already exist!";
+                $_SESSION['msg_type'] = "error";
+                $_SESSION['btn'] = "Ok";
+                header("location: question-uploader");
 
              }
-             if($Count === 0){
+             if($Count == 0){
            //insert data from CSV file 
-           $query_a = "INSERT INTO $answer_tbl_A (session, teacher, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
-            VALUES ('$current_session','$teacher', '$subject', '$course_code', '$class', '$question_number', '$is_correct', '$alpha_opt', '$answer_text', '$quest_code')";
+           $query_a = "INSERT INTO $answer_tbl_A (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$question_number', '$is_correct', '$alpha_opt', '$answer_text', '$quest_code')";
            mysqli_query($conn, $query_a);
 
-           $query_b = "INSERT INTO $answer_tbl_B (session, teacher, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
-            VALUES ('$current_session','$teacher', '$subject', '$course_code', '$class', '$quest_no_type_B', '$is_correct', '$alpha_opt', '$answer_text', '$quest_code')";
+           $query_b = "INSERT INTO $answer_tbl_B (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_B', '$is_correct', '$alpha_opt', '$answer_text', '$quest_code')";
            mysqli_query($conn, $query_b);
 
-           $query_c = "INSERT INTO $answer_tbl_C (session, teacher, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
-            VALUES ('$current_session','$teacher', '$subject', '$course_code', '$class', '$quest_no_type_C', '$is_correct', '$alpha_opt', '$answer_text', '$quest_code')";
+           $query_c = "INSERT INTO $answer_tbl_C (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_C', '$is_correct', '$alpha_opt', '$answer_text', '$quest_code')";
            mysqli_query($conn, $query_c);
        
            $_SESSION['message'] = "Answer has been Uploaded!";
-          $_SESSION['msg_type'] = "success";//Message saved background
-          header("location: question_uploader.php");
+          $_SESSION['msg_type'] = "success";
+          $_SESSION['btn'] = "Ok";
+          header("location: question-uploader");
             }
 
          }
@@ -290,8 +291,9 @@ if(isset($_POST["submit"]))
        $conn->query("UPDATE instruction_tbl SET instruction1='$instruction1', instruction2='$instruction2',
        instruction3='$instruction3', instruction4='$instruction4', instruction5='$instruction5' WHERE id=1") or die($conn->error);
       $_SESSION['message'] = "File has been Uploaded!";
-     $_SESSION['msg_type'] = "success";//Message saved background
-     header("location: question_uploader.php");
+     $_SESSION['msg_type'] = "success";
+     $_SESSION['btn'] = "Ok";
+     header("location: question-uploader");
             
 
          }
@@ -309,16 +311,14 @@ if(isset($_POST["submit"]))
 
   if(isset($_GET['delete']))
 {
-    $teacher = $_SESSION['name'];
-    $id = $_GET['delete'];
     $course_code = $_GET['course_code'];
     $conn->query("DELETE FROM subject_tbl WHERE id=$id") or die($conn->error());
-    $conn->query("DELETE FROM $exam_tbl_A WHERE course_code='$course_code' AND teacher='$teacher'") or die($conn->error());
-    $conn->query("DELETE FROM $exam_tbl_B WHERE course_code='$course_code' AND teacher='$teacher'") or die($conn->error());
-    $conn->query("DELETE FROM $exam_tbl_C WHERE course_code='$course_code' AND teacher='$teacher'") or die($conn->error());
-    $conn->query("DELETE FROM $answer_tbl_A WHERE course_code='$course_code' AND teacher='$teacher'") or die($conn->error());
-    $conn->query("DELETE FROM $answer_tbl_B WHERE course_code='$course_code' AND teacher='$teacher'") or die($conn->error());
-    $conn->query("DELETE FROM $answer_tbl_C WHERE course_code='$course_code' AND teacher='$teacher'") or die($conn->error());
+    $conn->query("DELETE FROM $exam_tbl_A WHERE course_code='$course_code' AND user_token='$user_token'") or die($conn->error);
+    $conn->query("DELETE FROM $exam_tbl_B WHERE course_code='$course_code' AND user_token='$user_token'") or die($conn->error);
+    $conn->query("DELETE FROM $exam_tbl_C WHERE course_code='$course_code' AND user_token='$user_token'") or die($conn->error);
+    $conn->query("DELETE FROM $answer_tbl_A WHERE course_code='$course_code' AND user_token='$user_token'") or die($conn->error);
+    $conn->query("DELETE FROM $answer_tbl_B WHERE course_code='$course_code' AND user_token='$user_token'") or die($conn->error);
+    $conn->query("DELETE FROM $answer_tbl_C WHERE course_code='$course_code' AND user_token='$user_token'") or die($conn->error);
     $_SESSION['message'] = "Subject has been deleted!";
     $_SESSION['msg_type'] = "success";
     $_SESSION['remedy'] = "";

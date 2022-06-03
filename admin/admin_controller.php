@@ -135,12 +135,11 @@ if($userCount_ > 0){
              $_SESSION['email'] = $user['email'];
              $_SESSION['surname'] = $user['surname'];
              $_SESSION['position'] = $user['position'];
-             //$_SESSION['position'] = $user['position'];
+             $_SESSION['token'] = $user['token'];
             
              // if admin logs in...
              if($position == $admin) {             
-             header('location: admin_nav.php');
-             exit(); 
+             header('location: admin-nav');
              } 
              
              // if teacher logs in...

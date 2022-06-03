@@ -12,10 +12,9 @@ error_reporting(0);
 	<?php include "header.php" ;?>
   <div class="collapse navbar-collapse" id="ftco-nav">
           <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a href="<?php echo $_SESSION['page'];?>" class="nav-link pl-0">Back</a></li>
-                <li class="nav-item active"><a href="../index.php" class="nav-link pl-0">Home</a></li>
-                <li class="nav-item active"><a href="admin_login.php" class="nav-link pl-0">Login</a></li>
-	        	<li class="nav-item active"><a href="admin_signup.php" class="nav-link pl-0">Staff Sign Up</a></li>
+                <li class="nav-item active"><a href="../login" class="nav-link pl-0">Home</a></li>
+                <li class="nav-item active"><a href="admin-login" class="nav-link pl-0">Staff login</a></li>
+	        	<li class="nav-item active"><a href="admin-signup" class="nav-link pl-0">Staff sign up</a></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -26,24 +25,6 @@ error_reporting(0);
             <div class="col-md-4 offset-md-4 form-div">
                 <form action="" method="post">
                     <h3 class="text-center">Admin Sign-Up</h3>
-                   
-                    <?php if(count($errors) > 0): ?>
-                    <div class="ftco-animate alert alert-danger">
-                        <?php foreach($errors as $error): ?>
-                        <li><?php echo $error; ?></li>
-                     <?php endforeach; ?>
-                    </div>
-                    <?php endif; ?>
-                    
-            <?php
-                  if(isset($_SESSION['message'])): ?>
-                  <div class="ftco-animate alert alert-<?=$_SESSION['msg_type']?>">
-                  <?php
-                  echo $_SESSION['message'];
-                  unset($_SESSION['message']);
-                  ?>
-                </div>
-              <?php endif ?>
               
               <div class="form-group">  
                       <select class="form-control" name="name" required>

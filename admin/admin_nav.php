@@ -44,7 +44,7 @@ require_once 'admin_controller.php';
         </div>
 
         <div class="form-group">
-            <a class="btn btn-success" style="font-size:12px;" href="edit_sch_details.php">Edit School Informations</a>
+            <a class="btn btn-success" style="font-size:12px;" href="school-details">Edit School Informations</a>
         </div>
 
         <div class="form-group">
@@ -56,19 +56,19 @@ require_once 'admin_controller.php';
         <h4 class="text-center">Documents and Files</h4>
        
         <div class="form-group">
-            <a class="btn btn-success" style="font-size:12px;" href="question_uploader.php">Upload Exam Questions</a>
+            <a class="btn btn-success" style="font-size:12px;" href="question-uploader">Upload Exam Questions</a>
         </div>
 
         <div class="form-group">
-            <a class="btn btn-dark" style="font-size:12px;" href="exam_controller.php">Exam Controller</a>
+            <a class="btn btn-dark" style="font-size:12px;" href="exam-controller">Exam Controller</a>
         </div>
 
         <div class="form-group">
-            <a class="btn btn-success" style="font-size:12px;" href="pre_result.php">Prepare My student's results</a>
+            <a class="btn btn-success" style="font-size:12px;" href="prepare-result">Prepare My student's results</a>
         </div>
 
         <div class="form-group">
-            <a class="btn btn-success" style="font-size:12px;" href="student.php">Students</a>
+            <a class="btn btn-success" style="font-size:12px;" href="students">Students</a>
         </div>
     </div>
 

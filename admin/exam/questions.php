@@ -109,7 +109,7 @@ setInterval(function(){
                         <div class="container col-lg-6">
                         <?php echo $question['question_number'] ;?>.
                         <P><?php echo $question['text'];?></p>
-                        <img src="<?php echo $question_img;?>" style="<?php if($question['text'] !== ""){echo "width:90%;height:30%;";}else{echo "width:100%;height:50%;";}?>">
+                        <img src="<?php echo $question_img;?>" style="<?php if($question['text'] != ""){echo "width:90%;height:30%;";}else{echo "width:100%;height:50%;";}?>">
                         </div>
                         <?php
                     }else{

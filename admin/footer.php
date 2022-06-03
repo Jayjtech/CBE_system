@@ -26,64 +26,6 @@
         </div>
       </div>
     </footer>
-    
-    <script>
-//More Payment options
-    function toggleA(){
-        document.getElementById('A').style.display ="inline-block";
-        document.getElementById('Q').style.display ="none";
-        document.getElementById('B').style.display ="none";
-        document.getElementById('C').style.display ="none";
-        document.getElementById('D').style.display ="none";
-        document.getElementById('E').style.display ="none";
-    }
-    function toggleD(){
-      document.getElementById('D').style.display ="inline-block";
-      document.getElementById('Q').style.display ="none";
-        document.getElementById('A').style.display ="none";
-        document.getElementById('B').style.display ="none";
-        document.getElementById('C').style.display ="none";
-        document.getElementById('E').style.display ="none";
-    }
-    function toggleB(){
-        document.getElementById('B').style.display ="inline-block";
-        document.getElementById('Q').style.display ="none";
-        document.getElementById('A').style.display ="none";
-        document.getElementById('C').style.display ="none";
-        document.getElementById('D').style.display ="none";
-        document.getElementById('E').style.display ="none";
-    }
-
-    function toggleC(){
-      document.getElementById('C').style.display ="inline-block";
-        document.getElementById('Q').style.display ="none";
-        document.getElementById('A').style.display ="none";
-        document.getElementById('B').style.display ="none";
-        document.getElementById('D').style.display ="none";
-        document.getElementById('E').style.display ="none";
-    }
-
-    
-
-    function toggleE(){
-        document.getElementById('E').style.display ="inline-block";
-        document.getElementById('Q').style.display ="none";
-        document.getElementById('A').style.display ="none";
-        document.getElementById('B').style.display ="none";
-        document.getElementById('C').style.display ="none";
-        document.getElementById('D').style.display ="none";
-    }
-
-    function toggleQ(){
-        document.getElementById('Q').style.display ="inline-block";
-        document.getElementById('A').style.display ="none";
-        document.getElementById('B').style.display ="none";
-        document.getElementById('C').style.display ="none";
-        document.getElementById('D').style.display ="none";
-        document.getElementById('E').style.display ="none";
-    }
-
-</script>
 
 
   <!-- loader -->
@@ -106,6 +48,7 @@
   <script src="../js/google-map.js"></script>
   <script src="../js/main.js"></script>
   <script src="../js/java.js"></script>
+  <script src="ckeditor/ckeditor.js"></script>
 
   <script src="../js/sweetalert.js"></script>
 

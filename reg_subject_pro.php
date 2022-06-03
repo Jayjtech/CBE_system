@@ -19,13 +19,13 @@ if(isset($_POST['register'])){
 
     if($session != $current_session){
         $_SESSION['message'] = "Registeration is closed for $session!";
-        $_SESSION['msg_type'] = "danger";
-          header("location: register-course");
+        $_SESSION['msg_type'] = "error";
+          header("location: dashboard");
     }else{
     if($term != $current_term){
         $_SESSION['message'] = "You can't register $term subjects now!";
-        $_SESSION['msg_type'] = "danger";
-          header("location: register-course");
+        $_SESSION['msg_type'] = "error";
+          header("location: dashboard");
     }else{
     //SELECTING PAPER TYPE
 $type_A = "Type A"; 
@@ -46,6 +46,7 @@ if($code == 3){
     $query = $conn->query("SELECT * FROM subject_tbl WHERE class= '$class' AND subject = '$subject'");
     while($row = $query->fetch_assoc()){
         $teacher = $row['teacher'];
+        $teacher_token = $row['user_token'];
         $course_code = $row['course_code'];
         $duration = $row['duration'];
     }
@@ -62,7 +63,7 @@ if($Count > 0){
     $_SESSION['msg_type'] = "warning";
     $_SESSION['remedy'] = "";
     $_SESSION['btn'] = "Ok";
-    header("location: register-course");
+    header("location: dashboard");
 }
 
     //To ensure that Thesame subject is not registered over and again
@@ -76,8 +77,8 @@ if($Count > 0){
             VALUES('$fullname', '$username', '$class', '$adm_no', '$term', '$session')") or die($conn->error);
         }
 
-    $insert = $conn->query("INSERT INTO  $answer_sheet (fullname, class, subject, course_code, paper_type, duration, username, adm_no, session, teacher, status) 
-    VALUES('$fullname', '$class', '$subject', '$course_code', '$paper_type', '$duration', '$username', '$adm_no', '$session', '$teacher', '$status')") 
+    $insert = $conn->query("INSERT INTO  $answer_sheet (fullname, class, subject, course_code, paper_type, duration, username, adm_no, session, teacher, teacher_token, status) 
+    VALUES('$fullname', '$class', '$subject', '$course_code', '$paper_type', '$duration', '$username', '$adm_no', '$session', '$teacher', '$teacher_token', '$status')") 
     or die($conn->error);
 
     if($insert){
@@ -96,7 +97,7 @@ if($Count > 0){
     $_SESSION['remedy'] = "";
     $_SESSION['btn'] = "Ok";
 
-    header("location: register-course");
+    header("location: dashboard");
             }
         }
     }
@@ -144,7 +145,7 @@ if(isset($_GET['delete']))
     $_SESSION['msg_type'] = "success";
     $_SESSION['remedy'] = "";
     $_SESSION['btn'] = "Ok";
-    header("location: register-course");
+    header("location: dashboard");
 }
 
 
@@ -162,5 +163,5 @@ if (isset($_POST['update']))
     $_SESSION['message'] = "$subject has been updated!";
     $_SESSION['msg_type'] = "warning";//Message update background
 
-    header("location: register-course");
+    header("location: dashboard");
 }

@@ -28,16 +28,6 @@ require_once 'controllers/authcontroller.php';
                      <?php endforeach; ?>
                     </div>
                     <?php endif; ?>
-
-                <?php
-                  if(isset($_SESSION['message'])): ?>
-                  <div class="ftco-animate alert alert-<?=$_SESSION['msg_type']?>">
-                  <?php
-                  echo $_SESSION['message'];
-                  unset($_SESSION['message']);
-                  ?>
-                </div>
-              <?php endif ?>
                     
                     <div class="form-group">
                     <i  class="fas fa-user"></i> <label for="username">Username or Email</label>
@@ -74,7 +64,7 @@ require_once 'controllers/authcontroller.php';
                     <div class="form-group">
                        <input type="submit" class="btn btn-primary " value="Login" name="login-btn">
                     </div>
-                    <p class="text-center">Not yet a member?<a href="signup.php"> Sign up</a></p>
+                    <p class="text-center">Not yet a member?<a href="signup"> Sign up</a></p>
                     <div style="font-size: 0.8em; text-align: center;">
                     <a href="forgot_password.php">Forgot your password?</a></div>
                 </form>

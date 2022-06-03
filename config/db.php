@@ -1,10 +1,7 @@
 <?php
-session_start();
 require 'constants.php';
-error_reporting(0);
 
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-
 
 if ($conn->connect_error) {
     die('Database error:' .$conn->connect_error);

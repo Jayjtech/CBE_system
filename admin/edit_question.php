@@ -6,6 +6,8 @@ $page = 'question_uploader.php';
 
 if(isset($_GET['course_code'])){
   $course_code = $_GET['course_code'];
+}else{
+  $course_code = $_SESSION['course_code'];
 }
 $quest = $conn->query("SELECT * FROM $exam_table  WHERE course_code='$course_code' ORDER BY question_number ASC");
 $total_result = $quest->num_rows;
@@ -63,7 +65,7 @@ while($row = $quest->fetch_assoc()):?>
          }
          ?>
         <td>
-            <form action="edit_quest_single.php" method="POST">
+            <form action="edit_quest_single" method="POST">
                 <input type="hidden" name="quest_code" value="<?php echo $quest_code;?>">
                 <input class="btn btn-primary" style="font-size:10px;" type="submit" name="edit" value="Edit">
             </form>

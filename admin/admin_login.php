@@ -12,8 +12,8 @@ error_reporting(0);
 	<?php include "header.php" ;?>
     <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
-	        	<li class="nav-item active"><a href="../index.php" class="nav-link pl-0">Home</a></li>
-	        	<li class="nav-item active"><a href="admin_signup.php" class="nav-link pl-0">Staff Sign Up</a></li>
+	        	<li class="nav-item active"><a href="../login" class="nav-link pl-0">Home</a></li>
+	        	<li class="nav-item active"><a href="admin-signup" class="nav-link pl-0">Staff sign up</a></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -27,38 +27,20 @@ error_reporting(0);
             <div class="col-md-4 offset-md-4 form-div">
                 <form action="" method="post">
                     <h3 class="text-center">Staff Login</h3>
-                   
-                    <?php if(count($errors) > 0): ?>
-                    <div class="alert alert-danger">
-                        <?php foreach($errors as $error): ?>
-                        <li><?php echo $error; ?></li>
-                     <?php endforeach; ?>
-                    </div>
-                    <?php endif; ?>
-                    
-            <?php
-                  if(isset($_SESSION['message'])): ?>
-                  <div class="ftco-animate alert alert-<?=$_SESSION['msg_type']?>">
-                  <?php
-                  echo $_SESSION['message'];
-                  unset($_SESSION['message']);
-                  ?>
-                </div>
-              <?php endif ?>
-              
+
                     <div class="form-group">
-                    <label for="username">Username</label>
+                        <label for="username">Username</label>
                         <input type="text" name="username" value="<?php echo $username; ?>" class="form-control form-control-lg">
                     </div>
 
                    
                     <div class="form-group">
-                    <label for="password">Password</label>
+                        <label for="password">Password</label>
                         <input type="password" name="password" class="form-control form-control-lg">
                     </div>
 
                     <div class="form-group">
-                    </i> <label for="password">Select Post</label>
+                        <label for="password">Select Post</label>
                         <select class="form-control" name="position" required>
                             <option value="Proprietor">Proprietor</option>
                             <option value="Principal">Principal</option>

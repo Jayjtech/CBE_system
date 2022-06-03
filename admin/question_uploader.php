@@ -1,10 +1,11 @@
 <?php 
 require "../config/db.php";   
 $name = $_SESSION['name']; 
+$user_token = $_SESSION['token']; 
 $_SESSION['page_2'] = "question_uploader.php";
 
 //CALLING SAVED SUBJECTS BY USER FROM DATABASE
-$result =$conn->query("SELECT * FROM subject_tbl WHERE teacher='$name'");
+$result =$conn->query("SELECT * FROM subject_tbl WHERE user_token='$user_token'");
 $total_course = $result->num_rows;
 ?>
 
@@ -28,7 +29,7 @@ $total_course = $result->num_rows;
                     <select class="form-control" name="course_code" required>
                         <option value="">Course Code</option>
                         <?php 
-                        $class = $conn->query("SELECT * FROM subject_tbl WHERE teacher='$name'");
+                        $class = $conn->query("SELECT * FROM subject_tbl WHERE user_token='$user_token'");
                           while($row = $class->fetch_assoc()){
                         ?>
                           <option value="<?php echo $row['course_code'];?>"><?php echo $row['course_code'];}?> 
@@ -94,6 +95,7 @@ while($row = $result->fetch_assoc()):?>
                 <form action="add_subject.php" method="post" enctype="multipart/form-data" class="row">
                     <div class="form-group">  
                       <input class="form-control" type="hidden" value="<?php echo $name;?>" name="teacher" required/>
+                      <input class="form-control" type="hidden" value="<?php echo $user_token;?>" name="user_token" reuser_tokenquired/>
                 </div>
                 
 
@@ -158,14 +160,10 @@ while($row = $result->fetch_assoc()):?>
                 </div>
 
                 <div class="form-group">  
-                      <input type="hidden" name="teacher" class="form-control" value="<?php echo $name;?>"> 
-                </div>
-
-                <div class="form-group">  
                       <select class="form-control" name="course_code" required>
                         <option value="">Select Course Code</option>
                         <?php 
-                        $sub = $conn->query("SELECT * FROM subject_tbl WHERE teacher ='$name'");
+                        $sub = $conn->query("SELECT * FROM subject_tbl WHERE user_token ='$user_token'");
                           while($row = $sub->fetch_assoc()){
                         ?>
                           <option value="<?php echo $row['course_code'];?>"><?php echo $row['subject'];?> 

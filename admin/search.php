@@ -82,9 +82,9 @@ if($total_result <= 0){
 ?>
 
 <div class="container" style='display:inline-flex; width:50%;margin:30px auto; margin-left:10%;'>
-    <a href="edit_question_pro.php?delete=<?php echo $course_code;?>" style='' class=" btn btn-danger">Delete Questions</a>
-    <a href="edit_question.php?course_code=<?php echo $course_code;?>" style='' class=" btn btn-primary">Edit Questions</a>
-      <a href="../question_pdf.php" style='' class=" btn btn-success">Create PDF</a>
+    <a href="edit_question_pro?delete=<?php echo $course_code;?>" style='' class=" btn btn-danger">Delete Questions</a>
+    <a href="questions?course_code=<?php echo $course_code;?>" style='' class=" btn btn-primary">Edit Questions</a>
+      <a href="../question_pdf.php" class=" btn btn-success">Create PDF</a>
   </div>
 <div class="container mb-5" style="color:black;box-shadow:grey 1px 3px 6px ;">
   <h2 class="text-center"><?php echo $clas['class'];?> <?php echo $term;?> <?php echo $clas['subject'];?> Questions
@@ -98,8 +98,7 @@ for <?php echo $clas['session'];?> Session </h2>
       <?php
       //Select options from database
       $question_number = $row['question_number'];
-      $ans = $conn->query("SELECT * FROM $answer_tbl WHERE 
-     course_code='$course_code' AND question_number=$question_number");
+      $ans = $conn->query("SELECT * FROM $answer_tbl WHERE course_code='$course_code' AND question_number=$question_number");
     while($row = $ans->fetch_assoc()){?>
       <span>(<?php echo $row['alpha_opt'];?>) </span>
       <span><?php echo $row['text'];?></span>

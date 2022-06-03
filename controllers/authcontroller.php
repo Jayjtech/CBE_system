@@ -18,14 +18,7 @@ if(isset($_POST['register'])){
 	$keyp = $password;
     $passwordConf = mysqli_real_escape_string($conn,$_POST['passwordConf']);
     $reg_date = date("d/m/y");
-    $id = (mt_rand(10,99));
-    $time = time();
-    $adm_no = "E$id$time";
-
-    $_SESSION["fullname"] = $fullname;
-    $_SESSION["email"] = $email;
-    $_SESSION["phone"] = $phone;
-    $_SESSION["username"] =  $username;
+    $adm_no = rand(100000,999999);
 
     //Profile Image code
     $img_name = $_FILES['p_image']['name'];
@@ -114,15 +107,22 @@ if(isset($_POST['register'])){
             //login user
             $user_id = $conn->insert_id;
             $_SESSION['id'] = $user_id;
-            $_SESSION['username'] = $username;
+            $_SESSION["username"] =  $username;
             $_SESSION['email'] = $email;
-
-            // set flash message
+            $_SESSION['fullname'] = $fullname;
+            $_SESSION['class'] = $class;
+            $_SESSION['reg_date'] = $reg_date;
+            $_SESSION['email'] = $email;
+            $_SESSION['phone'] = $phone;
+			$_SESSION['gender'] = $gender;
+			$_SESSION['adm_no'] = $adm_no;
+            $_SESSION['term'] = $current_term;
+            $_SESSION['session'] = $current_session;
+           
             $_SESSION['message'] = "You are now logged in!";
-            $_SESSION['alert-class'] = "alert-success";
-            
-           header("location: signup_note.php");
-            exit(); 
+            $_SESSION['msg_type'] = "success";
+            $_SESSION['btn'] = "Ok";
+            header('location: dashboard'); 
           }else{
              $errors['db_error'] = "Database error: failed to register";
         }
@@ -172,10 +172,11 @@ if(isset($_POST['login-btn'])){
 			$_SESSION['adm_no'] = $user['adm_no'];
             $_SESSION['term'] = $term;
             $_SESSION['session'] = $session;
-            header('location: register_subject.php'); 
-    
+            header('location: dashboard'); 
     }else{
-        $errors['login_fail'] = "Wrong credentials!";
+        $_SESSION['message'] = "Wrong credentials!";
+        $_SESSION['msg_type'] = "error";
+        $_SESSION['btn'] = "Ok!";
     }
  }
 

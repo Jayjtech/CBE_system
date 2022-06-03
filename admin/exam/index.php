@@ -131,7 +131,7 @@ $instructions = $conn->query("SELECT * FROM instruction_tbl");
 
 
             
-            <a href="questions.php?n=1" class="start btn btn-success">Start Exam</a>
+            <a href="questions?n=1" class="start btn btn-success">Start Exam</a>
             </div> 
             <?php }
             }

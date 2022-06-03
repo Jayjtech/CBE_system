@@ -110,7 +110,7 @@ require_once 'controllers/authcontroller.php';
                     <div class="col-lg-6 form-group">
                        <input type="submit" class="btn btn-primary " value="Register" name="register">
                     </div>
-                    <p class="text-center">Not yet a member?<a href="index.php"> Login </a></p>
+                    <p class="text-center">Not yet a member?<a href="login"> Login </a></p>
                 </div>
                 </form>
             </div>
