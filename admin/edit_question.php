@@ -1,8 +1,8 @@
 <?php 
 require "edit_question_pro.php";
 $page_2 = $_SESSION['page'];
-$_SESSION['page3']= 'edit_question_pro.php';
-$page = 'question_uploader.php';
+$_SESSION['page3']= 'edit_question_pro';
+$page = 'question-uploader';
 
 if(isset($_GET['course_code'])){
   $course_code = $_GET['course_code'];
@@ -23,7 +23,7 @@ $total_result = $quest->num_rows;
   <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
 	          <li class="nav-item"><a href="<?php echo $page?>" class="nav-link">Back</a></li>
-	          <li class="nav-item"><a href="logout.php" class="nav-link">Log Out</a></li>
+	          <li class="nav-item"><a href="logout" class="nav-link">Log Out</a></li>
 	        </ul>
 	      </div>
 	    </div>

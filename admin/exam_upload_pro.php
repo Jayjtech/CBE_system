@@ -4,20 +4,123 @@
     $answers ="answer";
     $instructions ="instruction";
 
- //Teacher's token id very important here
- $user_token = $_SESSION['token'];
-if(isset($_POST["submit"]))
-    {
-    $category = mysqli_real_escape_string($conn,$_POST['category']);
-    $course_code = mysqli_real_escape_string($conn,$_POST['course_code']);
-    //$term = mysqli_real_escape_string($conn,$_POST['term']);
-    if($category == $questions){
+//Teacher's token id very important here
+$user_token = $_SESSION['token'];
+
+if(isset($_POST['passage'])){
+    $passage = mysqli_real_escape_string($conn, $_POST['passageText']);
+    $from = mysqli_real_escape_string($conn, $_POST['from']);
+    $to = mysqli_real_escape_string($conn, $_POST['to']);
+    $course_code = $_POST['course_code'];
+
     $query = $conn->query("SELECT * FROM subject_tbl WHERE course_code = '$course_code'");
     while($row = $query->fetch_assoc()){
         $class = $row['class'];
         $subject = $row['subject'];
     }
+   
+    for($from = 1; $from <= $to; $from++){
+        $question_number = $from;
+        $quest_code = 'ID'.$question_number;
+      
+        if($question_number == 1){$quest_no_type_B = 3;}if($question_number == 2){$quest_no_type_B = 4;}
+        if($question_number == 3){$quest_no_type_B = 5;}if($question_number == 4){$quest_no_type_B = 1;}
+        if($question_number == 5){$quest_no_type_B = 2;}
+    
+        if($question_number == 1){$quest_no_type_C = 5;}if($question_number == 2){$quest_no_type_C = 4;}
+        if($question_number == 3){$quest_no_type_C = 3;}if($question_number == 4){$quest_no_type_C = 2;}
+        if($question_number == 5){$quest_no_type_C = 1;}
 
+
+        $check=$conn->query("SELECT * FROM $exam_tbl_A WHERE course_code='$course_code' AND class='$class' AND session='$current_session' AND question_number=$question_number");
+        
+        if($check->num_rows == 0){
+            $query_a = "INSERT INTO $exam_tbl_A (session, user_token, subject, course_code, class, question_number, text, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$question_number','$passage', '$quest_code')";
+           mysqli_query($conn, $query_a);
+       
+           $query_b = "INSERT INTO $exam_tbl_B (session, user_token, subject, course_code, class, question_number, text, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_B','$passage', '$quest_code')";
+           mysqli_query($conn, $query_b);
+       
+           $query_c = "INSERT INTO $exam_tbl_C (session, user_token, subject, course_code, class, question_number, text, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_C','$passage', '$quest_code')";
+           mysqli_query($conn, $query_c);
+    //    CREATE SPACE FOR ANSWERS FROM A-D
+    
+        //FOR TYPE A
+            $query_a = "INSERT INTO $answer_tbl_A (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$question_number', '', 'A', '', '$quest_code')";
+        mysqli_query($conn, $query_a);
+            $query_a = "INSERT INTO $answer_tbl_A (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$question_number', '', 'B', '', '$quest_code')";
+        mysqli_query($conn, $query_a);
+            $query_a = "INSERT INTO $answer_tbl_A (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$question_number', '', 'C', '', '$quest_code')";
+        mysqli_query($conn, $query_a);
+            $query_a = "INSERT INTO $answer_tbl_A (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$question_number', '', 'D', '', '$quest_code')";
+        mysqli_query($conn, $query_a);
+
+
+         //FOR TYPE B
+        $query_b = "INSERT INTO $answer_tbl_B (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_B', '', 'A', '', '$quest_code')";
+        mysqli_query($conn, $query_b);
+        $query_b = "INSERT INTO $answer_tbl_B (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_B', '', 'B', '', '$quest_code')";
+        mysqli_query($conn, $query_b);
+            $query_b = "INSERT INTO $answer_tbl_B (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_B', '', 'C', '', '$quest_code')";
+        mysqli_query($conn, $query_b);
+            $query_b = "INSERT INTO $answer_tbl_B (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_B', '', 'D', '', '$quest_code')";
+        mysqli_query($conn, $query_b);
+
+
+        // FOR TYPE C
+        $query_c = "INSERT INTO $answer_tbl_C (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_C', '', 'A', '', '$quest_code')";
+        mysqli_query($conn, $query_c);
+        $query_c = "INSERT INTO $answer_tbl_C (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_C', '', 'B', '', '$quest_code')";
+        mysqli_query($conn, $query_c);
+            $query_c = "INSERT INTO $answer_tbl_C (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_C', '', 'C', '', '$quest_code')";
+        mysqli_query($conn, $query_c);
+            $query_c = "INSERT INTO $answer_tbl_C (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_C', '', 'D', '', '$quest_code')";
+        mysqli_query($conn, $query_c);
+
+           $_SESSION['message'] = "Passage has been Uploaded!";
+           $_SESSION['msg_type'] = "success";
+           $_SESSION['btn'] = "Ok";
+           header("location: passage-uploader");
+        }else{
+            // error message
+            $_SESSION['message'] = "An error occured during the process!";
+            $_SESSION['msg_type'] = "error";
+            $_SESSION['btn'] = "Ok";
+            header("location: passage-uploader");
+        }
+
+        
+    }
+}
+// exit();
+
+if(isset($_POST["submit"])){
+    $category = mysqli_real_escape_string($conn,$_POST['category']);
+    $course_code = mysqli_real_escape_string($conn,$_POST['course_code']);
+    
+    
+    $query = $conn->query("SELECT * FROM subject_tbl WHERE course_code = '$course_code'");
+    while($row = $query->fetch_assoc()){
+        $class = $row['class'];
+        $subject = $row['subject'];
+    }
+  
+    if($category == $questions){
   // Allowed mime types
   $csvMimes = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain');
     
@@ -86,7 +189,7 @@ if(isset($_POST["submit"]))
    
    
     //To ensure that Thesame class is not uploaded over and again
-    $classQuery = "SELECT * FROM $exam_tbl_A WHERE subject=? AND class=? AND session=? AND question_number=? LIMIT 1";
+    $classQuery = "SELECT * FROM $exam_tbl_A WHERE course_code=? AND class=? AND session=? AND question_number=?";
     $stmt = $conn->prepare($classQuery);
     $stmt->bind_param('sssi', $subject, $class, $current_session, $question_number);
     $stmt->execute();
@@ -98,7 +201,6 @@ if(isset($_POST["submit"]))
         $_SESSION['msg_type'] = "error";
         $_SESSION['btn'] = "OK";
         header("location: question-uploader");
-
     }
     //insert data from CSV file 
     if($Count == 0) {
@@ -118,35 +220,16 @@ if(isset($_POST["submit"]))
     $_SESSION['msg_type'] = "success";
     $_SESSION['btn'] = "Ok";
     header("location: question-uploader");
-           }
-       }
-   
+                }
+            }
+        }
     }
  }
-}
 
-   // Close opened CSV file
-   fclose($csvFile);
+
    
-  }
 
-
-
-
-
-
-
-  if(isset($_POST["submit"])){
-    $category = mysqli_real_escape_string($conn,$_POST['category']);
-    $course_code = mysqli_real_escape_string($conn,$_POST['course_code']);
-    //$term = mysqli_real_escape_string($conn,$_POST['term']);
     if($category == $answers){
-    $query = $conn->query("SELECT * FROM subject_tbl WHERE course_code = '$course_code'");
-    while($row = $query->fetch_assoc()){
-        $class = $row['class'];
-        $subject = $row['subject'];
-    }
-
     $csvMimes = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain');
   // Validate whether selected file is a CSV file
   if(!empty($_FILES['file']['name']) && in_array($_FILES['file']['type'], $csvMimes)){
@@ -214,7 +297,7 @@ if(isset($_POST["submit"]))
 
     
               //To ensure that Thesame class is not uploaded over and again
-             $answerQuery = "SELECT * FROM $answer_tbl_A WHERE subject=? AND class=? AND session=? AND text=? AND question_number=? LIMIT 1";
+             $answerQuery = "SELECT * FROM $answer_tbl_A WHERE course_code=? AND class=? AND session=? AND text=? AND question_number=?";
              $stmt = $conn->prepare($answerQuery);
              $stmt->bind_param('sssss', $subject, $class, $current_session, $answer_text, $question_number);
              $stmt->execute();
@@ -242,12 +325,11 @@ if(isset($_POST["submit"]))
             VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_C', '$is_correct', '$alpha_opt', '$answer_text', '$quest_code')";
            mysqli_query($conn, $query_c);
        
-           $_SESSION['message'] = "Answer has been Uploaded!";
+          $_SESSION['message'] = "Answer has been Uploaded!";
           $_SESSION['msg_type'] = "success";
           $_SESSION['btn'] = "Ok";
           header("location: question-uploader");
-            }
-
+             }
          }
       }
    }
@@ -255,8 +337,8 @@ if(isset($_POST["submit"]))
    // Close opened CSV file
    fclose($csvFile);
    
-  }
-
+        
+}
 
   if(isset($_POST["submit_instruction"]))
 {

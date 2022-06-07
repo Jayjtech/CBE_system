@@ -201,7 +201,7 @@ while($row = $result->fetch_assoc()):?>
         <div class="ftco-animate" style="margin-bottom:20px;
         padding:10px; border-radius:20px; border-bottom: 2px solid <?php echo $header_col;?>;
          box-shadow:grey 1px 5px 10px 0px;">
-            <form action="result.php" method="POST">
+            <form action="result" method="POST">
                 <h5 class="text-center alert alert-success">Check Result</h5>
                 <div class="form-group">
                     <select name="term" class="form-control">
@@ -262,13 +262,12 @@ while($row = $result->fetch_assoc()):?>
   
             </div>
           <div class="container" style='display:inline-flex; width:50%;margin:30px auto; margin-left:20%;'>
-              <a href="p_tm_tbl_pdf.php" style='' class=" btn btn-success">Create Time Table PDF</a>
+              <a href="p_tm_tbl_pdf.php" class="btn btn-success">Create Time Table PDF</a>
           </div>
             <?php }?>
       </div>
+  </div>
 </div>
-</div>
-
 
 </div>
 </div>

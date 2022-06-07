@@ -33,7 +33,11 @@ $query = $conn->query("SELECT * FROM $exam_table WHERE quest_code='$quest_code' 
   }else{
     $display_img = '../images/default_img.png';
   }
+  // CALLING OPTIONS FROM DATABASE
   $query2=$conn->query("SELECT * FROM $answer_table WHERE quest_code='$quest_code' AND course_code='$course_code'");
+ 
+  // TO GET THE NUMBER OF OPTIONS AVAILABLE
+  $check=$conn->query("SELECT * FROM $answer_table WHERE quest_code='$quest_code' AND course_code='$course_code'");
 
   ?>
 
@@ -47,7 +51,7 @@ $query = $conn->query("SELECT * FROM $exam_table WHERE quest_code='$quest_code' 
 	<?php include "header.php" ;?>
   <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item"><a href="edit_question.php" class="nav-link">Back</a></li>
+	          <li class="nav-item"><a href="questions" class="nav-link">Back</a></li>
 	          <li class="nav-item"><a href="logout.php" class="nav-link">Log Out</a></li>
 	        </ul>
 	      </div>
@@ -67,6 +71,15 @@ $query = $conn->query("SELECT * FROM $exam_table WHERE quest_code='$quest_code' 
                   id="" 
                   cols="30" 
                   rows="2"><?= $question_text;?></textarea>
+              </div><hr>
+              <div class="form-group col-lg-4">
+
+                <select name="is_correct" class="form-control" required>
+                  <option value="">Set correct answer</option>
+                  <?php while($row = $check->fetch_assoc()):?>
+                    <option value="<?= $row['alpha_opt'] ;?>"><?= $row['alpha_opt'] ;?></option>
+                    <?php endwhile; ?>
+                </select>
               </div><hr>
               <!-- META DATA -->
               <input type="hidden" name="quest_code" value="<?= $quest_code; ?>">

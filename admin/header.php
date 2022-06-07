@@ -19,6 +19,13 @@
     <link rel="stylesheet" href="../css/style.css">
 	<link rel="stylesheet" href="../css/animations.css">
 	<link rel="stylesheet" href="../css/modals.css">
+	
+	<!-- This js script must be in he header to function -->
+	<script src="../js/googleapis.js"></script>
+	<script src="../js/jquery.js"></script>
+	
+	<!-- /// -->
+	
   </head>
   <body style="max-width:1920px; flex-wrap:wrap; min-width:30px;">
 	  <div class="py-2 " style="background-color: <?php echo $header_col;?>;">

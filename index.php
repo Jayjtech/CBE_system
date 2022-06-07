@@ -30,18 +30,17 @@ require_once 'controllers/authcontroller.php';
                     <?php endif; ?>
                     
                     <div class="form-group">
-                    <i  class="fas fa-user"></i> <label for="username">Username or Email</label>
-                        <input type="text" name="username" value="<?php echo $username; ?>" class="form-control form-control-lg">
+                        <input type="text" name="username" placeholder="Username or Email-ID" value="<?php echo $username; ?>" class="form-control form-control-lg">
                     </div>
 
                    
                     <div class="form-group">
-                    <i  class="fas fa-lock"></i> <label for="password">Password</label>
-                        <input type="password" name="password" class="form-control form-control-lg">
+                        <input type="password" name="password" placeholder="Password" class="form-control form-control-lg">
                     </div>
                     
                     <div class="form-group">
                         <select name="term" class="form-control" required>
+                            <option value="<?= $current_term; ?>"><?= $current_term; ?></option>
                             <option value="First Term">First Term</option>
                             <option value="Second Term">Second Term</option>
                             <option value="Third Term">Third Term</option>
@@ -50,23 +49,25 @@ require_once 'controllers/authcontroller.php';
                     
 
                     <div class="form-group">
-                   <select name="session" class="form-control" required>
-                       <option value="">Select Session</option>
-                       <?php
-                       $query = $conn->query("SELECT * FROM sch_session");
-                       while($row = $query->fetch_assoc()){
-                       ?>
-                       <option value="<?php echo $row['session'];?>"><?php echo $row['session'];}?></option>
-                   </select>
+                        <select name="session" class="form-control" required>
+                            <option value="<?= $current_session; ?>"><?= $current_session; ?></option>
+                            <?php
+                            $query = $conn->query("SELECT * FROM sch_session");
+                            while($row = $query->fetch_assoc()){
+                            ?>
+                            <option value="<?php echo $row['session'];?>"><?php echo $row['session'];}?></option>
+                        </select>
                     </div>
                     
                    
-                    <div class="form-group">
+                    <div class="form-group" align="right">
                        <input type="submit" class="btn btn-primary " value="Login" name="login-btn">
                     </div>
                     <p class="text-center">Not yet a member?<a href="signup"> Sign up</a></p>
+                    
                     <div style="font-size: 0.8em; text-align: center;">
-                    <a href="forgot_password.php">Forgot your password?</a></div>
+                        <a href="forgot_password.php">Forgot your password?</a>
+                    </div>
                 </form>
             </div>
         </div>

@@ -22,7 +22,7 @@ $total_course = $result->num_rows;
                
 <div class="row">  
   <div class="col-lg-6 ftco-animate">
-        <form action="search.php" method="POST" class="searchform alert alert-info order-lg-last">
+        <form action="search" method="POST" class="searchform alert alert-info order-lg-last">
           <h5>Search Questions</h5>
           <div class="row">
                   <div class="form-group col-lg-5 ftco-animate">
@@ -119,7 +119,6 @@ while($row = $result->fetch_assoc()):?>
                         <label>Exam duration in minutes:</label> 
                       <input type="number" name="duration" class="form-control" placeholder="Set Exam duration" required>
                 </div>
-
                 
                 <div class="form-group col-lg-6">  
                       <input type="submit" class="btn btn-success" name="add" value="Add Subject">
@@ -129,10 +128,13 @@ while($row = $result->fetch_assoc()):?>
             </div>
       </div>
 
-
 <div class="col-lg-6 container ftco-animate" style="overflow-x:auto; margin-bottom:20px;
         padding:10px; border-radius:20px; border-bottom: 2px solid <?php echo $header_col;?>;
          box-shadow:grey 1px 5px 10px 0px">
+                <div class="container mb-3">
+                 <p>Passage uploader</p>
+                  <a href="passage-uploader" class="btn btn-success">Upload a passage</a>
+                </div>
                 <form action="exam_upload_pro.php" method="post" enctype="multipart/form-data">
                     <h5 class="text-center alert alert-info">Import Questions Text and Answer in Excel Format:</h5>
                     <a href="../export/export.php?table=<?php echo $exam_table; ?>" class="col-lg-5" style="font-size:15px;color:#000;">Click here to Export Exam Question table Format 
@@ -152,27 +154,37 @@ while($row = $result->fetch_assoc()):?>
                 </div>
 
                 <div class="form-group">  
-                      <select class="form-control" name="category" required>
+                      <select class="form-control category" name="category" required>
                         <option value="">Select Category</option>
                         <option value="question">Questions</option>
                         <option value="answer">Answers</option>
                       </select>
                 </div>
 
-                <div class="form-group">  
-                      <select class="form-control" name="course_code" required>
-                        <option value="">Select Course Code</option>
-                        <?php 
-                        $sub = $conn->query("SELECT * FROM subject_tbl WHERE user_token ='$user_token'");
-                          while($row = $sub->fetch_assoc()){
-                        ?>
-                          <option value="<?php echo $row['course_code'];?>"><?php echo $row['subject'];?> 
-                           :: <?php echo $row['course_code'];}?>
-                        </option>
-                      </select>
-                </div>
+                <div class="form-group hiddedResponse"></div>
 
+<script type="text/javascript">
+  $(document).ready(function()
+  {
+  $(".category").change(function()
+  {
+  var payment_id=$(this).val();
+  var post_id = 'id='+ payment_id;
 
+  $.ajax
+  ({
+      type: "POST",
+      url: "hidden.php",
+      data: post_id,
+      cache: false,
+    success: function(cities)
+    {
+    $(".hiddedResponse").html(cities);
+    } 
+    });
+  });
+});
+</script>
                   <hr>
                 <div class="form-group">  
                       <input type="submit" class="btn btn-success" name="submit" value="Upload">

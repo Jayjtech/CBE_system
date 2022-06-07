@@ -1,6 +1,5 @@
 <?php 
 require "../config/db.php";
-error_reporting(0);
 $page_2 = $_SESSION['page_2'];
 if(isset($_POST['submit'])){
     $course_code = mysqli_real_escape_string($conn,$_POST['course_code']);
@@ -25,8 +24,8 @@ $_SESSION['term'] = $term;
    
 
 }else{
-    $code = $_SESSION['course_code'];
-    $query = $conn->query("SELECT * FROM $quest_tbl WHERE course_code = '$code' AND session='$current_session'");
+    $course_code = $_SESSION['course_code'];
+    $query = $conn->query("SELECT * FROM $quest_tbl WHERE course_code = '$course_code' AND session='$current_session'");
     $total_result = $query->num_rows;
 }
 
@@ -64,17 +63,7 @@ $clas = $detail->fetch_assoc();
 	      </div>
 	    </div>
 	  </nav>
-  <div class="ftco-animate">
-            <?php
-                  if(isset($_SESSION['message'])): ?>
-                  <div class="alert alert-<?=$_SESSION['msg_type']?>">
-                  <?php
-                  echo $_SESSION['message'];
-                  unset($_SESSION['message']);
-                  ?>
-                </div>
-              <?php endif ?>
-              </div> 
+  
 <?php 
 if($total_result <= 0){
     echo "<div class='container alert alert-warning'>No question has been uploaded with this course code!</div><br><br>";

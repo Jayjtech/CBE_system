@@ -7,7 +7,9 @@ if(isset($_POST['update_question'])){
     $quest_code = $_POST['quest_code'];
     $course_code = $_POST['course_code'];
     $quest_img = $_POST['quest_img'];
+    $is_correct = $_POST['is_correct'];
 
+    
     //SESSION 
     $_SESSION['course_code'] = $course_code;
 
@@ -46,25 +48,37 @@ if(isset($_POST['update_question'])){
             $conn->query("UPDATE $exam_tbl_B SET quest_img='$target_dir', text='$question_text' WHERE quest_code='$quest_code' AND user_token='$user_token'") or die($conn->error);
             $conn->query("UPDATE $exam_tbl_C SET quest_img='$target_dir', text='$question_text' WHERE quest_code='$quest_code' AND user_token='$user_token'") or die($conn->error);
             
+            $conn->query("UPDATE $answer_tbl_B, $answer_tbl_A, $answer_tbl_C SET is_correct = 1 WHERE alpha_opt='$is_correct' AND quest_code='$quest_code' AND user_token='$user_token'");
+            
+            $set = $conn->query("UPDATE $answer_tbl_A SET is_correct = 1 WHERE course_code='$course_code' AND alpha_opt='$is_correct' AND quest_code='$quest_code' AND user_token='$user_token'");
+            $set = $conn->query("UPDATE $answer_tbl_B SET is_correct = 1 WHERE course_code='$course_code' AND alpha_opt='$is_correct' AND quest_code='$quest_code' AND user_token='$user_token'");
+            $set = $conn->query("UPDATE $answer_tbl_C SET is_correct = 1 WHERE course_code='$course_code' AND alpha_opt='$is_correct' AND quest_code='$quest_code' AND user_token='$user_token'");
+
+            $set = $conn->query("UPDATE $answer_tbl_A SET is_correct = 0 WHERE course_code='$course_code' AND alpha_opt != '$is_correct' AND quest_code='$quest_code' AND user_token='$user_token'");
+            $set = $conn->query("UPDATE $answer_tbl_B SET is_correct = 0 WHERE course_code='$course_code' AND alpha_opt != '$is_correct' AND quest_code='$quest_code' AND user_token='$user_token'");
+            $set = $conn->query("UPDATE $answer_tbl_C SET is_correct = 0 WHERE course_code='$course_code' AND alpha_opt != '$is_correct' AND quest_code='$quest_code' AND user_token='$user_token'");
+            
     // UPDATE ANSWERS
     foreach($_POST['answer'] as $key => $value){
         $answer = $_POST['answer'][$key];
         $alpha_opt = $_POST['option'][$key];
 
-        $conn->query("UPDATE $answer_tbl_A SET text='$answer' WHERE quest_code='$quest_code'
+        $update = $conn->query("UPDATE $answer_tbl_A SET text='$answer' WHERE quest_code='$quest_code'
+        AND course_code='$course_code' AND alpha_opt='$alpha_opt' AND user_token='$user_token'") or die($conn->error);
+        
+        $update = $conn->query("UPDATE $answer_tbl_B SET text='$answer' WHERE quest_code='$quest_code'
         AND course_code='$course_code' AND alpha_opt='$alpha_opt' AND user_token='$user_token'") or die($conn->error);
 
-        $conn->query("UPDATE $answer_tbl_B SET text='$answer' WHERE quest_code='$quest_code'
+        $update = $conn->query("UPDATE $answer_tbl_C SET text='$answer' WHERE quest_code='$quest_code'
         AND course_code='$course_code' AND alpha_opt='$alpha_opt' AND user_token='$user_token'") or die($conn->error);
 
-        $conn->query("UPDATE $answer_tbl_C SET text='$answer' WHERE quest_code='$quest_code'
-        AND course_code='$course_code' AND alpha_opt='$alpha_opt' AND user_token='$user_token'") or die($conn->error);
     }
     
-    $_SESSION['message'] = "Question has been updated!";
-    $_SESSION['msg_type'] = "success";//Message delete background
-    $_SESSION['btn'] = "Ok";//Message delete background
-    header('location: edit_quest_single');
+        $_SESSION['message'] = "Question has been updated!";
+        $_SESSION['msg_type'] = "success";//Message delete background
+        $_SESSION['btn'] = "Ok";//Message delete background
+        header('location: edit_quest_single');
+    
     }else{
         $_SESSION['message'] = "Image size too large, no change has been made!";
         $_SESSION['msg_type'] = "error";//Message delete background

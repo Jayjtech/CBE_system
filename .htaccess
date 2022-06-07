@@ -3,3 +3,4 @@ RewriteEngine ON
 RewriteRule ^dashboard register_subject.php [NC,L]
 RewriteRule ^login index.php [NC,L]
 RewriteRule ^signup signup.php [NC,L]
+RewriteRule ^result result.php [NC,L]

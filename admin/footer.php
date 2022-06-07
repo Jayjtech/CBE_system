@@ -49,6 +49,8 @@
   <script src="../js/main.js"></script>
   <script src="../js/java.js"></script>
   <script src="ckeditor/ckeditor.js"></script>
+  <script src="../js/googleapis.js"></script>
+  <script src="../js/jquery.js"></script>
 
   <script src="../js/sweetalert.js"></script>
 

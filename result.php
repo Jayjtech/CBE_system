@@ -54,8 +54,7 @@ $evaluations = $conn->query("SELECT * FROM evaluation WHERE adm_no= '$adm_no' AN
     <?php include "header.php" ;?>
     <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	        	<li class="nav-item active"><a href="register_subject.php" class="nav-link pl-0">Back</a></li>
-	        	<li class="nav-item active"><a href="profile_logout.php" class="nav-link pl-0">Log out</a></li>
+	        	<li class="nav-item active"><a href="dashboard" class="nav-link pl-0">Back</a></li>
 			</ul>
 	      </div>
 	    </div>
