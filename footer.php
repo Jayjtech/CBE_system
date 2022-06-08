@@ -1,16 +1,16 @@
 	
    <div class="footer-bg">
-    <footer class="ftco-footer ftco-bg-dark ftco-section" style="background-color: <?php echo $footer_col;?>;">
+    <footer class="ftco-footer ftco-bg-dark ftco-section" style="background-color: <?php echo $header_col;?>;">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-6 col-lg-4" style="margin:0 auto;">
             <div class="ftco-footer-widget mb-5">
-            	<h2 class="ftco-heading-2" style="color:<?php echo $footer_txt_col?>;">Have a Questions?</h2>
+            	<h2 class="ftco-heading-2" style="color:<?php echo $header_txt_col?>;">Have a Questions?</h2>
             	<div class="block-23 mb-3">
 	              <ul>
-	                <li><span class="icon icon-map-marker" style="color:<?php echo $footer_txt_col?>;"></span><span class="text" style="color:<?php echo $footer_txt_col?>;"><?php echo $sch_address; ?></span></li>
-	                <li><a href="#"><span class="icon icon-phone" style="color:<?php echo $footer_txt_col?>;"></span><span class="text" style="color:<?php echo $footer_txt_col?>;"><?php echo $sch_phone; ?> / <?php echo $sch_phone2; ?></span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope" style="color:<?php echo $footer_txt_col?>;"></span><span class="text" style="color:<?php echo $footer_txt_col?>;"><?php echo $sch_email; ?></span></a></li>
+	                <li><span class="icon icon-map-marker" style="color:<?php echo $header_txt_col?>;"></span><span class="text" style="color:<?php echo $header_txt_col?>;"><?php echo $sch_address; ?></span></li>
+	                <li><a href="#"><span class="icon icon-phone" style="color:<?php echo $header_txt_col?>;"></span><span class="text" style="color:<?php echo $header_txt_col?>;"><?php echo $sch_phone; ?> / <?php echo $sch_phone2; ?></span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope" style="color:<?php echo $header_txt_col?>;"></span><span class="text" style="color:<?php echo $header_txt_col?>;"><?php echo $sch_email; ?></span></a></li>
 	              </ul>
 	            </div>
             </div>
@@ -18,24 +18,26 @@
 
           <div class="col-md-6 col-lg-4" style="margin:0 auto;">
             <div class="ftco-footer-widget mb-5 ml-md-4">
-              <h2 class="ftco-heading-2" style="color:<?php echo $footer_txt_col?>;">Links</h2>
+              <h2 class="ftco-heading-2" style="color:<?php echo $header_txt_col?>;">Links</h2>
               <ul class="list-unstyled">
-                <li><a href="index.php" style="color:<?php echo $footer_txt_col?>;"><span style="color:<?php echo $footer_txt_col?>;" class="ion-ios-arrow-round-forward mr-2"></span>Home</a></li>
-                <li><a href="about.php" style="color:<?php echo $footer_txt_col?>;"><span style="color:<?php echo $footer_txt_col?>;" class="ion-ios-arrow-round-forward mr-2"></span>About</a></li>
-                <li><a href="services.php" style="color:<?php echo $footer_txt_col?>;"><span style="color:<?php echo $footer_txt_col?>;" class="ion-ios-arrow-round-forward mr-2"></span>Gallery</a></li>
-                <li><a href="news.php" style="color:<?php echo $footer_txt_col?>;"><span style="color:<?php echo $footer_txt_col?>;" class="ion-ios-arrow-round-forward mr-2"></span>News</a></li>
-                <li><a href="register.php" style="color:<?php echo $footer_txt_col?>;"><span style="color:<?php echo $footer_txt_col?>;" class="ion-ios-arrow-round-forward mr-2"></span>Register</a></li>
+                <li><a href="index.php" style="color:<?php echo $header_txt_col?>;"><span style="color:<?php echo $header_txt_col?>;" class="ion-ios-arrow-round-forward mr-2"></span>Home</a></li>
+                <li><a href="about.php" style="color:<?php echo $header_txt_col?>;"><span style="color:<?php echo $header_txt_col?>;" class="ion-ios-arrow-round-forward mr-2"></span>About</a></li>
+                <li><a href="services.php" style="color:<?php echo $header_txt_col?>;"><span style="color:<?php echo $header_txt_col?>;" class="ion-ios-arrow-round-forward mr-2"></span>Gallery</a></li>
+                <li><a href="news.php" style="color:<?php echo $header_txt_col?>;"><span style="color:<?php echo $header_txt_col?>;" class="ion-ios-arrow-round-forward mr-2"></span>News</a></li>
+                <li><a href="register.php" style="color:<?php echo $header_txt_col?>;"><span style="color:<?php echo $header_txt_col?>;" class="ion-ios-arrow-round-forward mr-2"></span>Register</a></li>
               </ul>
             </div>
           </div>
           <div class="col-md-6 col-lg-4" style="margin:0 auto;">
           <div class="ftco-footer-widget mb-5">
-            	<h2 class="ftco-heading-2 mb-0" style="color:<?php echo $footer_txt_col?>;">Connect With Us</h2>
+            	<h2 class="ftco-heading-2 mb-0" style="color:<?php echo $header_txt_col?>;">Connect With Us</h2>
             	<ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">
-                <li class="ftco-animate"><a href="<?php echo $sch_twitter;?>"><span style="color:<?php echo $footer_txt_col?>;" class="icon-twitter"></span></a></li>
-                <li class="ftco-animate"><a href="<?php echo $sch_facebook;?>"><span style="color:<?php echo $footer_txt_col?>;" class="icon-facebook"></span></a></li>
-                <li class="ftco-animate"><a href="<?php echo $sch_instagram;?>"><span style="color:<?php echo $footer_txt_col?>;" class="icon-instagram"></span></a></li>
-                <li class="ftco-animate"><a href="<?php echo $sch_whatsapp;?>"><span style="color:<?php echo $footer_txt_col?>;" class="icon-whatsapp"></span></a></li>
+
+                <?php echo !empty($sch_twitter) ? '<li class="ftco-animate"><a href="'.$sch_twitter.'"><span style="color:'.$header_txt_col.'" class="icon-twitter"></span></a></li>' : null; ?>
+                <?php echo !empty($sch_facebook) ? '<li class="ftco-animate"><a href="'.$sch_facebook.'"><span style="color:'.$header_txt_col.'" class="icon-facebook"></span></a></li>' : null; ?>
+                <?php echo !empty($sch_instagram) ? '<li class="ftco-animate"><a href="'.$sch_instagram.'"><span style="color:'.$header_txt_col.'" class="icon-instagram"></span></a></li>' : null; ?>
+                <?php echo !empty($sch_whatsapp) ? '<li class="ftco-animate"><a href="https://wa.me/+234'.$sch_phone2.'"><span style="color:'.$header_txt_col.'" class="icon-whatsapp"></span></a></li>' : null; ?>
+
               </ul>
             </div>
             </div>
@@ -43,7 +45,7 @@
         <div class="row">
           <div class="col-md-12 text-center">
 
-            <p style="color:<?php echo $footer_txt_col?>;"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            <p style="color:<?php echo $header_txt_col?>;"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
   Copyright &copy; <script>document.write(new Date().getFullYear());</script> <?php echo $sch_name;?> | Created by Ekreat Solutions.
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
           </div>

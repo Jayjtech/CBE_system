@@ -1,7 +1,7 @@
 <?php
-require_once 'admin_controller.php';
+include 'admin_controller.php';
  $position = "Proprietor";
- if($_SESSION['position'] !== $position) {
+ if($_SESSION['position'] != $position) {
     header('location: admin_login.php');
 }else{
  ?>
@@ -25,9 +25,8 @@ require_once 'admin_controller.php';
 	    </div>
 	  </nav>
 <!-- <End of Navbar> -->
-	     
-<div class="container" style="margin-top:50px;">
-<h3 class="text-center" style="max-width:70%; margin:0 auto;">Welcome to <?php echo $sch_name;?> Administration Navigator</h3><br>
+<div class="container mt-3">
+<h3 class="text-center" style="max-width:70%; margin:0 auto;">Control Panel</h3><br>
     <div class="row ftco-animate" >
     <div class="col-lg-6 ftco-animate" style="text-align:center;">
     <h4 class="text-center">Admin</h4>

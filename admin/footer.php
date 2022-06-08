@@ -1,16 +1,16 @@
 	
    <div class="footer-bg">
-    <footer class="ftco-footer ftco-bg-dark ftco-section" style="background-color: <?php echo $footer_col;?>;">
+    <footer class="ftco-footer ftco-bg-dark ftco-section" style="background-color: <?php echo $header_col;?>;">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-6 col-lg-4">
             <div class="ftco-footer-widget mb-5">
-            	<h2 class="ftco-heading-2" style="color:<?php echo $footer_txt_col?>;">Have a Questions?</h2>
+            	<h2 class="ftco-heading-2" style="color:<?php echo $header_txt_col?>;">Have a Questions?</h2>
             	<div class="block-23 mb-3">
 	              <ul>
-	                <li><span class="icon icon-map-marker" style="color:<?php echo $footer_txt_col?>;"></span><span class="text" style="color:<?php echo $footer_txt_col?>;"><?php echo $sch_address; ?></span></li>
-	                <li><a href="#"><span class="icon icon-phone" style="color:<?php echo $footer_txt_col?>;"></span><span class="text" style="color:<?php echo $footer_txt_col?>;"><?php echo $sch_phone; ?> / <?php echo $sch_phone2; ?></span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope" style="color:<?php echo $footer_txt_col?>;"></span><span class="text" style="color:<?php echo $footer_txt_col?>;"><?php echo $sch_email; ?></span></a></li>
+	                <li><span class="icon icon-map-marker" style="color:<?php echo $header_txt_col?>;"></span><span class="text" style="color:<?php echo $header_txt_col?>;"><?php echo $sch_address; ?></span></li>
+	                <li><a href="#"><span class="icon icon-phone" style="color:<?php echo $header_txt_col?>;"></span><span class="text" style="color:<?php echo $header_txt_col?>;"><?php echo $sch_phone; ?> / <?php echo $sch_phone2; ?></span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope" style="color:<?php echo $header_txt_col?>;"></span><span class="text" style="color:<?php echo $header_txt_col?>;"><?php echo $sch_email; ?></span></a></li>
 	              </ul>
 	            </div>
             </div>
@@ -19,7 +19,7 @@
          
         <div class="row">
           <div class="col-md-12 text-center">
-            <p style="color:<?php echo $footer_txt_col?>;"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            <p style="color:<?php echo $header_txt_col?>;"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
   Copyright &copy; <script>document.write(new Date().getFullYear());</script> <?php echo $sch_name;?> | Created by Ekreat ventures in cooperation with Dmedia Comms.
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
           </div>
@@ -102,7 +102,18 @@ endif;
       });
     });    
   </script>
+ 
+ <script type="text/javascript">
+	        function previewImage() {
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("schLogo").files[0]);
 
+            oFReader.onload = function (oFREvent) {
+                document.getElementById("uploadPreview").src = oFREvent.target.result;
+            };
+		};
+        
+    </script>
     
   </body>
 </html>

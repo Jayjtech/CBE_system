@@ -36,37 +36,11 @@ while($row = $res1->fetch_assoc()){
     $sch_instagram = $row['sch_instagram'];
     $sch_address = $row['sch_address'];
     $sch_name_col = $row['sch_name_col'];
-    $sch_name_col_2 = $row['sch_name_col_2'];
-    $sch_name_font = $row['sch_name_font'];
-    $sch_name_font_2 = $row['sch_name_font_2'];
-}
-
-
-
-
-
-
-
-
-$resu = $conn->query("SELECT * FROM header_footer");
-while($row = $resu->fetch_assoc()){
-    $header_col = $row['header_col'];
-    $footer_col = $row['footer_col'];
     $header_txt_col = $row['header_txt_col'];
-    $footer_txt_col = $row['footer_txt_col'];
-   
+    $header_col = $row['header_col'];
+    $sch_logo = $row['sch_logo'];
 }
 
-
-
-
-//select school logo form database
-$res8 = $conn->query("SELECT * FROM school_logo");
-while($row = $res8->fetch_assoc()){
-    $sch_logo = $row['image'];
-    $logo_width = $row['logo_width'];
-    $logo_height = $row['logo_height'];
-}
 
 //DECLARATION OF SCHOOL TERMS
 $first_term = "First Term";

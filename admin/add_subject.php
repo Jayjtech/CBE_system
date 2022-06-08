@@ -8,6 +8,7 @@ if(isset($_POST['add'])){
     $course_code = mysqli_real_escape_string($conn,$_POST['course_code']);
     $course_unit = mysqli_real_escape_string($conn,$_POST['course_unit']);        
     $duration = mysqli_real_escape_string($conn,$_POST['duration']);        
+    $no_of_quest = mysqli_real_escape_string($conn,$_POST['no_of_quest']);        
 
     $term = substr($course_code,5,1);
     $cl = substr($course_code,3,1);
@@ -20,8 +21,8 @@ if(isset($_POST['add'])){
     if($cl == 5){$class = "SSS-2";}
     if($cl == 6){$class = "SSS-3";}
     
-    $conn->query("INSERT INTO  subject_tbl (class, teacher, user_token, subject, course_code, term, course_unit, duration) 
-    VALUES('$class', '$teacher', '$user_token', '$subject', '$course_code', '$term', '$course_unit', '$duration')") 
+    $conn->query("INSERT INTO  subject_tbl (class, teacher, user_token, subject, course_code, term, course_unit, duration, no_of_quest) 
+    VALUES('$class', '$teacher', '$user_token', '$subject', '$course_code', '$term', '$course_unit', '$duration', '$no_of_quest')") 
     or die($conn->error);
 
     $_SESSION['message'] = "$course_code has been Added!";

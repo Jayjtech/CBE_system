@@ -3,7 +3,6 @@
     $questions = "question";
     $answers ="answer";
     $instructions ="instruction";
-
 //Teacher's token id very important here
 $user_token = $_SESSION['token'];
 
@@ -17,20 +16,15 @@ if(isset($_POST['passage'])){
     while($row = $query->fetch_assoc()){
         $class = $row['class'];
         $subject = $row['subject'];
+        $no_of_quest = $row['no_of_quest'];
     }
    
     for($from = 1; $from <= $to; $from++){
         $question_number = $from;
         $quest_code = 'ID'.$question_number;
       
-        if($question_number == 1){$quest_no_type_B = 3;}if($question_number == 2){$quest_no_type_B = 4;}
-        if($question_number == 3){$quest_no_type_B = 5;}if($question_number == 4){$quest_no_type_B = 1;}
-        if($question_number == 5){$quest_no_type_B = 2;}
-    
-        if($question_number == 1){$quest_no_type_C = 5;}if($question_number == 2){$quest_no_type_C = 4;}
-        if($question_number == 3){$quest_no_type_C = 3;}if($question_number == 4){$quest_no_type_C = 2;}
-        if($question_number == 5){$quest_no_type_C = 1;}
-
+         // NEEDED TO SHUFFLE QUESTION NUMBERS
+            include "q_type.php";
 
         $check=$conn->query("SELECT * FROM $exam_tbl_A WHERE course_code='$course_code' AND class='$class' AND session='$current_session' AND question_number=$question_number");
         
@@ -49,47 +43,47 @@ if(isset($_POST['passage'])){
     //    CREATE SPACE FOR ANSWERS FROM A-D
     
         //FOR TYPE A
-            $query_a = "INSERT INTO $answer_tbl_A (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
-            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$question_number', '', 'A', '', '$quest_code')";
+            $query_a = "INSERT INTO $answer_tbl_A (session, user_token, subject, course_code,  class, question_number, alpha_opt, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$question_number', 'A', '$quest_code')";
         mysqli_query($conn, $query_a);
-            $query_a = "INSERT INTO $answer_tbl_A (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
-            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$question_number', '', 'B', '', '$quest_code')";
+            $query_a = "INSERT INTO $answer_tbl_A (session, user_token, subject, course_code,  class, question_number, alpha_opt, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$question_number','B', '$quest_code')";
         mysqli_query($conn, $query_a);
-            $query_a = "INSERT INTO $answer_tbl_A (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
-            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$question_number', '', 'C', '', '$quest_code')";
+            $query_a = "INSERT INTO $answer_tbl_A (session, user_token, subject, course_code,  class, question_number, alpha_opt, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$question_number', 'C', '$quest_code')";
         mysqli_query($conn, $query_a);
-            $query_a = "INSERT INTO $answer_tbl_A (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
-            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$question_number', '', 'D', '', '$quest_code')";
+            $query_a = "INSERT INTO $answer_tbl_A (session, user_token, subject, course_code,  class, question_number, alpha_opt, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$question_number', 'D', '$quest_code')";
         mysqli_query($conn, $query_a);
 
 
          //FOR TYPE B
-        $query_b = "INSERT INTO $answer_tbl_B (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
-            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_B', '', 'A', '', '$quest_code')";
+        $query_b = "INSERT INTO $answer_tbl_B (session, user_token, subject, course_code,  class, question_number, alpha_opt, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_B', 'A', '$quest_code')";
         mysqli_query($conn, $query_b);
-        $query_b = "INSERT INTO $answer_tbl_B (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
-            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_B', '', 'B', '', '$quest_code')";
+        $query_b = "INSERT INTO $answer_tbl_B (session, user_token, subject, course_code,  class, question_number, alpha_opt, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_B', 'B', '$quest_code')";
         mysqli_query($conn, $query_b);
-            $query_b = "INSERT INTO $answer_tbl_B (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
-            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_B', '', 'C', '', '$quest_code')";
+            $query_b = "INSERT INTO $answer_tbl_B (session, user_token, subject, course_code,  class, question_number, alpha_opt, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_B', 'C', '$quest_code')";
         mysqli_query($conn, $query_b);
-            $query_b = "INSERT INTO $answer_tbl_B (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
-            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_B', '', 'D', '', '$quest_code')";
+            $query_b = "INSERT INTO $answer_tbl_B (session, user_token, subject, course_code,  class, question_number, alpha_opt, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_B', 'D', '$quest_code')";
         mysqli_query($conn, $query_b);
 
 
         // FOR TYPE C
-        $query_c = "INSERT INTO $answer_tbl_C (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
-            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_C', '', 'A', '', '$quest_code')";
+        $query_c = "INSERT INTO $answer_tbl_C (session, user_token, subject, course_code,  class, question_number, alpha_opt, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_C', 'A', '$quest_code')";
         mysqli_query($conn, $query_c);
-        $query_c = "INSERT INTO $answer_tbl_C (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
-            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_C', '', 'B', '', '$quest_code')";
+        $query_c = "INSERT INTO $answer_tbl_C (session, user_token, subject, course_code,  class, question_number, alpha_opt, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_C', 'B', '$quest_code')";
         mysqli_query($conn, $query_c);
-            $query_c = "INSERT INTO $answer_tbl_C (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
-            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_C', '', 'C', '', '$quest_code')";
+            $query_c = "INSERT INTO $answer_tbl_C (session, user_token, subject, course_code,  class, question_number, alpha_opt, quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_C', 'C', '$quest_code')";
         mysqli_query($conn, $query_c);
-            $query_c = "INSERT INTO $answer_tbl_C (session, user_token, subject, course_code,  class, question_number, is_correct, alpha_opt, text, quest_code)
-            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_C', '', 'D', '', '$quest_code')";
+            $query_c = "INSERT INTO $answer_tbl_C (session, user_token, subject, course_code,  class, question_number, alpha_opt,  quest_code)
+            VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_C', 'D', '$quest_code')";
         mysqli_query($conn, $query_c);
 
            $_SESSION['message'] = "Passage has been Uploaded!";
@@ -118,6 +112,7 @@ if(isset($_POST["submit"])){
     while($row = $query->fetch_assoc()){
         $class = $row['class'];
         $subject = $row['subject'];
+        $no_of_quest = $row['no_of_quest'];
     }
   
     if($category == $questions){
@@ -132,62 +127,21 @@ if(isset($_POST["submit"])){
           
           // Open uploaded CSV file with read-only mode
           $csvFile = fopen($_FILES['file']['tmp_name'], 'r');
-          
           // Skip the first line
           fgetcsv($csvFile);
           
           // Parse data from CSV file line by line
           while(($line = fgetcsv($csvFile)) !== FALSE){
+             
               // Get row data
               $question_number   =  mysqli_real_escape_string($conn, $line[0]);
               $question_text  =  mysqli_real_escape_string($conn, $line[1]);
               $quest_code = "ID$question_number";
-      
-    //questions
-    // if($question_number == 1){$quest_no_type_B = 30;}if($question_number == 2){$quest_no_type_B = 29;} 
-    // if($question_number == 3){$quest_no_type_B = 28;}if($question_number == 4){$quest_no_type_B = 27;}
-    // if($question_number == 5){$quest_no_type_B = 26;}if($question_number == 6){$quest_no_type_B = 25;}
-    // if($question_number == 7){$quest_no_type_B = 24;}if($question_number == 8){$quest_no_type_B = 23;}
-    // if($question_number == 9){$quest_no_type_B = 22;}if($question_number == 10){$quest_no_type_B = 21;}
-    // if($question_number == 11){$quest_no_type_B = 20;}if($question_number == 12){$quest_no_type_B = 19;}
-    // if($question_number == 13){$quest_no_type_B = 18;}if($question_number == 14){$quest_no_type_B = 17;}
-    // if($question_number == 15){$quest_no_type_B = 16;}if($question_number == 16){$quest_no_type_B = 15;}
-    // if($question_number == 17){$quest_no_type_B = 14;}if($question_number == 18){$quest_no_type_B = 13;}
-    // if($question_number == 19){$quest_no_type_B = 12;}if($question_number == 20){$quest_no_type_B = 11;}
-    // if($question_number == 21){$quest_no_type_B = 10;}if($question_number == 22){$quest_no_type_B = 9;}
-    // if($question_number == 23){$quest_no_type_B = 8;}if($question_number == 24){$quest_no_type_B = 7;}
-    // if($question_number == 25){$quest_no_type_B = 6;}if($question_number == 26){$quest_no_type_B = 5;}
-    // if($question_number == 27){$quest_no_type_B = 4;}if($question_number == 28){$quest_no_type_B = 3;}
-    // if($question_number == 29){$quest_no_type_B = 2;}if($question_number == 30){$quest_no_type_B = 1;}
-    
- 
-    // if($question_number == 1){$quest_no_type_C = 20;}if($question_number == 2){$quest_no_type_C = 19;} 
-    // if($question_number == 3){$quest_no_type_C = 18;}if($question_number == 4){$quest_no_type_C = 17;}
-    // if($question_number == 5){$quest_no_type_C = 16;}if($question_number == 6){$quest_no_type_C = 15;}
-    // if($question_number == 7){$quest_no_type_C = 14;}if($question_number == 8){$quest_no_type_C = 13;}
-    // if($question_number == 9){$quest_no_type_C = 12;}if($question_number == 10){$quest_no_type_C = 11;}
-    // if($question_number == 11){$quest_no_type_C = 10;}if($question_number == 12){$quest_no_type_C = 9;}
-    // if($question_number == 13){$quest_no_type_C = 8;}if($question_number == 14){$quest_no_type_C = 7;}
-    // if($question_number == 15){$quest_no_type_C = 6;}if($question_number == 16){$quest_no_type_C = 5;}
-    // if($question_number == 17){$quest_no_type_C = 4;}if($question_number == 18){$quest_no_type_C = 3;}
-    // if($question_number == 19){$quest_no_type_C = 2;}if($question_number == 20){$quest_no_type_C = 1;}
-    // if($question_number == 21){$quest_no_type_C = 30;}if($question_number == 22){$quest_no_type_C = 29;}
-    // if($question_number == 23){$quest_no_type_C = 28;}if($question_number == 24){$quest_no_type_C = 27;}
-    // if($question_number == 25){$quest_no_type_C = 26;}if($question_number == 26){$quest_no_type_C = 25;}
-    // if($question_number == 27){$quest_no_type_C = 24;}if($question_number == 28){$quest_no_type_C = 23;}
-    // if($question_number == 29){$quest_no_type_C = 22;}if($question_number == 30){$quest_no_type_C = 21;}
-  
+            
+              // NEEDED TO SHUFFLE QUESTION NUMBERS
+                include "q_type.php";
 
-    //TEST MODE
-    if($question_number == 1){$quest_no_type_B = 3;}if($question_number == 2){$quest_no_type_B = 4;}
-    if($question_number == 3){$quest_no_type_B = 5;}if($question_number == 4){$quest_no_type_B = 1;}
-    if($question_number == 5){$quest_no_type_B = 2;}
 
-    if($question_number == 1){$quest_no_type_C = 5;}if($question_number == 2){$quest_no_type_C = 4;}
-    if($question_number == 3){$quest_no_type_C = 3;}if($question_number == 4){$quest_no_type_C = 2;}
-    if($question_number == 5){$quest_no_type_C = 1;}
-   
-   
     //To ensure that Thesame class is not uploaded over and again
     $classQuery = "SELECT * FROM $exam_tbl_A WHERE course_code=? AND class=? AND session=? AND question_number=?";
     $stmt = $conn->prepare($classQuery);
@@ -251,50 +205,9 @@ if(isset($_POST["submit"])){
               $alpha_opt  =  mysqli_real_escape_string($conn, $line[2]);
               $answer_text  =  mysqli_real_escape_string($conn, $line[3]);
               $quest_code = "ID$question_number";
-
-    // if($question_number == 1){$quest_no_type_B = 30;}if($question_number == 2){$quest_no_type_B = 29;} 
-    // if($question_number == 3){$quest_no_type_B = 28;}if($question_number == 4){$quest_no_type_B = 27;}
-    // if($question_number == 5){$quest_no_type_B = 26;}if($question_number == 6){$quest_no_type_B = 25;}
-    // if($question_number == 7){$quest_no_type_B = 24;}if($question_number == 8){$quest_no_type_B = 23;}
-    // if($question_number == 9){$quest_no_type_B = 22;}if($question_number == 10){$quest_no_type_B = 21;}
-    // if($question_number == 11){$quest_no_type_B = 20;}if($question_number == 12){$quest_no_type_B = 19;}
-    // if($question_number == 13){$quest_no_type_B = 18;}if($question_number == 14){$quest_no_type_B = 17;}
-    // if($question_number == 15){$quest_no_type_B = 16;}if($question_number == 16){$quest_no_type_B = 15;}
-    // if($question_number == 17){$quest_no_type_B = 14;}if($question_number == 18){$quest_no_type_B = 13;}
-    // if($question_number == 19){$quest_no_type_B = 12;}if($question_number == 20){$quest_no_type_B = 11;}
-    // if($question_number == 21){$quest_no_type_B = 10;}if($question_number == 22){$quest_no_type_B = 9;}
-    // if($question_number == 23){$quest_no_type_B = 8;}if($question_number == 24){$quest_no_type_B = 7;}
-    // if($question_number == 25){$quest_no_type_B = 6;}if($question_number == 26){$quest_no_type_B = 5;}
-    // if($question_number == 27){$quest_no_type_B = 4;}if($question_number == 28){$quest_no_type_B = 3;}
-    // if($question_number == 29){$quest_no_type_B = 2;}if($question_number == 30){$quest_no_type_B = 1;}
-    
- 
-    // if($question_number == 1){$quest_no_type_C = 20;}if($question_number == 2){$quest_no_type_C = 19;} 
-    // if($question_number == 3){$quest_no_type_C = 18;}if($question_number == 4){$quest_no_type_C = 17;}
-    // if($question_number == 5){$quest_no_type_C = 16;}if($question_number == 6){$quest_no_type_C = 15;}
-    // if($question_number == 7){$quest_no_type_C = 14;}if($question_number == 8){$quest_no_type_C = 13;}
-    // if($question_number == 9){$quest_no_type_C = 12;}if($question_number == 10){$quest_no_type_C = 11;}
-    // if($question_number == 11){$quest_no_type_C = 10;}if($question_number == 12){$quest_no_type_C = 9;}
-    // if($question_number == 13){$quest_no_type_C = 8;}if($question_number == 14){$quest_no_type_C = 7;}
-    // if($question_number == 15){$quest_no_type_C = 6;}if($question_number == 16){$quest_no_type_C = 5;}
-    // if($question_number == 17){$quest_no_type_C = 4;}if($question_number == 18){$quest_no_type_C = 3;}
-    // if($question_number == 19){$quest_no_type_C = 2;}if($question_number == 20){$quest_no_type_C = 1;}
-    // if($question_number == 21){$quest_no_type_C = 30;}if($question_number == 22){$quest_no_type_C = 29;}
-    // if($question_number == 23){$quest_no_type_C = 28;}if($question_number == 24){$quest_no_type_C = 27;}
-    // if($question_number == 25){$quest_no_type_C = 26;}if($question_number == 26){$quest_no_type_C = 25;}
-    // if($question_number == 27){$quest_no_type_C = 24;}if($question_number == 28){$quest_no_type_C = 23;}
-    // if($question_number == 29){$quest_no_type_C = 22;}if($question_number == 30){$quest_no_type_C = 21;}
-
-
-    //TEST MODE
-    if($question_number == 1){$quest_no_type_B = 3;}if($question_number == 2){$quest_no_type_B = 4;}
-    if($question_number == 3){$quest_no_type_B = 5;}if($question_number == 4){$quest_no_type_B = 1;}
-    if($question_number == 5){$quest_no_type_B = 2;}
-
-    if($question_number == 1){$quest_no_type_C = 5;}if($question_number == 2){$quest_no_type_C = 4;}
-    if($question_number == 3){$quest_no_type_C = 3;}if($question_number == 4){$quest_no_type_C = 2;}
-    if($question_number == 5){$quest_no_type_C = 1;}
-
+                
+              // NEEDED TO SHUFFLE QUESTION NUMBERS
+                include "q_type.php";
     
               //To ensure that Thesame class is not uploaded over and again
              $answerQuery = "SELECT * FROM $answer_tbl_A WHERE course_code=? AND class=? AND session=? AND text=? AND question_number=?";
@@ -394,13 +307,14 @@ if(isset($_POST["submit"])){
   if(isset($_GET['delete']))
 {
     $course_code = $_GET['course_code'];
-    $conn->query("DELETE FROM subject_tbl WHERE id=$id") or die($conn->error());
+    $conn->query("DELETE FROM subject_tbl WHERE id=$id") or die($conn->error);
     $conn->query("DELETE FROM $exam_tbl_A WHERE course_code='$course_code' AND user_token='$user_token'") or die($conn->error);
     $conn->query("DELETE FROM $exam_tbl_B WHERE course_code='$course_code' AND user_token='$user_token'") or die($conn->error);
     $conn->query("DELETE FROM $exam_tbl_C WHERE course_code='$course_code' AND user_token='$user_token'") or die($conn->error);
     $conn->query("DELETE FROM $answer_tbl_A WHERE course_code='$course_code' AND user_token='$user_token'") or die($conn->error);
     $conn->query("DELETE FROM $answer_tbl_B WHERE course_code='$course_code' AND user_token='$user_token'") or die($conn->error);
     $conn->query("DELETE FROM $answer_tbl_C WHERE course_code='$course_code' AND user_token='$user_token'") or die($conn->error);
+    
     $_SESSION['message'] = "Subject has been deleted!";
     $_SESSION['msg_type'] = "success";
     $_SESSION['remedy'] = "";

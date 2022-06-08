@@ -21,8 +21,8 @@
 	<link rel="stylesheet" href="../css/modals.css">
 	
 	<!-- This js script must be in he header to function -->
-	<script src="../js/googleapis.js"></script>
-	<script src="../js/jquery.js"></script>
+	<!-- <script src="../js/googleapis.js"></script> -->
+	<!-- <script src="../js/jquery.js"></script> -->
 	
 	<!-- /// -->
 	

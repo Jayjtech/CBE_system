@@ -100,24 +100,24 @@ while($row = $result->fetch_assoc()):?>
                 
 
                 <div class="form-group col-lg-6"> 
-                        <label>Subject:</label> 
                       <input type="text" name="subject" class="form-control" placeholder="Subject" required>
                 </div>
                   <hr>
 
                   <div class="form-group col-lg-6"> 
-                        <label>Course Code:</label> 
                       <input type="text" name="course_code" class="form-control" placeholder="Course code" required>
                 </div>
 
                 <div class="form-group col-lg-6"> 
-                        <label>Score per question:</label> 
                       <input type="text" name="course_unit" class="form-control" placeholder="Score per question" required>
                 </div>
 
                 <div class="form-group col-lg-6"> 
-                        <label>Exam duration in minutes:</label> 
-                      <input type="number" name="duration" class="form-control" placeholder="Set Exam duration" required>
+                      <input type="number" name="duration" class="form-control" placeholder="Set Exam duration in minutes" required>
+                </div>
+
+                <div class="form-group col-lg-6">  
+                      <input type="number" name="no_of_quest" class="form-control" placeholder="How many question" required>
                 </div>
                 
                 <div class="form-group col-lg-6">  
@@ -161,30 +161,25 @@ while($row = $result->fetch_assoc()):?>
                       </select>
                 </div>
 
+                <div class="form-group">  
+                    <select class="form-control course_code" name="course_code" required>
+                        <option value="">Select Course code</option>
+                    <?php 
+                      $sub = $conn->query("SELECT * FROM subject_tbl WHERE user_token ='$user_token'");
+                      while($row = $sub->fetch_assoc()):
+                        echo '
+                                <option value="'.$row['course_code'].'">'.$row['subject'].' :: '.$row['course_code'].' :: '.$row['no_of_quest'].' question slots
+                            ';
+                            endwhile;
+                            echo '
+                            </option>';
+                        ?>
+                      
+                      </select>
+                </div>
+
                 <div class="form-group hiddedResponse"></div>
 
-<script type="text/javascript">
-  $(document).ready(function()
-  {
-  $(".category").change(function()
-  {
-  var payment_id=$(this).val();
-  var post_id = 'id='+ payment_id;
-
-  $.ajax
-  ({
-      type: "POST",
-      url: "hidden.php",
-      data: post_id,
-      cache: false,
-    success: function(cities)
-    {
-    $(".hiddedResponse").html(cities);
-    } 
-    });
-  });
-});
-</script>
                   <hr>
                 <div class="form-group">  
                       <input type="submit" class="btn btn-success" name="submit" value="Upload">

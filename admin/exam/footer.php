@@ -1,6 +1,6 @@
 	
    <div class="footer-bg">
-    <footer class="ftco-footer ftco-bg-dark ftco-section" style="background-color: <?php echo $footer_col;?>;">
+    <footer class="ftco-footer ftco-bg-dark ftco-section" style="background-color: <?php echo $header_col;?>;">
 
   <script src="../../js/jquery.min.js"></script>
   <script src="../../js/jquery-migrate-3.0.1.min.js"></script>
