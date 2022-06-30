@@ -1,6 +1,7 @@
 <?php  
  require "../config/db.php";
  $teacher = $_SESSION['name'];
+ $user_token = $_SESSION['token'];
 if(isset($_POST["submit"]))
 {
    // Allowed mime types
@@ -26,22 +27,24 @@ if(isset($_POST["submit"]))
     $course_code = mysqli_real_escape_string($conn, $line[2]);
     $subject = mysqli_real_escape_string($conn, $line[3]);
     $session = mysqli_real_escape_string($conn, $line[4]);
-    $test = mysqli_real_escape_string($conn, $line[5]);
-    $objective = mysqli_real_escape_string($conn, $line[6]);
-    $essay_score = mysqli_real_escape_string($conn, $line[7]);
+    $CA1 = mysqli_real_escape_string($conn, $line[5]);
+    $CA2 = mysqli_real_escape_string($conn, $line[6]);
+    $CA3 = mysqli_real_escape_string($conn, $line[7]);
+    $objective = mysqli_real_escape_string($conn, $line[8]);
+    $essay_score = mysqli_real_escape_string($conn, $line[9]);
     
     $query = $conn->query("SELECT * FROM $answer_sheet WHERE adm_no= '$adm_no' AND course_code = '$course_code'");
     while($row = $query->fetch_assoc()){
         $obj = $row['obj_score'];
     }
    //IF OBJECTIVE SCORE IS NOT EMPTY     
-    if($obj !== 0){
-    $obj_score = $obj;
+    if($obj != 0){
+        $obj_score = $obj;
      //IF OBJECTIVE SCORE IS EMPTY THEN THE UPLOADED SCORE IS THE OBJECTIVE SCORE
-    }if($obj == 0){
+    }else{
         $obj_score = $objective;
     }
-    
+    $test = ($CA1+$CA2+$CA3);
     $exam_output = ($obj_score + $essay_score);
     $total = ($exam_output + $test);
 
@@ -99,13 +102,22 @@ if(isset($_POST["submit"]))
    }
 
     //insert data from CSV file 
-    $query = $conn->query("UPDATE $answer_sheet SET test='$test', obj_score ='$obj_score', essay_score='$essay_score',
+    $query = $conn->query("UPDATE $answer_sheet SET CA1='$CA1', CA2='$CA2', CA3='$CA3', test='$test', obj_score ='$obj_score', essay_score='$essay_score',
     grade='$grade', total='$total', exam_total = '$exam_output', remark='$remark', color='$color'
-   WHERE adm_no='$adm_no' AND teacher = '$teacher' AND course_code = '$course_code' AND session='$session'") 
+   WHERE adm_no='$adm_no' AND teacher_token = '$user_token' AND course_code = '$course_code' AND session='$session'") 
     or die($conn->error);
-    $_SESSION['message'] = "Result has been Uploaded!";
-   $_SESSION['msg_type'] = "success";//Message saved background
-   header("location: pre_result.php");
+    if($query){
+        $_SESSION['message'] = "Result has been Uploaded!";
+        $_SESSION['msg_type'] = "success";
+        $_SESSION['btn'] = "Ok";
+        header("location: prepare-result");
+    }else{
+        $_SESSION['message'] = "Result could not be Uploaded!";
+        $_SESSION['msg_type'] = "error";
+        $_SESSION['btn'] = "Ok";
+        header("location: prepare-result");
+    }
+    
             }
        }
    

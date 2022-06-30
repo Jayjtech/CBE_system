@@ -1,28 +1,30 @@
-<?php 
+<?php
 require_once 'admin_controller.php';
 error_reporting(0);
 ?>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title><?php echo $sch_name;?></title>
+
+<head>
+    <title><?php echo $sch_name; ?></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-	<?php include "header.php" ;?>
+
+    <?php include "header.php"; ?>
     <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
-	        	<li class="nav-item active"><a href="../login" class="nav-link pl-0">Home</a></li>
-	        	<li class="nav-item active"><a href="admin-signup" class="nav-link pl-0">Staff sign up</a></li>
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
+            <li class="nav-item active"><a href="../login" class="nav-link pl-0">Home</a></li>
+            <li class="nav-item active"><a href="admin-signup" class="nav-link pl-0">Staff sign up</a></li>
+        </ul>
+    </div>
+    </div>
+    </nav>
     <!-- END nav -->
-    <h3  class="text-center">Welcome to <?php echo $sch_name?></h3>
-    <h4 class="text-center"><?php echo $sch_name2?></h4>
+    <h3 class="text-center">Welcome to <?php echo $sch_name ?></h3>
+    <h4 class="text-center"><?php echo $sch_name2 ?></h4>
 
     <div class="container ftco-animate" style="margin-top:50px;">
+        <span><strong>Academic Period:</strong><?= $current_term; ?> [<?= $current_session; ?>]</span>
         <div class="row">
             <div class="col-md-4 offset-md-4 form-div">
                 <form action="" method="post">
@@ -33,7 +35,7 @@ error_reporting(0);
                         <input type="text" name="username" value="<?php echo $username; ?>" class="form-control form-control-lg">
                     </div>
 
-                   
+
                     <div class="form-group">
                         <label for="password">Password</label>
                         <input type="password" name="password" class="form-control form-control-lg">
@@ -49,16 +51,16 @@ error_reporting(0);
                             <option value="Teacher">Teacher</option>
                         </select>
                     </div>
-                    
-                   
+
+
                     <div class="form-group">
-                       <input type="submit" class="btn btn-primary " value="Login" name="login-btn">
+                        <input type="submit" class="btn btn-primary " value="Login" name="login-btn">
                     </div>
-                  
+
                 </form>
             </div>
         </div>
     </div>
     <br><br>
-    
-    <?php include "footer.php";?>
+
+    <?php include "footer.php"; ?>

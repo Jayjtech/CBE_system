@@ -9,5 +9,8 @@ error_reporting(0);
 
 // TABLES
 $evaluation_tbl = "evaluation";
+$subject_tbl = "subject_tbl";
+$instruction_tbl = "instruction_tbl";
+$result_checker_tbl = "result_checker";
 
 session_start();
