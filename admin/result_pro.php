@@ -31,6 +31,190 @@ if (isset($_POST["submit"])) {
                 $CA3 = mysqli_real_escape_string($conn, $line[7]);
                 $objective = mysqli_real_escape_string($conn, $line[8]);
                 $essay_score = mysqli_real_escape_string($conn, $line[9]);
+                $pos = mysqli_real_escape_string($conn, $line[10]);
+
+                //POSITION
+                if ($pos == 1) {
+                    $position = "1st";
+                }
+                if ($pos == 2) {
+                    $position = "2nd";
+                }
+                if ($pos == 3) {
+                    $position = "3rd";
+                }
+                if ($pos == 4) {
+                    $position = "4th";
+                }
+                if ($pos == 5) {
+                    $position = "5th";
+                }
+                if ($pos == 6) {
+                    $position = "6th";
+                }
+                if ($pos == 7) {
+                    $position = "7th";
+                }
+                if ($pos == 8) {
+                    $position = "8th";
+                }
+                if ($pos == 9) {
+                    $position = "9th";
+                }
+                if ($pos == 10) {
+                    $position = "10th";
+                }
+                if ($pos == 11) {
+                    $position = "11th";
+                }
+                if ($pos == 12) {
+                    $position = "12th";
+                }
+                if ($pos == 13) {
+                    $position = "13th";
+                }
+                if ($pos == 14) {
+                    $position = "14th";
+                }
+                if ($pos == 15) {
+                    $position = "15th";
+                }
+                if ($pos == 16) {
+                    $position = "16th";
+                }
+                if ($pos == 17) {
+                    $position = "17th";
+                }
+                if ($pos == 18) {
+                    $position = "18th";
+                }
+                if ($pos == 19) {
+                    $position = "19th";
+                }
+                if ($pos == 20) {
+                    $position = "20th";
+                }
+                if ($pos == 21) {
+                    $position = "21st";
+                }
+                if ($pos == 22) {
+                    $position = "22nd";
+                }
+                if ($pos == 23) {
+                    $position = "23rd";
+                }
+                if ($pos == 24) {
+                    $position = "24th";
+                }
+                if ($pos == 25) {
+                    $position = "25th";
+                }
+                if ($pos == 26) {
+                    $position = "26th";
+                }
+                if ($pos == 27) {
+                    $position = "27th";
+                }
+                if ($pos == 28) {
+                    $position = "28th";
+                }
+                if ($pos == 29) {
+                    $position = "29th";
+                }
+                if ($pos == 30) {
+                    $position = "30th";
+                }
+                if ($pos == 31) {
+                    $position = "31st";
+                }
+                if ($pos == 32) {
+                    $position = "32nd";
+                }
+                if ($pos == 33) {
+                    $position = "33rd";
+                }
+                if ($pos == 34) {
+                    $position = "34th";
+                }
+                if ($pos == 35) {
+                    $position = "35th";
+                }
+                if ($pos == 36) {
+                    $position = "36th";
+                }
+                if ($pos == 37) {
+                    $position = "37th";
+                }
+                if ($pos == 38) {
+                    $position = "38th";
+                }
+                if ($pos == 39) {
+                    $position = "39th";
+                }
+                if ($pos == 40) {
+                    $position = "40th";
+                }
+                if ($pos == 41) {
+                    $position = "41st";
+                }
+                if ($pos == 42) {
+                    $position = "42nd";
+                }
+                if ($pos == 43) {
+                    $position = "43rd";
+                }
+                if ($pos == 44) {
+                    $position = "44th";
+                }
+                if ($pos == 45) {
+                    $position = "45th";
+                }
+                if ($pos == 46) {
+                    $position = "46th";
+                }
+                if ($pos == 47) {
+                    $position = "47th";
+                }
+                if ($pos == 48) {
+                    $position = "48th";
+                }
+                if ($pos == 49) {
+                    $position = "49th";
+                }
+                if ($pos == 50) {
+                    $position = "50th";
+                }
+                if ($pos == 51) {
+                    $position = "51st";
+                }
+                if ($pos == 52) {
+                    $position = "52nd";
+                }
+                if ($pos == 53) {
+                    $position = "53rd";
+                }
+                if ($pos == 54) {
+                    $position = "54th";
+                }
+                if ($pos == 55) {
+                    $position = "55th";
+                }
+                if ($pos == 56) {
+                    $position = "56th";
+                }
+                if ($pos == 57) {
+                    $position = "57th";
+                }
+                if ($pos == 58) {
+                    $position = "58th";
+                }
+                if ($pos == 59) {
+                    $position = "59th";
+                }
+                if ($pos == 60) {
+                    $position = "60th";
+                }
+
 
                 $query = $conn->query("SELECT * FROM $answer_sheet WHERE adm_no= '$adm_no' AND course_code = '$course_code'");
                 while ($row = $query->fetch_assoc()) {
@@ -102,7 +286,7 @@ if (isset($_POST["submit"])) {
 
                 //insert data from CSV file 
                 $query = $conn->query("UPDATE $answer_sheet SET CA1='$CA1', CA2='$CA2', CA3='$CA3', test='$test', obj_score ='$obj_score', essay_score='$essay_score',
-    grade='$grade', total='$total', exam_total = '$exam_output', remark='$remark', color='$color'
+    grade='$grade', total='$total', position='$position', exam_total = '$exam_output', remark='$remark', color='$color'
    WHERE adm_no='$adm_no' AND teacher_token = '$user_token' AND course_code = '$course_code' AND session='$session'")
                     or die($conn->error);
                 if ($query) {
@@ -363,21 +547,18 @@ if (isset($_POST['comment'])) {
 
                 if ($prom == 1 || $prom == "JSS-1") {
                     $promoted_to = "JSS-1";
-                }
-                if ($prom == 2 || $prom == "JSS-2") {
+                } else if ($prom == 2 || $prom == "JSS-2") {
                     $promoted_to = "JSS-2";
-                }
-                if ($prom == 3 || $prom == "JSS-3") {
+                } else if ($prom == 3 || $prom == "JSS-3") {
                     $promoted_to = "JSS-3";
-                }
-                if ($prom == 4 || $prom == "SSS-1") {
+                } else if ($prom == 4 || $prom == "SSS-1") {
                     $promoted_to = "SSS-1";
-                }
-                if ($prom == 5 || $prom == "SSS-2") {
+                } else if ($prom == 5 || $prom == "SSS-2") {
                     $promoted_to = "SSS-2";
-                }
-                if ($prom == 6 || $prom == "SSS-3") {
+                } else if ($prom == 6 || $prom == "SSS-3") {
                     $promoted_to = "SSS-3";
+                } else if ($prom == "" || $prom == "") {
+                    $promoted_to = $class;
                 }
 
                 //GETTING OVERALL SCORE FROM ALL COURSES 
@@ -388,7 +569,7 @@ if (isset($_POST['comment'])) {
 
                 //CALCULATION OF PERCENT SCORE
                 $percent = $conn->query("SELECT out_of FROM evaluation WHERE adm_no= '$adm_no'
-    AND session = '$session' AND term='$term'");
+                AND session = '$session' AND term='$term'");
                 while ($row = $percent->fetch_assoc()) {
                     $out_of = $row['out_of'];
                 }
@@ -441,31 +622,39 @@ if (isset($_POST['p-comment'])) {
             // Parse data from CSV file line by line
             while (($line = fgetcsv($csvFile)) !== FALSE) {
                 //DATA FROM EXCEL TABLE...
-                $adm_no = mysqli_real_escape_string($conn, $line[0]);
-                $p_comment = mysqli_real_escape_string($conn, $line[1]);
+                $adm_no = mysqli_real_escape_string($conn, $line[1]);
+                $class = mysqli_real_escape_string($conn, $line[2]);
+                $re_term = mysqli_real_escape_string($conn, $line[3]);
+                $re_session = mysqli_real_escape_string($conn, $line[4]);
+                $p_comment = mysqli_real_escape_string($conn, $line[5]);
+                $next_term_date = mysqli_real_escape_string($conn, $line[6]);
 
                 //To CHECK IF THE SUBMITTED SESSION AND TERM EXIST
-                $secondQuery = "SELECT * FROM evaluation WHERE session=? AND term=? ";
-                $stmt = $conn->prepare($secondQuery);
-                $stmt->bind_param('ss', $session, $current_term);
-                $stmt->execute();
-                $result = $stmt->get_result();
-                $sch_period = $result->num_rows;
-                $stmt->close();
-
+                $check = $conn->query("SELECT * FROM $evaluation_tbl WHERE term='$re_term' AND session='$re_session'");
+                $sch_period = $check->num_rows;
                 //IF THE PERIOD DOES NOT EXIST...
                 if ($sch_period == 0) {
                     $_SESSION['message'] = "This School period does not exist!";
-                    $_SESSION['msg_type'] = "danger"; //Message saved background
-                    header("location: pre_result.php");
+                    $_SESSION['msg_type'] = "error";
+                    $_SESSION['remedy'] = "";
+                    $_SESSION['btn'] = "Okay";
+                    header("location: prepare-result");
                 } else {
-                    //ELSE...
-                    //insert data from CSV file 
-                    $query = $conn->query("UPDATE evaluation SET p_comment ='$p_comment' WHERE adm_no='$adm_no' AND term='$term' AND session='$session'")
-                        or die($conn->error);
-                    $_SESSION['message'] = "Comments have been Uploaded!";
-                    $_SESSION['msg_type'] = "success"; //Message saved background
-                    header("location: pre_result.php");
+                    if ($re_term == $current_term && $re_session == $current_session) {
+                        $query = $conn->query("UPDATE $evaluation_tbl SET p_comment = '$p_comment', next_term_date = '$next_term_date' WHERE adm_no='$adm_no' AND term='$re_term' AND session='$re_session' AND class='$class'")
+                            or die($conn->error);
+                        $_SESSION['message'] = "Comments have been Uploaded!";
+                        $_SESSION['msg_type'] = "success";
+                        $_SESSION['remedy'] = "";
+                        $_SESSION['btn'] = "Okay";
+                        header("location: prepare-result");
+                    } else {
+                        $_SESSION['message'] = "The term and session in this file does not correspond with the current school period!";
+                        $_SESSION['msg_type'] = "warning";
+                        $_SESSION['remedy'] = "Kindly update the school period in the admin panel";
+                        $_SESSION['btn'] = "Okay";
+                        header("location: prepare-result");
+                    }
                 }
             }
         }
@@ -517,7 +706,7 @@ if (isset($_POST['upload'])) {
                 //IF THE PERIOD DOES NOT EXIST...
                 if ($sch_period <= 0) {
                     $_SESSION['message'] = "This School period does not exist!";
-                    $_SESSION['msg_type'] = "danger"; //Message saved background
+                    $_SESSION['msg_type'] = "danger";
                     header("location: pre_result.php");
                 } else {
                     //ELSE...
@@ -525,7 +714,7 @@ if (isset($_POST['upload'])) {
                     $query = $conn->query("UPDATE evaluation SET position ='$position' WHERE adm_no='$adm_no' AND term='$term' AND session='$session'")
                         or die($conn->error);
                     $_SESSION['message'] = "Comments have been Uploaded!";
-                    $_SESSION['msg_type'] = "success"; //Message saved background
+                    $_SESSION['msg_type'] = "success";
                     header("location: upload_student_position.php");
                 }
             }

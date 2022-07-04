@@ -129,27 +129,46 @@ $query_1 = $conn->query("SELECT * FROM class_tbl");
 
 
             <?php if ($_SESSION['position'] == "Principal") { ?>
-                <div class="col-lg-6">
-                    <!-- PRINCIPAL'S COMMENT -->
-                    <div class="ftco-animate" style="overflow-x:auto; margin-bottom:20px;
+                <div class="row">
+                    <div class="col-lg-6">
+                        <!-- PRINCIPAL'S COMMENT -->
+                        <div class="ftco-animate" style="overflow-x:auto; margin-bottom:20px;
             padding:10px; border-radius:20px; border-bottom: 2px solid <?php echo $header_col; ?>;
                 box-shadow:grey 1px 5px 10px 0px;">
-                        <form action="result_pro.php" method="post" enctype="multipart/form-data">
-                            <h5 class="text-center alert alert-info">Upload Comment</h5>
-                            <hr>
-                            <a href="../export/export.php?table=p_evaluation">Download Format <span class="icon-download"></span></a>
+                            <form action="result_pro.php" method="post" enctype="multipart/form-data">
+                                <h5 class="text-center alert alert-info">Principal's Comment</h5>
+                                <hr>
+                                <a href="../export/export.php?table=p_evaluation">Download Format <span class="icon-download"></span></a>
 
-                            <hr>
-                            <div class="form-group">
-                                <label>Select CSV File:</label>
-                                <input class="btn btn-primary" type="file" name="file" required />
-                            </div>
+                                <hr>
+                                <div class="form-group">
+                                    <label>Select CSV File:</label>
+                                    <input class="btn btn-primary" type="file" name="file" required />
+                                </div>
 
-                            <div align="right">
-                                <input type="submit" class="btn btn-success" name="p-comment" value="Upload">
-                            </div>
-                        </form>
+                                <div align="right">
+                                    <input type="submit" class="btn btn-success" name="p-comment" value="Upload">
+                                </div>
+                            </form>
+                        </div>
                     </div>
+
+
+                    <div class="col-lg-6">
+                        <div class="col-lg-8">
+                            <div class="ftco-animate" style="overflow-x:auto; margin-bottom:20px;
+            padding:10px; border-radius:20px; border-bottom: 2px solid <?php echo $header_col; ?>;
+                box-shadow:grey 1px 5px 10px 0px;">
+                                <form action="result_pro.php" method="post" enctype="multipart/form-data">
+                                    <h5 class="text-center alert alert-info">Result checker pin for <?= $current_term; ?> <?= $current_session; ?></h5>
+                                    <hr>
+                                    <a href="../export/export.php?table=result_checker">Download Format <span class="icon-download"></span></a>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
             <?php } ?>
 

@@ -2,14 +2,14 @@
 define('BASE_URL', '');
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
-define('DB_PASS', '1234');
+define('DB_PASS', '');
 define('DB_NAME', 'cbe_system');
 
 $hostname = DB_HOST;
 $username = DB_USER;
 $password = DB_PASS;
 $db_name = DB_NAME;
-// error_reporting(0);
+error_reporting(0);
 session_start();
 // TABLES
 $evaluation_tbl = "evaluation";

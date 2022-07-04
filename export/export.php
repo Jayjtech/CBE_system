@@ -7,9 +7,9 @@ if ($_GET['table'] == $answer_sheet) {
      header('Content-Type: text/csv; charset=utf-8');
      header('Content-Disposition: attachment; filename=' . $course_code . 'Score-sheet.csv');
      $output = fopen("php://output", "w");
-     fputcsv($output, array('Student Name', 'Admission NO', 'Course Code', 'Subject', 'Session', 'CA1', 'CA2', 'CA3', 'Objective', 'Theory'));
-     $query = "SELECT fullname, adm_no, course_code, subject, session, CA1, CA2, CA3, obj_score, essay_score 
-     FROM $answer_sheet WHERE teacher_token='$user_token' AND course_code='$course_code' AND session='$current_session' ORDER BY class DESC";
+     fputcsv($output, array('Student Name', 'Admission NO', 'Course Code', 'Subject', 'Session', 'CA1', 'CA2', 'CA3', 'Objective', 'Theory', 'Position'));
+     $query = "SELECT fullname, adm_no, course_code, subject, session, CA1, CA2, CA3, obj_score, essay_score, position 
+     FROM $answer_sheet WHERE teacher_token='$user_token' AND course_code='$course_code' AND session='$current_session' ORDER BY total DESC";
      $result = mysqli_query($conn, $query);
 
      while ($row = mysqli_fetch_assoc($result)) {
@@ -21,7 +21,7 @@ if ($_GET['table'] == $answer_sheet) {
 
 if ($_GET['table'] == "evaluation") {
      header('Content-Type: text/csv; charset=utf-8');
-     header('Content-Disposition: attachment; filename=comment.csv');
+     header("Content-Disposition: attachment; filename=Teacher's comment.csv");
      $output = fopen("php://output", "w");
      fputcsv($output, array(
           'Student Name', 'Admission NO', 'Class', 'Term', 'Session', 'No Absent', 'No Present',
@@ -39,11 +39,24 @@ if ($_GET['table'] == "evaluation") {
 
 if ($_GET['table'] == "p_evaluation") {
      header('Content-Type: text/csv; charset=utf-8');
-     header('Content-Disposition: attachment; filename=data.csv');
+     header("Content-Disposition: attachment; filename=Principal's comment.csv");
      $output = fopen("php://output", "w");
-     fputcsv($output, array('Student Name', 'Admission NO', 'Class', 'Term', 'Session', 'Comment from Principal'));
+     fputcsv($output, array('Student Name', 'Admission NO', 'Class', 'Term', 'Session', 'Comment from Principal', 'Next resumption date'));
 
-     $query = "SELECT fullname, adm_no, class, term, session, p_comment FROM evaluation WHERE session='$current_session' AND term='$current_term'";
+     $query = "SELECT fullname, adm_no, class, term, session, p_comment, next_term_date FROM evaluation WHERE session='$current_session' AND term='$current_term'";
+     $result = mysqli_query($conn, $query);
+     while ($row = mysqli_fetch_assoc($result)) {
+          fputcsv($output, $row);
+     }
+     fclose($output);
+}
+if ($_GET['table'] == "result_checker") {
+     header('Content-Type: text/csv; charset=utf-8');
+     header("Content-Disposition: attachment; filename=Result-Pin " . $current_term . " " . $current_session . ".csv");
+     $output = fopen("php://output", "w");
+     fputcsv($output, array('Student Name', 'Admission NO', 'Term', 'Session', 'Result Pin'));
+
+     $query = "SELECT fullname, adm_no, term, session, code FROM $result_checker_tbl WHERE session='$current_session' AND term='$current_term'";
      $result = mysqli_query($conn, $query);
      while ($row = mysqli_fetch_assoc($result)) {
           fputcsv($output, $row);

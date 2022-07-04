@@ -6,7 +6,6 @@ $username = $_SESSION['username'];
 $adm_no = $_SESSION['adm_no'];
 $date = date('d-m-y');
 
-
 if ($_GET['result_code']) {
     $result_code = $_GET['result_code'];
     $checkResultPeriod = $conn->query("SELECT * FROM $result_checker_tbl WHERE code = '$result_code'");
@@ -70,9 +69,9 @@ if ($_GET['result_code']) {
         $class = $row['class'];
     }
 
-    $get_n0_term = ($firstTermevaluations->num_rows + $SecondTermevaluations->num_rows + $ThirdTermevaluations->num_rows);
-    $sum123 = ($firstPercent_score + $secondPercent_score + $thirdPercent_score) / ($get_n0_term * 100);
-    $total_percent = ($sum123 * 100);
+    // $get_n0_term = ($firstTermevaluations->num_rows + $SecondTermevaluations->num_rows + $ThirdTermevaluations->num_rows);
+    // $sum123 = ($firstPercent_score + $secondPercent_score + $thirdPercent_score) / ($get_n0_term * 100);
+    // $total_percent = ($sum123 * 100);
     //create PDF
     $mpdf = new \Mpdf\Mpdf();
 
@@ -92,7 +91,7 @@ if ($_GET['result_code']) {
 <header class="">
     <div class="container">
         <figure>
-            <img class="" src="admin/' . $sch_logo . '" style="width:100%;">
+            <img class="" src="images/' . $sch_logo . '">
         </figure>
         <div class="company-address">
             <h2 class="title">' . $sch_name . '</h2>
@@ -104,7 +103,9 @@ if ($_GET['result_code']) {
         
     </div>
 </header>';
+
     $syntax = "Student's name";
+
     $data .= '<section style="margin-top:0;">
 <div class="container">
     <div class="details clearfix">
@@ -112,12 +113,13 @@ if ($_GET['result_code']) {
             <h1>Report for ' . $re_term . ' in ' . $_SESSION['session'] . '</h1>
             <p class="name">' . $syntax . ': ' . $_SESSION['fullname'] . ', Class:<u> ' . $class . ' </u></p>
             <p>Admission Number: ' . $_SESSION['adm_no'] . '</p>
-            <p>Attendance <u>' . $n_present . '</u> out of <u>' . ($n_absent + $n_present) . '</u></p>
+            <p>Attendance: <u>' . $n_present . '</u> out of <u>' . ($n_absent + $n_present) . '</u></p>
         </div>
         <div class="data right">
         <img style="width:30%;height:25%; border:1px solid purple; float:left;border-radius:15px;" src="' . $_SESSION['p_image'] . '">
             <div class="date">
-                Print date: ' . $date . '
+               <span> Print date: ' . $date . '</span><br>
+               <span> Pin: ' . $result_code . '</span>
             </div>
         </div>
     </div>';
@@ -189,7 +191,7 @@ if ($_GET['result_code']) {
 
 
     $data .= '
-<div style="width:70%;margin-top:10px;">
+<div style="width:70%;margin-top:3px;">
 <p class="name"><strong>EVALUATIONS</strong> </p>
 <table border="0" cellspacing="0" cellpadding="0">
      <thead>
@@ -213,39 +215,49 @@ if ($_GET['result_code']) {
 <p class="name"><strong>PREVIOUS RESULTS</strong> </p>
 <table border="0" cellspacing="0" cellpadding="0">
      <thead>
-         <tr>
-             <th style="text-align:center;">First Term</th>
-             <th style="text-align:center;">Second Term</th>
-             <th style="text-align:center;">Third Term</th>
-             <th style="text-align:center;">Overall</th>
+         <tr>';
+    if ($re_term == "First Term") {
+        $data .= '<th style="text-align:center;">First Term</th>';
+    }
+    if ($re_term == "Second Term") {
+        $data .= '<th style="text-align:center;">First Term</th>';
+        $data .= '<th style="text-align:center;">Second Term</th>';
+    }
+    if ($re_term == "Third Term") {
+        $data .= '<th style="text-align:center;">First Term</th>
+            <th style="text-align:center;">Second Term</th>
+            <th style="text-align:center;">Third Term</th>';
+    }
+
+    $data .= '
+                 <th style="text-align:center;">Overall</th>
+             </tr>
+         </thead>
+         <tr>';
+    if ($re_term == "First Term") {
+        $total_percent = ($firstPercent_score / 1);
+        $data .= '<td style="text-align:center;">' . number_format($firstPercent_score, 2) . '%</td>';
+    }
+    if ($re_term == "Second Term") {
+        $total_percent = (($firstPercent_score + $secondPercent_score) / 2);
+        $data .= '<td style="text-align:center;">' . number_format($firstPercent_score, 2) . '%</td>
+            <td style="text-align:center;">' . number_format($secondPercent_score, 2) . '%</td>';
+    }
+    if ($re_term == "Third Term") {
+        $total_percent = (($firstPercent_score + $secondPercent_score + $thirdPercent_score) / 3);
+        $data .= '<td style="text-align:center;">' . number_format($firstPercent_score, 2) . '%</td>
+                 <td style="text-align:center;">' . number_format($secondPercent_score, 2) . '%</td>
+             <td style="text-align:center;">' . number_format($thirdPercent_score, 2) . '%</td>';
+    }
+
+    $data .= '
+             <td style="text-align:center;">' . number_format($total_percent, 2) . '%</td>
          </tr>
-     </thead>
-     <tr>
-         <td style="text-align:center;">' . number_format($firstPercent_score, 2) . '%</td>
-         <td style="text-align:center;">' . number_format($secondPercent_score, 2) . '%</td>
-         <td style="text-align:center;">' . number_format($thirdPercent_score, 2) . '%</td>
-         <td style="text-align:center;">' . number_format($total_percent, 2) . '%</td>
-     </tr>
-</table>   
-</div>    
-';
+    </table>   
+    </div>    
+    ';
 
-    $mpdf->WriteHTML($data);
-    $mpdf->Output();
-} else {
-    $_SESSION['message'] = 'This is an invalid code';
-    $_SESSION['msg_type'] = 'warning';
-    $_SESSION['remedy'] = 'Use a valid result checker code';
-    $_SESSION['btn'] = 'Okay';
-    header('location: dashboard');
-}
-
-exit();
-
-
-
-
-$data .= '
+    $data .= '
    <div class="" style="margin-top:10px;">
            <div class="client left">
                <h1>Keys</h1>
@@ -254,7 +266,7 @@ $data .= '
     </div>
     ';
 
-$data .= '
+    $data .= '
 <div style="width:45%; float:left; margin-top:20px;">
 <p class="name"><strong>AFFECTIVE DOMAIN</strong></p>
 <table border="0" cellspacing="0" cellpadding="0">
@@ -285,7 +297,7 @@ $data .= '
 </div>    
 ';
 
-$data .= '
+    $data .= '
 <div style="width:45%; margin-left:; ">
 <p class="name"><strong>PSYCHOMOTOR DOMAIN</strong></p>
 <table border="0" cellspacing="0" cellpadding="0">
@@ -315,16 +327,16 @@ $data .= '
 </div>    
 ';
 
-$syntaxT = "Teacher's";
-$syntaxP = "Head Teacher's";
-
-$data .= '
+    $syntaxT = "Teacher's";
+    $syntaxP = "Principal's";
+    // <p><strong>' . $syntaxP . ' Signature:</strong> <img class="" src="admin/' . $p_signature . '" width="100"> </p>
+    $data .= '
 <div class="" style="margin-top:20px;">
     <div class="details clearfix">
         <div class="client left">
             <p><strong>' . $syntaxT . ' comment:</strong> ' . $t_comment . ' </p>
             <p><strong>' . $syntaxP . ' comment:</strong> ' . $p_comment . ' </p>
-            <p><strong>' . $syntaxP . ' Signature:</strong> <img class="" src="admin/' . $p_signature . '" style="width:20%;height:10%;"> </p>
+            
         </div>
         <div class="data right">
             <div class="date">
@@ -335,10 +347,21 @@ $data .= '
     </div>
     ';
 
-$data .= '
+    $data .= '
 <footer>
 <div class="container">
-    <div class="end">Statement of result was created on a computer and is valid without seal.</div>
+    <div class="end">Statement of result was generated on a computer using a valid <b>result checker pin</b> and is valid without seal.</div>
 </div>
 </footer>
     ';
+    $mpdf->WriteHTML($data);
+    $mpdf->Output();
+} else {
+    $_SESSION['message'] = 'This is an invalid code';
+    $_SESSION['msg_type'] = 'warning';
+    $_SESSION['remedy'] = 'Use a valid result checker code';
+    $_SESSION['btn'] = 'Okay';
+    header('location: dashboard');
+}
+
+exit();
