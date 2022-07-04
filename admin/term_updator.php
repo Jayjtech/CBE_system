@@ -57,7 +57,7 @@ $result = $conn->query("SELECT * FROM school_term");
 
                             <div class="form-group">
                                 <select name="sch_term" class="form-control" required>
-                                    <option value="<?php echo $sch_term; ?>">Select Term</option>
+                                    <option value="">Select Term</option>
                                     <option value="First Term">First Term</option>
                                     <option value="Second Term">Second Term</option>
                                     <option value="Third Term">Third Term</option>
@@ -106,7 +106,7 @@ $result = $conn->query("SELECT * FROM school_term");
                                 <input type="hidden" name="id" value="<?php echo $id; ?>">
                                 <div class="form-group">
                                     <select name="class" class="form-control" required>
-                                        <option value="<?php echo $sch_term; ?>">Select Class</option>
+                                        <option value="">Select Class</option>
                                         <option value="Daycare">Daycare</option>
                                         <option value="Creche">Creche</option>
                                         <option value="Kindergaten-I">Kindergaten-I</option>

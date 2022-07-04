@@ -6,71 +6,78 @@ $username = $_SESSION['username'];
 $adm_no = $_SESSION['adm_no'];
 $date = date('d-m-y');
 
-$session = $_SESSION['session'];
-$term = $_SESSION['result_term'];
 
-switch ($term) {
-    case "First Term":
-        $header = "First Term Result Sheet";
-        $result_tbl = "ft_answer_sheet";
-        break;
-    case "Second Term":
-        $header = "Second Term Result Sheet";
-        $result_tbl = "st_answer_sheet";
-        break;
-    case "Third Term":
-        $header = "Third Term Result Sheet";
-        $result_tbl = "tt_answer_sheet";
-        break;
-}
+if ($_GET['result_code']) {
+    $result_code = $_GET['result_code'];
+    $checkResultPeriod = $conn->query("SELECT * FROM $result_checker_tbl WHERE code = '$result_code'");
+    while ($row = $checkResultPeriod->fetch_assoc()) {
+        $re_term = $row['term'];
+        $re_session = $row['session'];
+    }
+    switch ($re_term) {
+        case "First Term":
+            $header = "First Term Result Sheet";
+            $result_tbl = "ft_answer_sheet";
+            break;
+        case "Second Term":
+            $header = "Second Term Result Sheet";
+            $result_tbl = "st_answer_sheet";
+            break;
+        case "Third Term":
+            $header = "Third Term Result Sheet";
+            $result_tbl = "tt_answer_sheet";
+            break;
+    }
+    $result = $conn->query("SELECT * FROM $result_tbl WHERE adm_no='$adm_no'");
+    $thead = $conn->query("SELECT * FROM $result_tbl WHERE adm_no='$adm_no'");
+    $th = $thead->fetch_assoc();
 
-$evaluations = $conn->query("SELECT * FROM $evaluation_tbl WHERE adm_no= '$adm_no' AND term='$term' AND session = '$session'");
-$firstTermevaluations = $conn->query("SELECT * FROM $evaluation_tbl WHERE adm_no= '$adm_no' AND term='First Term' AND session = '$session'");
-$SecondTermevaluations = $conn->query("SELECT * FROM $evaluation_tbl WHERE adm_no= '$adm_no' AND term='Second Term' AND session = '$session'");
-$ThirdTermevaluations = $conn->query("SELECT * FROM $evaluation_tbl WHERE adm_no= '$adm_no' AND term='Third Term' AND session = '$session'");
-$rowF = $firstTermevaluations->fetch_assoc();
-$firstPercent_score = $rowF['percent_score'];
+    $evaluations = $conn->query("SELECT * FROM $evaluation_tbl WHERE adm_no= '$adm_no' AND term='$re_term' AND session = '$re_session'");
+    $firstTermevaluations = $conn->query("SELECT * FROM $evaluation_tbl WHERE adm_no= '$adm_no' AND term='First Term' AND session = '$re_session'");
+    $SecondTermevaluations = $conn->query("SELECT * FROM $evaluation_tbl WHERE adm_no= '$adm_no' AND term='Second Term' AND session = '$re_session'");
+    $ThirdTermevaluations = $conn->query("SELECT * FROM $evaluation_tbl WHERE adm_no= '$adm_no' AND term='Third Term' AND session = '$re_session'");
+    $rowF = $firstTermevaluations->fetch_assoc();
+    $firstPercent_score = $rowF['percent_score'];
 
-$rowS = $SecondTermevaluations->fetch_assoc();
-$secondPercent_score = $rowS['percent_score'];
+    $rowS = $SecondTermevaluations->fetch_assoc();
+    $secondPercent_score = $rowS['percent_score'];
 
-$rowT = $ThirdTermevaluations->fetch_assoc();
-$thirdPercent_score = $rowT['percent_score'];
+    $rowT = $ThirdTermevaluations->fetch_assoc();
+    $thirdPercent_score = $rowT['percent_score'];
 
 
-while ($row = $evaluations->fetch_assoc()) {
-    $overall_score = $row['overall_score'];
-    $out_of = $row['out_of'];
-    $percent_score = $row['percent_score'];
-    $t_comment = $row['t_comment'];
-    $p_comment = $row['p_comment'];
-    $n_absent = $row['n_absent'];
-    $n_present = $row['n_present'];
-    $punctuality = $row['punctuality'];
-    $attentiveness = $row['attentiveness'];
-    $neatness = $row['neatness'];
-    $honesty = $row['honesty'];
-    $relationship = $row['relationship'];
-    $skills = $row['skills'];
-    $sport = $row['sport'];
-    $clubs = $row['clubs'];
-    $fluency = $row['fluency'];
-    $handwriting = $row['handwriting'];
-    $position = $row['position'];
-    $promoted_to = $row['promoted_to'];
-    $next_term_date = $row['next_term_date'];
-    $class = $row['class'];
-}
-$get_n0_term = ($firstTermevaluations->num_rows + $SecondTermevaluations->num_rows + $ThirdTermevaluations->num_rows);
-$sum123 = ($firstPercent_score + $secondPercent_score + $thirdPercent_score) / ($get_n0_term * 100);
-$total_percent = ($sum123 * 100);
-$result = $conn->query("SELECT * FROM $result_tbl WHERE username='$username' AND adm_no='$adm_no'");
+    while ($row = $evaluations->fetch_assoc()) {
+        $overall_score = $row['overall_score'];
+        $out_of = $row['out_of'];
+        $percent_score = $row['percent_score'];
+        $t_comment = $row['t_comment'];
+        $p_comment = $row['p_comment'];
+        $n_absent = $row['n_absent'];
+        $n_present = $row['n_present'];
+        $punctuality = $row['punctuality'];
+        $attentiveness = $row['attentiveness'];
+        $neatness = $row['neatness'];
+        $honesty = $row['honesty'];
+        $relationship = $row['relationship'];
+        $skills = $row['skills'];
+        $sport = $row['sport'];
+        $clubs = $row['clubs'];
+        $fluency = $row['fluency'];
+        $handwriting = $row['handwriting'];
+        $position = $row['position'];
+        $promoted_to = $row['promoted_to'];
+        $next_term_date = $row['next_term_date'];
+        $class = $row['class'];
+    }
 
-//create PDF
-$mpdf = new \Mpdf\Mpdf();
+    $get_n0_term = ($firstTermevaluations->num_rows + $SecondTermevaluations->num_rows + $ThirdTermevaluations->num_rows);
+    $sum123 = ($firstPercent_score + $secondPercent_score + $thirdPercent_score) / ($get_n0_term * 100);
+    $total_percent = ($sum123 * 100);
+    //create PDF
+    $mpdf = new \Mpdf\Mpdf();
 
-//create new pdf
-$data = '<!DOCTYPE html>
+    //create new pdf
+    $data = '<!DOCTYPE html>
 <html>
 <head>
 	<title>Result Sheet</title>
@@ -81,7 +88,7 @@ $data = '<!DOCTYPE html>
 	<link rel="stylesheet" href="pdf_style.css">
 </head>
 ';
-$data .= '<body>
+    $data .= '<body>
 <header class="">
     <div class="container">
         <figure>
@@ -97,12 +104,12 @@ $data .= '<body>
         
     </div>
 </header>';
-$syntax = "Student's name";
-$data .= '<section style="margin-top:0;">
+    $syntax = "Student's name";
+    $data .= '<section style="margin-top:0;">
 <div class="container">
     <div class="details clearfix">
         <div class="client left">
-            <h1>Report for ' . $term . ' in ' . $_SESSION['session'] . '</h1>
+            <h1>Report for ' . $re_term . ' in ' . $_SESSION['session'] . '</h1>
             <p class="name">' . $syntax . ': ' . $_SESSION['fullname'] . ', Class:<u> ' . $class . ' </u></p>
             <p>Admission Number: ' . $_SESSION['adm_no'] . '</p>
             <p>Attendance <u>' . $n_present . '</u> out of <u>' . ($n_absent + $n_present) . '</u></p>
@@ -110,47 +117,78 @@ $data .= '<section style="margin-top:0;">
         <div class="data right">
         <img style="width:30%;height:25%; border:1px solid purple; float:left;border-radius:15px;" src="' . $_SESSION['p_image'] . '">
             <div class="date">
-                Print date: ' . date('d/m/Y') . '
+                Print date: ' . $date . '
             </div>
         </div>
     </div>';
 
-$data .= '
+    $data .= '
 <table border="0" cellspacing="0" cellpadding="0">
     <thead>
         <tr>
             <th style="text-align:center;" class="">Subject</th>
             <th style="text-align:center;" class="">CA1</th>
             <th style="text-align:center;" class="">CA2</th>
-            <th style="text-align:center;" class="">ASS</th>
+            <th style="text-align:center;" class="">CA3</th>
             <th style="text-align:center;" class="">Exam</th>
-            <th style="text-align:center;" class="">Total</th>
+            <th style="text-align:center;" class="">AVR</th>
+            ';
+    if ($th['ft_score'] != "") {
+        $data .= '<th style="text-align:center;" class="">FT</th>';
+    }
+    if ($th['st_score'] != "") {
+        $data .= '<th style="text-align:center;" class="">ST</th>';
+    }
+    if ($re_term == "Third Term") {
+        $data .= '<th style="text-align:center;" class="">TT</th>';
+    }
+
+
+    if ($re_term != "First Term") {
+        $data .= ' <th style="text-align:center;" class="">T. Avr</th>';
+    }
+    $data .= '
             <th style="text-align:center;" class="">Position</th>
             <th style="text-align:center;" class="">Grade</th>
             <th style="text-align:center;" class="">Remarks</th>
         </tr>
     </thead>';
-while ($row = $result->fetch_assoc()) :
-    $data .= '  	
+    while ($row = $result->fetch_assoc()) :
+        $data .= '  	
     <tbody>
         <tr> 
            <td style="text-align:center;color:#000;">' . $row['subject'] . '(' . $row['course_code'] . ')</td>
-           <td style="text-align:center;color:#000;">' . $row['test'] . '</td>
-           <td style="text-align:center;color:#000;">' . $row['test2'] . '</td>
-           <td style="text-align:center;color:#000;">' . $row['ass'] . '</td>
+           <td style="text-align:center;color:#000;">' . $row['CA1'] . '</td>
+           <td style="text-align:center;color:#000;">' . $row['CA2'] . '</td>
+           <td style="text-align:center;color:#000;">' . $row['CA3'] . '</td>
            <td style="text-align:center;color:#000;">' . $row['exam_total'] . '</td>
-           <td style="text-align:center;color:#000;">' . $row['total'] . '</td>
+           <td style="text-align:center;color:#000;">' . $row['total'] . '</td>';
+        if ($row['ft_score']) {
+            $data .= '<td style="text-align:center;color:#000;">' . $row['ft_score'] . '</td>';
+            $average = number_format(($row['total'] + $row['ft_score']) / 2);
+        }
+        if ($row['st_score']) {
+            $data .= '<td style="text-align:center;color:#000;">' . $row['st_score'] . '</td>';
+            $average = number_format(($row['st_score'] + $row['ft_score'] + $row['total']) / 3);
+        }
+        if ($re_term == "Third Term") {
+            $data .= '<td style="text-align:center;color:#000;">' . $row['total'] . '</td>';
+        }
+
+        if ($re_term != "First Term") {
+            $data .= ' <td style="text-align:center;color:#000;">' . $average . '</td>';
+        }
+        $data .= '
            <td style="text-align:center;color:#000;">' . $row['position'] . '</td>
            <td style="font-weight:bold;text-align:center;padding:10px;border-radius:10px;">' . $row['grade'] . '</td>
            <td style="text-align:center;">' . $row['remark'] . '</td>
         </tr>
     </tbody>';
-// color:'.$row['color'].';   
-endwhile;
-$data .= '</table>';
+    endwhile;
+    $data .= '</table>';
 
 
-$data .= '
+    $data .= '
 <div style="width:70%;margin-top:10px;">
 <p class="name"><strong>EVALUATIONS</strong> </p>
 <table border="0" cellspacing="0" cellpadding="0">
@@ -191,6 +229,21 @@ $data .= '
 </table>   
 </div>    
 ';
+
+    $mpdf->WriteHTML($data);
+    $mpdf->Output();
+} else {
+    $_SESSION['message'] = 'This is an invalid code';
+    $_SESSION['msg_type'] = 'warning';
+    $_SESSION['remedy'] = 'Use a valid result checker code';
+    $_SESSION['btn'] = 'Okay';
+    header('location: dashboard');
+}
+
+exit();
+
+
+
 
 $data .= '
    <div class="" style="margin-top:10px;">
@@ -289,6 +342,3 @@ $data .= '
 </div>
 </footer>
     ';
-
-$mpdf->WriteHTML($data);
-$mpdf->Output();

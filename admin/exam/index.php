@@ -7,11 +7,12 @@ $adm_no = $_SESSION['adm_no'];
 $day_subject = "";
 $session = $_SESSION['session'];
 //SELECT THE SUBJECT FOR THAT PARTICULAR DAY AND PERIOD
-$subject = $conn->query("SELECT * FROM $time_table WHERE day='$day' AND exam_order='$exam_order' AND class='$my_class'");
+$subject = $conn->query("SELECT * FROM $time_table WHERE day='$exam_day' AND exam_order='$exam_order' AND class='$my_class'");
 while ($row = $subject->fetch_assoc()) {
     $day_subject = $row['subject'];
     $course_code = $row['course_code'];
 }
+
 if (!$course_code) {
     $_SESSION['message'] = "Time table has not been set for this academic period!";
     $_SESSION['msg_type'] = "error";
@@ -118,7 +119,7 @@ if (!$course_code) {
                     <div class="justify-content-center" style="margin:0 auto;">
                         <?php
                         if ($total_question == 0) {
-                            echo "<div class='container'><p>You have No Exam for this period</p></div>";
+                            echo "<div class='text-danger'><p>Questions are yet to be uploaded!</p></div>";
                         } else {
                         ?>
                             <h3>Instructions:</h3>

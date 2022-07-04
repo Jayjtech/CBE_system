@@ -104,11 +104,11 @@ if (isset($_POST["submit"])) {
 
 
 if (isset($_POST['publish'])) {
-    $day = mysqli_real_escape_string($conn, $_POST['day']);
+    $exam_day = mysqli_real_escape_string($conn, $_POST['day']);
     $exam_order = mysqli_real_escape_string($conn, $_POST['exam_order']);
 
-    $conn->query("UPDATE exam_controller SET day='$day', exam_order='$exam_order', term='$current_term'") or die($conn->error);
-    $_SESSION['message'] = "$day and $exam_order period has been Published!";
+    $conn->query("UPDATE $exam_crtl_tbl SET day='$exam_day', exam_order='$exam_order', term='$current_term'");
+    $_SESSION['message'] = "$exam_day and $exam_order period has been Published!";
     $_SESSION['msg_type'] = "success";
     $_SESSION['remedy'] = "";
     $_SESSION['btn'] = "Okay";

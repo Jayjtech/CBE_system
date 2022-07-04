@@ -1,11 +1,17 @@
 <?php
-require 'constants.php';
+include 'constants.php';
 
-$conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS);
 
-if ($conn->connect_error) {
-    die('Database error:' . $conn->connect_error);
+$query = "CREATE DATABASE IF NOT EXISTS cbe_system";
+
+$run = mysqli_query($conn, $query);
+
+if ($run) {
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 }
+
+include "create_table.php";
 
 //Declaration of Current School Terms
 $res = $conn->query("SELECT * FROM school_term");
@@ -16,7 +22,7 @@ while ($row = $res->fetch_assoc()) {
 
 $exam = $conn->query("SELECT * FROM exam_controller");
 while ($row = $exam->fetch_assoc()) {
-    $day = $row['day'];
+    $exam_day = $row['day'];
     $term = $row['term'];
     $exam_order = $row['exam_order'];
 }
@@ -35,7 +41,6 @@ while ($row = $res1->fetch_assoc()) {
     $sch_twitter = $row['sch_twitter'];
     $sch_instagram = $row['sch_instagram'];
     $sch_address = $row['sch_address'];
-    $sch_name_col = $row['sch_name_col'];
     $header_txt_col = $row['header_txt_col'];
     $header_col = $row['header_col'];
     $sch_logo = $row['sch_logo'];
@@ -98,5 +103,3 @@ if ($current_term == "Third Term") {
     // TIME TABLE
     $time_table = "subject_time_table_3";
 }
-
-include "create_table.php";

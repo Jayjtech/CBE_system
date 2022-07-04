@@ -41,7 +41,7 @@ if ($_SESSION['position'] != $position) {
                     </div>
 
                     <div class="form-group">
-                        <a class="btn btn-info" style="font-size:12px;" href="teacher_details.php">Staff Details</a>
+                        <a class="btn btn-info" style="font-size:12px;" href="staff">Staff Details</a>
                     </div>
 
                     <div class="form-group">

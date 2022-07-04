@@ -141,14 +141,14 @@ $total_tm_tbl = $tm_tbl->num_rows;
               <form action="reg_subject_pro.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="A_id" value="<?= $A_id; ?>">
                 <div class="form-group">
-                  <select class="form-control" name="subject" required>
+                  <select class="form-control" name="course_code" required>
                     <option value="">Select Subject</option>
                     <?php
                     $sub = $conn->query("SELECT * FROM subject_tbl WHERE class='$class' AND term='$tm'");
                     while ($row = $sub->fetch_assoc()) {
                     ?>
-                      <option value="<?= $row['subject']; ?>"><?= $row['subject']; ?>-<?= $row['course_code'];
-                                                                                    } ?> </option>
+                      <option value="<?= $row['course_code']; ?>"><?= $row['subject']; ?>-<?= $row['course_code'];
+                                                                                        } ?> </option>
                   </select>
                 </div>
                 <hr>

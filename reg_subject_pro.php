@@ -5,7 +5,7 @@ $session = $_SESSION['session'];
 
 if (isset($_POST['register'])) {
     $class = mysqli_real_escape_string($conn, $_POST['class']);
-    $subject = mysqli_real_escape_string($conn, $_POST['subject']);
+    $course_code = mysqli_real_escape_string($conn, $_POST['course_code']);
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $fullname = mysqli_real_escape_string($conn, $_POST['fullname']);
     $adm_no = mysqli_real_escape_string($conn, $_POST['adm_no']);
@@ -40,11 +40,11 @@ if (isset($_POST['register'])) {
             }
 
 
-            $query = $conn->query("SELECT * FROM $subject_tbl WHERE class= '$class' AND subject = '$subject'");
+            $query = $conn->query("SELECT * FROM $subject_tbl WHERE class = '$class' AND course_code = '$course_code'");
             while ($row = $query->fetch_assoc()) {
                 $teacher = $row['teacher'];
                 $teacher_token = $row['user_token'];
-                $course_code = $row['course_code'];
+                $subject = $row['subject'];
                 $duration = $row['duration'];
             }
             //To ensure that Thesame subject is not registered over and again
@@ -71,8 +71,8 @@ if (isset($_POST['register'])) {
             // $check = substr('2021/2022', 5 , 4);
             if ($Count == 0) {
                 if ($evaluate == 0) {
-                    $query_1 = $conn->query("INSERT INTO  $evaluation_tbl (class, adm_no, term, session) 
-            VALUES('$class', '$adm_no', '$term', '$session')") or die($conn->error);
+                    $query_1 = $conn->query("INSERT INTO  $evaluation_tbl (fullname, class, adm_no, term, session) 
+            VALUES('$fullname', '$class', '$adm_no', '$term', '$session')") or die($conn->error);
                 }
 
 
@@ -87,7 +87,8 @@ if (isset($_POST['register'])) {
                     $ft_CD = substr($course_code, 0, 5) . '1';
                     $check = $conn->query("SELECT * FROM $prev_answer_sheet WHERE course_code='$ft_CD' AND class='$class' AND session='$session' AND adm_no='$adm_no'");
                     $FTS = $check->fetch_assoc();
-                    $ft_score = $FTC['total'];
+                    $ft_score = $FTS['total'];
+
 
                     $insert = $conn->query("INSERT INTO  $answer_sheet (fullname, class, subject, course_code, paper_type, duration, username, adm_no, ft_score, session, teacher, teacher_token, status) 
         VALUES('$fullname', '$class', '$subject', '$course_code', '$paper_type', '$duration', '$username', '$adm_no', '$ft_score', '$session', '$teacher', '$teacher_token', '$status')")
@@ -97,10 +98,10 @@ if (isset($_POST['register'])) {
                 if ($term ==  "Third Term") {
                     // TO SELECT PREVIOUS TERM'S SCORE FOR CUMULATIVE
                     $st_CD = substr($course_code, 0, 5) . '2';
-                    $check = $conn->query("SELECT * FROM $prev_answer_sheet WHERE course_code='$st_CD' AND class='$class' AND session='$session' AND adm_no='$adm_no'");
-                    $STS = $check->fetch_assoc();
+                    $check2 = $conn->query("SELECT * FROM $prev_answer_sheet WHERE course_code='$st_CD' AND class='$class' AND session='$session' AND adm_no='$adm_no'");
+                    $STS = $check2->fetch_assoc();
                     $ft_score = $STS['ft_score'];
-                    $st_score = $STS['st_score'];
+                    $st_score = $STS['total'];
 
                     $insert = $conn->query("INSERT INTO  $answer_sheet (fullname, class, subject, course_code, paper_type, duration, username, adm_no, ft_score, st_score, session, teacher, teacher_token, status) 
         VALUES('$fullname', '$class', '$subject', '$course_code', '$paper_type', '$duration', '$username', '$adm_no', '$ft_score', '$st_score', '$session', '$teacher', '$teacher_token', '$status')");

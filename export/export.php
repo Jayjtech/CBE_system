@@ -5,7 +5,7 @@ $user_token = $_SESSION['token'];
 if ($_GET['table'] == $answer_sheet) {
      $course_code = $_GET['course_code'];
      header('Content-Type: text/csv; charset=utf-8');
-     header('Content-Disposition: attachment; filename=Score-sheet.csv');
+     header('Content-Disposition: attachment; filename=' . $course_code . 'Score-sheet.csv');
      $output = fopen("php://output", "w");
      fputcsv($output, array('Student Name', 'Admission NO', 'Course Code', 'Subject', 'Session', 'CA1', 'CA2', 'CA3', 'Objective', 'Theory'));
      $query = "SELECT fullname, adm_no, course_code, subject, session, CA1, CA2, CA3, obj_score, essay_score 
@@ -21,14 +21,15 @@ if ($_GET['table'] == $answer_sheet) {
 
 if ($_GET['table'] == "evaluation") {
      header('Content-Type: text/csv; charset=utf-8');
-     header('Content-Disposition: attachment; filename=data.csv');
+     header('Content-Disposition: attachment; filename=comment.csv');
      $output = fopen("php://output", "w");
      fputcsv($output, array(
           'Student Name', 'Admission NO', 'Class', 'Term', 'Session', 'No Absent', 'No Present',
-          'Position', 'Comment from Teacher'
+          'Punctuality', 'Attentiveness', 'Neatness', 'Honesty', 'Relationship with others', 'Skills in Co-curriculars', 'Sports/games', 'Club', 'Fluency', 'Handwriting', 'Position', 'Comment', 'Promoted-to'
      ));
 
-     $query = "SELECT fullname, adm_no, class, term, session, n_absent, n_present, position, t_comment FROM evaluation WHERE session='$current_session' AND term='$current_term'";
+     $query = "SELECT fullname, adm_no, class, term, session, n_absent, n_present, punctuality, attentiveness,
+ neatness, honesty, relationship, skills, sport, clubs, fluency, handwriting, position, t_comment, promoted_to FROM evaluation WHERE session='$current_session' AND term='$current_term' ORDER BY class ASC";
      $result = mysqli_query($conn, $query);
      while ($row = mysqli_fetch_assoc($result)) {
           fputcsv($output, $row);

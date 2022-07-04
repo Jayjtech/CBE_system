@@ -35,7 +35,24 @@
 				<circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
 				<circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" />
 			</svg></div>
+		<script src="../js/sweetalert.js"></script>
+		<?php
+		// SWEETALERT
+		if (isset($_SESSION['message'])) : ?>
+			<script>
+				swal({
+					title: "<?php echo $_SESSION['message']; ?>",
+					text: "<?php echo $_SESSION['remedy']; ?>",
+					icon: "<?php echo $_SESSION['msg_type']; ?>",
+					button: "<?php echo $_SESSION['btn']; ?>",
+				});
+			</script>
 
+
+		<?php
+			unset($_SESSION['message']);
+		endif;
+		?>
 
 		<script src="../js/jquery.min.js"></script>
 		<script src="../js/jquery-migrate-3.0.1.min.js"></script>
@@ -56,26 +73,9 @@
 		<script src="ckeditor/ckeditor.js"></script>
 		<script src="../js/googleapis.js"></script>
 		<script src="../js/jquery.js"></script>
-		<script src="simple-datatables/simple-datatables.js"></script>
-
-		<script src="../js/sweetalert.js"></script>
-		<?php
-		// SWEETALERT
-		if (isset($_SESSION['message'])) : ?>
-			<script>
-				swal({
-					title: "<?php echo $_SESSION['message']; ?>",
-					text: "<?php echo $_SESSION['remedy']; ?>",
-					icon: "<?php echo $_SESSION['msg_type']; ?>",
-					button: "<?php echo $_SESSION['btn']; ?>",
-				});
-			</script>
+		<!-- <script src="simple-datatables/simple-datatables.js"></script> -->
 
 
-		<?php
-			unset($_SESSION['message']);
-		endif;
-		?>
 
 
 		<!-- jQuery -->

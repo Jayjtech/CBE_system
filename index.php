@@ -1,5 +1,18 @@
 <?php
-require_once 'controllers/authcontroller.php';
+include "config/db.php";
+$errors = array();
+$username = "";
+$fullname = "";
+$class = "";
+$reference = "";
+$email = "";
+$day = "";
+$password = "";
+$firstname = "";
+$pname = "";
+$surname = "";
+$reg_date = "";
+$phone = "";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +25,6 @@ require_once 'controllers/authcontroller.php';
     <?php include "header.php"; ?>
     <?php include "navbar.php"; ?>
     <!-- END nav -->
-    <?php include "header_2.php"; ?>
     <h3 class="text-center">Welcome to <?php echo $sch_name ?></h3>
     <h4 class="text-center"><?php echo $sch_name2 ?></h4>
     <marquee direction="right" style="margin-top:25px;font-size:20px;">
@@ -21,16 +33,8 @@ require_once 'controllers/authcontroller.php';
     <div class="container ftco-animate">
         <div class="row">
             <div class="col-md-4 offset-md-4 form-div">
-                <form action="" method="post">
+                <form action="controllers/authcontroller.php" method="post">
                     <h3 class="text-center">Student Login</h3>
-
-                    <?php if (count($errors) > 0) : ?>
-                        <div class="ftco-animate alert alert-danger">
-                            <?php foreach ($errors as $error) : ?>
-                                <li><?php echo $error; ?></li>
-                            <?php endforeach; ?>
-                        </div>
-                    <?php endif; ?>
 
                     <div class="form-group">
                         <input type="text" name="username" placeholder="Username or Email-ID" value="<?php echo $username; ?>" class="form-control form-control-lg">
