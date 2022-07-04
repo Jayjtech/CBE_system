@@ -134,6 +134,7 @@ if ($_GET['result_code']) {
             <th style="text-align:center;" class="">CA3</th>
             <th style="text-align:center;" class="">Exam</th>
             <th style="text-align:center;" class="">AVR</th>
+            <th style="text-align:center;" class="">Position</th>
             ';
     if ($th['ft_score'] != "") {
         $data .= '<th style="text-align:center;" class="">FT</th>';
@@ -150,7 +151,6 @@ if ($_GET['result_code']) {
         $data .= ' <th style="text-align:center;" class="">T. Avr</th>';
     }
     $data .= '
-            <th style="text-align:center;" class="">Position</th>
             <th style="text-align:center;" class="">Grade</th>
             <th style="text-align:center;" class="">Remarks</th>
         </tr>
@@ -164,7 +164,8 @@ if ($_GET['result_code']) {
            <td style="text-align:center;color:#000;">' . $row['CA2'] . '</td>
            <td style="text-align:center;color:#000;">' . $row['CA3'] . '</td>
            <td style="text-align:center;color:#000;">' . $row['exam_total'] . '</td>
-           <td style="text-align:center;color:#000;">' . $row['total'] . '</td>';
+           <td style="text-align:center;color:#000;">' . $row['total'] . '</td>
+           <td style="text-align:center;color:#000;">' . $row['position'] . '</td>';
         if ($row['ft_score']) {
             $data .= '<td style="text-align:center;color:#000;">' . $row['ft_score'] . '</td>';
             $average = number_format(($row['total'] + $row['ft_score']) / 2);
@@ -181,7 +182,6 @@ if ($_GET['result_code']) {
             $data .= ' <td style="text-align:center;color:#000;">' . $average . '</td>';
         }
         $data .= '
-           <td style="text-align:center;color:#000;">' . $row['position'] . '</td>
            <td style="font-weight:bold;text-align:center;padding:10px;border-radius:10px;">' . $row['grade'] . '</td>
            <td style="text-align:center;">' . $row['remark'] . '</td>
         </tr>
