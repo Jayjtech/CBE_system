@@ -4,7 +4,13 @@ $user_token = $_SESSION['token'];
 $name = $_SESSION['name'];
 
 $_SESSION['page'] = "question-uploader";
-
+if (!$_SESSION['token']) {
+    $_SESSION['message'] = 'Access denied!';
+    $_SESSION['msg_type'] = 'warning';
+    $_SESSION['remedy'] = 'Login to continue';
+    $_SESSION['msg_type'] = 'Okay';
+    header('location:admin-login');
+}
 $query = $conn->query("SELECT * FROM $answer_sheet WHERE teacher_token = '$user_token' AND session = '$current_session' ORDER BY class DESC");
 $total_result = $query->num_rows;
 $query_1 = $conn->query("SELECT * FROM class_tbl");
@@ -35,7 +41,7 @@ $query_1 = $conn->query("SELECT * FROM class_tbl");
                             <th>Class</th>
                             <th>Username</th>
                             <th>Subject</th>
-                            <th>CA1 CA2 CA3 |TEST</th>
+                            <th>CA1 CA2 ASS |TEST</th>
                             <th>OBJ</th>
                             <th>Theory</th>
                             <th>Total</th>
@@ -112,8 +118,8 @@ $query_1 = $conn->query("SELECT * FROM class_tbl");
                 padding:10px; border-radius:20px; border-bottom: 2px solid <?php echo $header_col; ?>;
                     box-shadow:grey 1px 5px 10px 0px;">
                     <form action="result_pro.php" method="post" enctype="multipart/form-data">
-                        <h5 class="text-center alert alert-info">Upload attendance, comment, student's position etc.:</h5>
-                        <a href="../export/export.php?table=evaluation">Download format <span class="icon-download"></span></a>
+                        <h5 class="text-center alert alert-info">Upload comments and grade for <?= $_SESSION['assignedClass']; ?>:</h5>
+                        <a href="../export/export.php?table=evaluation&class=<?= $_SESSION['assignedClass']; ?>">Download format <span class="icon-download"></span></a>
                         <hr>
                         <div class="form-group">
                             <label>Select CSV File:</label>

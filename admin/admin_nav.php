@@ -1,8 +1,8 @@
 <?php
-include 'admin_controller.php';
+include '../config/db.php';
 $position = "Proprietor";
 if ($_SESSION['position'] != $position) {
-    header('location: admin_login.php');
+    header('location: admin-login');
 } else {
 ?>
 

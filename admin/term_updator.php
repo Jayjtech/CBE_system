@@ -1,5 +1,9 @@
 <?php
 include "../config/db.php";
+$position = "Proprietor";
+if ($_SESSION['position'] != $position) {
+    header('location: admin-login');
+}
 $result = $conn->query("SELECT * FROM school_term");
 ?>
 <!DOCTYPE html>
@@ -144,7 +148,7 @@ $result = $conn->query("SELECT * FROM school_term");
                         <div class="col-lg-6 Scrollbar" style="height:300px;">
                             <table class="table table-responsive table-striped">
                                 <thead>
-                                    <th>Class</th>
+                                    <th>Session</th>
                                     <th></th>
                                 </thead>
                                 <?php

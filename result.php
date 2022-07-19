@@ -12,6 +12,10 @@ $username = $_SESSION['username'];
 $adm_no = $_SESSION['adm_no'];
 $session = $_SESSION['session'];
 if (!$_SESSION['adm_no']) {
+    $_SESSION['message'] = 'Access denied!';
+    $_SESSION['msg_type'] = 'warning';
+    $_SESSION['remedy'] = 'Login to continue';
+    $_SESSION['msg_type'] = 'Okay';
     header('location:login');
 }
 if ($term == "First Term") {

@@ -274,10 +274,11 @@ if (isset($_POST["submit_instruction"])) {
             header("location: question-uploader");
         }
     }
+    // Close opened CSV file
+    fclose($csvFile);
 }
 
-// Close opened CSV file
-fclose($csvFile);
+
 
 
 
@@ -287,15 +288,14 @@ fclose($csvFile);
 
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
-
     $course_code = $_GET['course_code'];
-    $conn->query("DELETE FROM subject_tbl WHERE id=$id") or die($conn->error);
-    $conn->query("DELETE FROM $exam_tbl_A WHERE course_code='$course_code' AND user_token='$user_token'") or die($conn->error);
-    $conn->query("DELETE FROM $exam_tbl_B WHERE course_code='$course_code' AND user_token='$user_token'") or die($conn->error);
-    $conn->query("DELETE FROM $exam_tbl_C WHERE course_code='$course_code' AND user_token='$user_token'") or die($conn->error);
-    $conn->query("DELETE FROM $answer_tbl_A WHERE course_code='$course_code' AND user_token='$user_token'") or die($conn->error);
-    $conn->query("DELETE FROM $answer_tbl_B WHERE course_code='$course_code' AND user_token='$user_token'") or die($conn->error);
-    $conn->query("DELETE FROM $answer_tbl_C WHERE course_code='$course_code' AND user_token='$user_token'") or die($conn->error);
+    $querya = $conn->query("DELETE FROM subject_tbl WHERE id=$id") or die($conn->error);
+    $queryb = $conn->query("DELETE FROM $exam_tbl_A WHERE course_code='$course_code' AND user_token='$user_token'");
+    $queryc = $conn->query("DELETE FROM $exam_tbl_B WHERE course_code='$course_code' AND user_token='$user_token'");
+    $queryd = $conn->query("DELETE FROM $exam_tbl_C WHERE course_code='$course_code' AND user_token='$user_token'");
+    $querye = $conn->query("DELETE FROM $answer_tbl_A WHERE course_code='$course_code' AND user_token='$user_token'");
+    $queryf = $conn->query("DELETE FROM $answer_tbl_B WHERE course_code='$course_code' AND user_token='$user_token'");
+    $queryg = $conn->query("DELETE FROM $answer_tbl_C WHERE course_code='$course_code' AND user_token='$user_token'");
 
     $_SESSION['message'] = "Subject has been deleted!";
     $_SESSION['msg_type'] = "success";

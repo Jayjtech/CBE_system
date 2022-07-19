@@ -1,6 +1,6 @@
 <?php
-require_once 'admin_controller.php';
-error_reporting(0);
+include '../config/db.php';
+$_SESSION['user_type'] = "staff";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +27,7 @@ error_reporting(0);
         <span><strong>Academic Period:</strong><?= $current_term; ?> [<?= $current_session; ?>]</span>
         <div class="row">
             <div class="col-md-4 offset-md-4 form-div">
-                <form action="" method="post">
+                <form action="admin_controller.php" method="POST">
                     <h3 class="text-center">Staff Login</h3>
 
                     <div class="form-group">
@@ -59,6 +59,9 @@ error_reporting(0);
 
                 </form>
             </div>
+        </div>
+        <div style="font-size: 0.8em; text-align: center;">
+            <a href="../forgot-password">Forgot your password?</a>
         </div>
     </div>
     <br><br>

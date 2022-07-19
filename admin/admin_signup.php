@@ -1,6 +1,5 @@
 <?php
-require_once 'admin_controller.php';
-error_reporting(0);
+include '../config/db.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +24,7 @@ error_reporting(0);
     <span><strong>Academic Period:</strong><?= $current_term; ?> [<?= $current_session; ?>]</span>
     <div class="row">
       <div class="col-md-4 offset-md-4 form-div">
-        <form action="" method="post">
+        <form action="admin_controller.php" method="post">
           <h3 class="text-center">Admin Sign-Up</h3>
 
           <div class="form-group">
@@ -55,7 +54,11 @@ error_reporting(0);
           </div>
 
           <div class="form-group">
-            <input type="text" name="username" placeholder="Your Username..." value="<?php echo $username; ?>" class="form-control form-control-lg">
+            <input type="text" name="username" placeholder="Username..." value="" class="form-control form-control-lg">
+          </div>
+
+          <div class="form-group">
+            <input type="number" name="phone" placeholder="Phone number..." value="" class="form-control form-control-lg">
           </div>
 
           <div class="form-group">
@@ -80,11 +83,11 @@ error_reporting(0);
           </div>
 
           <div class="form-group">
-            <input type="password" name="password" placeholder="Password" value="<?php echo $password; ?>" class="form-control form-control-lg">
+            <input type="password" name="password" placeholder="Password" value="" class="form-control form-control-lg">
           </div>
 
           <div class="form-group">
-            <input type="password" name="passwordConf" placeholder="Confirm password" value="<?php echo $password; ?>" class="form-control form-control-lg">
+            <input type="password" name="passwordConf" placeholder="Confirm password" value="" class="form-control form-control-lg">
           </div>
 
           <div class="form-group">

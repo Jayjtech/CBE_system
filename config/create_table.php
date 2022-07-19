@@ -52,10 +52,15 @@ $cr_admin_table = $conn->query("CREATE TABLE IF NOT EXISTS `admin_table` (
   `surname` varchar(255) NOT NULL,
   `gender` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `assignedClass` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `token` varchar(255) NOT NULL,
   `position` varchar(255) NOT NULL,
+  `signature` varchar(255) NOT NULL,
+  `reset` int(11) NOT NULL,
+  `keyp` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 ");
@@ -502,6 +507,7 @@ $cr_student = $conn->query("CREATE TABLE IF NOT EXISTS `student` (
   `email` varchar(100) NOT NULL,
   `p_image` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
+  `reset` int(11) NOT NULL,
   `keyp` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

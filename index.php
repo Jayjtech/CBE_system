@@ -1,18 +1,6 @@
 <?php
 include "config/db.php";
-$errors = array();
-$username = "";
-$fullname = "";
-$class = "";
-$reference = "";
-$email = "";
-$day = "";
-$password = "";
-$firstname = "";
-$pname = "";
-$surname = "";
-$reg_date = "";
-$phone = "";
+$_SESSION['user_type'] = "student";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,7 +25,7 @@ $phone = "";
                     <h3 class="text-center">Student Login</h3>
 
                     <div class="form-group">
-                        <input type="text" name="username" placeholder="Username or Email-ID" value="<?php echo $username; ?>" class="form-control form-control-lg">
+                        <input type="text" name="username" placeholder="Username or Email-ID" value="" class="form-control form-control-lg">
                     </div>
 
 
@@ -74,7 +62,7 @@ $phone = "";
                     <p class="text-center">Not yet a member?<a href="signup"> Sign up</a></p>
 
                     <div style="font-size: 0.8em; text-align: center;">
-                        <a href="forgot_password.php">Forgot your password?</a>
+                        <a href="forgot-password">Forgot your password?</a>
                     </div>
                 </form>
             </div>

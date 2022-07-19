@@ -1,6 +1,5 @@
 <?php
-//error_reporting(0);
-require '../config/db.php';
+include '../config/db.php';
 
 $errors = array();
 $username = "";
@@ -12,89 +11,64 @@ if (isset($_POST['register'])) {
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $gender = mysqli_real_escape_string($conn, $_POST['gender']);
+    $phone = mysqli_real_escape_string($conn, $_POST['phone']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
+    $keyp = $password;
     $passwordConf = mysqli_real_escape_string($conn, $_POST['passwordConf']);
     $key = md5($name . $email);
     $token = md5($surname . $key);
 
-    $post = $conn->query("SELECT * FROM teacher_reg_key WHERE email='$email'");
-    while ($row = $post->fetch_assoc()) {
+
+    if ($password != $passwordConf) {
+        $_SESSION['message'] = "The two passwords does not match!";
+        $_SESSION['msg_type'] = "warning";
+        $_SESSION['remedy'] = "";
+        $_SESSION['btn'] = "Ok";
+        header('location: ../login');
+    }
+    $tokenQuery = $conn->query("SELECT * FROM $t_reg_key_tbl WHERE token ='$token' AND email='$email'");
+    while ($row = $tokenQuery->fetch_assoc()) {
         $position = $row['position'];
     }
-    //VALIDATIONS FOR SIGNING UP    
-    if (empty($username)) {
-        $errors['username'] = "Username required!";
+    //To ensure that no two users have thesame email address
+    $emailQuery = $conn->query("SELECT * FROM $admin_tbl WHERE email='$email' OR username = '$username'");
+    if ($emailQuery->num_rows > 0) {
+        $_SESSION['message'] = "The email or username already exit!";
+        $_SESSION['msg_type'] = "warning";
+        $_SESSION['remedy'] = "Choose another username or email";
+        $_SESSION['btn'] = "Ok";
+        header('location: ../login');
     }
 
-    if (empty($password)) {
-        $errors['password'] = "Password required!";
+    $password = substr(md5($password), 5);
+    if ($tokenQuery->num_rows != 0) {
+        $sql = $conn->query("INSERT INTO $admin_tbl (name, username, surname, password, gender, email, phone, token, position, keyp) 
+    VALUES ('$name', '$username', '$surname', '$password', '$gender', '$email', '$phone', '$token', '$position', '$keyp')");
     }
-    //if password and confirm pass. do not match
-    if ($password !== $passwordConf) {
-        $errors['password'] = "The two passwords do not match!";
-    }
-    //To ensure that no two users have thesame username
-    $usernameQuery = "SELECT * FROM admin_table WHERE username=? LIMIT 1";
-    $stmt = $conn->prepare($usernameQuery);
-    $stmt->bind_param('s', $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $userCount3 = $result->num_rows;
-    $stmt->close();
-
-    if ($userCount3 > 0) {
-        $errors['username'] = "Username has already been used, choose another username!";
-    }
-    //To ensure that no two users have thesame username
-    $emailQuery = "SELECT * FROM admin_table WHERE email=? LIMIT 1";
-    $stmt = $conn->prepare($emailQuery);
-    $stmt->bind_param('s', $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $userCount_ = $result->num_rows;
-    $stmt->close();
-
-    if ($userCount_ > 0) {
-        $errors['email'] = "Email has already been used!";
-    }
-
-    //to verify payment
-    $tokenQuery = "SELECT * FROM teacher_reg_key WHERE token =? LIMIT 1";
-    $stmt = $conn->prepare($tokenQuery);
-    $stmt->bind_param('s', $token);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $tokenCount = $result->num_rows;
-    $teacher = $result->fetch_assoc();
-    $stmt->close();
-    $teacher_token = $teacher['token'];
-
-    if ($token == $teacher_token) {
-        if (count($errors) === 0) {
-            $password = password_hash($password, PASSWORD_DEFAULT);
-            $sql = "INSERT INTO admin_table (name, username, surname, password, gender, email, token, position) VALUES (?,?,?,?,?,?,?,?)";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param('ssssssss', $name, $username, $surname, $password, $gender, $email, $token, $position);
+    if ($sql) {
+        //login user
+        $_SESSION["username"] =  $username;
+        $_SESSION['email'] = $email;
+        $_SESSION['name'] = $name;
+        $_SESSION['surname'] = $surname;
+        $_SESSION['token'] = $token;
+        $_SESSION['reg_date'] = $reg_date;
+        $_SESSION['position'] = $position;
+        $_SESSION['phone'] = $phone;
+        $_SESSION['gender'] = $gender;
 
 
-            if ($stmt->execute()) {
-                //login user
-                $user_id = $conn->insert_id;
-                $_SESSION['id'] = $user_id;
-                $_SESSION['username'] = $username;
-                $_SESSION['email'] = $email;
-                $_SESSION['verified'] = $verified;
-
-                $_SESSION['message'] = "You have successfully signed up!";
-                $_SESSION['msg_type'] = "success"; //Message saved background
-                $_SESSION['remedy'] = ""; //Message saved background
-                $_SESSION['btn'] = "Okay"; //Message saved background
-                header("location: admin-login");
-                exit();
-            } else {
-                $errors['db_error'] = "Database error: failed to register";
-            }
-        }
+        $_SESSION['message'] = "You have successfully signed up!";
+        $_SESSION['msg_type'] = "success";
+        $_SESSION['remedy'] = "";
+        $_SESSION['btn'] = "Ok";
+        header('location: admin-login');
+    } else {
+        $_SESSION['message'] = "Database error!";
+        $_SESSION['msg_type'] = "error";
+        $_SESSION['remedy'] = "";
+        $_SESSION['btn'] = "Ok";
+        header('location: admin-signup');
     }
 }
 
@@ -114,67 +88,60 @@ if (isset($_POST['login-btn'])) {
     $teacher = "Teacher";
     $treasurer = "Treasurer";
 
-
-    //validation
-    if (empty($username)) {
-        $errors['username'] = "Username required!";
-    }
-    if (empty($password)) {
-        $errors['password'] = "Password required!";
-    }
-    if (count($errors) === 0) {
-        $sql = "SELECT * FROM admin_table WHERE email =? OR username=? LIMIT 1";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('ss', $username, $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $user = $result->fetch_assoc();
-
-        if (password_verify($password, $user['password'])) {
+    $password = substr(md5($password), 5);
+    $sql = $conn->query("SELECT * FROM $admin_tbl WHERE password = '$password' AND (email = '$username' OR username = '$username' OR phone = '$username')");
+    if ($sql->num_rows == 0) {
+        $_SESSION['message'] = "User does not exist!";
+        $_SESSION['msg_type'] = "error";
+        $_SESSION['remedy'] = "";
+        $_SESSION['btn'] = "Ok";
+        header('location: admin-login');
+    } else {
+        while ($user = $sql->fetch_assoc()) {
             //login success
             $_SESSION['id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['name'] = $user['name'];
-            $_SESSION['gender'] = $user['gender'];
-            $_SESSION['email'] = $user['email'];
-            $_SESSION['surname'] = $user['surname'];
-            $_SESSION['position'] = $user['position'];
             $_SESSION['token'] = $user['token'];
-
-            // if admin logs in...
-            if ($position == $admin) {
-                header('location: admin-nav');
-            }
-
-            // if teacher logs in...
-            if ($position == $teacher) {
-                header('location: teacher');
-                exit();
-            }
-
-            // if head teacher logs in...
-            if ($position == $head_teacher) {
-                header('location: teacher');
-                exit();
-            }
-
-            // if head Principal logs in...
-            if ($position == $princ) {
-                header('location: principal');
-                exit();
-            }
-
-            // if head Principal logs in...
-            if ($position == $v_princ) {
-                header('location: vice-principal');
-                exit();
-            }
-            if ($position == $treasurer) {
-                header('location: treasurer');
-                exit();
-            }
-        } else {
-            $errors['login_fail'] = "Wrong credentials!";
+            $_SESSION['surname'] = $user['surname'];
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['position'] = $user['position'];
+            $_SESSION['gender'] = $user['gender'];
+            $_SESSION['assignedClass'] = $user['assignedClass'];
+            $name = $user['name'];
         }
+        $_SESSION['message'] = "Welcome back $name!";
+        $_SESSION['msg_type'] = "success";
+        $_SESSION['remedy'] = "";
+        $_SESSION['btn'] = "Ok";
+
+        // if admin logs in...
+        if ($position == $admin) {
+            $redirect = "admin-nav";
+        }
+
+        // if teacher logs in...
+        if ($position == $teacher) {
+            $redirect = "teacher";
+        }
+
+        // if head teacher logs in...
+        if ($position == $head_teacher) {
+            $redirect = "teacher";
+        }
+
+        // if head Principal logs in...
+        if ($position == $princ) {
+            $redirect = "principal";
+        }
+
+        // if head Principal logs in...
+        if ($position == $v_princ) {
+            $redirect = "vice-principal";
+        }
+        if ($position == $treasurer) {
+            $redirect = "treasurer";
+        }
+        header('location: ' . $redirect . '');
     }
 }

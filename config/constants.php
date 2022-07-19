@@ -1,15 +1,15 @@
 <?php
-define('BASE_URL', '');
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_PASS', '1234');
 define('DB_NAME', 'cbe_system');
+define('BASE_URL', 'https://fulfilledchildrenschools.com/portal');
 
 $hostname = DB_HOST;
 $username = DB_USER;
 $password = DB_PASS;
 $db_name = DB_NAME;
-error_reporting(0);
+// error_reporting(0);
 session_start();
 // TABLES
 $evaluation_tbl = "evaluation";
@@ -23,3 +23,7 @@ $school_details_tbl = "school_details";
 $school_period_tbl = "school_term";
 $sch_session_tbl = "sch_session";
 $student_tbl = "student";
+$t_reg_key_tbl = "teacher_reg_key";
+
+$mailer_email = "fulfilledchildrenschools@gmail.com";
+$mailer_psw = "full2008filled";

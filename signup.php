@@ -1,5 +1,5 @@
 <?php
-require_once 'config/db.php';
+include 'config/db.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,23 +34,7 @@ require_once 'config/db.php';
                 <form action="controllers/authcontroller.php" method="post" enctype="multipart/form-data">
                     <h3 class="text-center">Student Registration</h3>
 
-                    <?php if (count($errors) > 0) : ?>
-                        <div class="ftco-animate alert alert-danger">
-                            <?php foreach ($errors as $error) : ?>
-                                <li><?php echo $error; ?></li>
-                            <?php endforeach; ?>
-                        </div>
-                    <?php endif; ?>
 
-                    <?php
-                    if (isset($_SESSION['message'])) : ?>
-                        <div class="ftco-animate alert alert-<?= $_SESSION['msg_type'] ?>">
-                            <?php
-                            echo $_SESSION['message'];
-                            unset($_SESSION['message']);
-                            ?>
-                        </div>
-                    <?php endif ?>
                     <div class="row">
                         <div class="col-lg-6 form-group">
                             <img id="uploadPreview" src="images/avatar.png" class="avatar">
@@ -60,18 +44,18 @@ require_once 'config/db.php';
                             <input type="file" id="p_img" style="width:100%;" name="p_image" required class="btn btn-primary" accept="jpg, jpeg, png" onchange="previewImage();" value="<?php echo $bg_image ?>" />
                         </div>
                         <div class="col-lg-6 form-group">
-                            <input type="text" name="fullname" value="<?php echo $fullname; ?>" placeholder="Full Name..." class="form-control form-control-lg">
+                            <input type="text" name="fullname" value="" placeholder="Full Name..." class="form-control form-control-lg">
                         </div>
                         <div class="col-lg-6 form-group">
-                            <input type="text" name="email" value="<?php echo $email; ?>" placeholder="Email..." class="form-control form-control-lg">
-                        </div>
-
-                        <div class="col-lg-6 form-group">
-                            <input type="text" name="username" value="<?php echo $username; ?>" placeholder="Username..." class="form-control form-control-lg">
+                            <input type="text" name="email" value="" placeholder="Email..." class="form-control form-control-lg">
                         </div>
 
                         <div class="col-lg-6 form-group">
-                            <input type="tel" name="phone" value="<?php echo $phone; ?>" placeholder="Phone No..." class="form-control form-control-lg">
+                            <input type="text" name="username" value="" placeholder="Username..." class="form-control form-control-lg">
+                        </div>
+
+                        <div class="col-lg-6 form-group">
+                            <input type="tel" name="phone" value="" placeholder="Phone No..." class="form-control form-control-lg">
                         </div>
 
                         <div class="col-lg-6 form-group">

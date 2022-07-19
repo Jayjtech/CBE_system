@@ -19,9 +19,9 @@ if (isset($_POST['register'])) {
     $img_size = $_FILES['p_image']['size'];
     $img_tmp = $_FILES['p_image']['tmp_name'];
 
-    $directory = 'profile_images/';
+    $directory = '../profile_images/';
     $target_file = $directory . $img_name;
-
+    $target_file = 'profile_images/' . $img_name;
     if ($password != $passwordConf) {
         $_SESSION['message'] = "The two passwords does not match!";
         $_SESSION['msg_type'] = "warning";
@@ -37,15 +37,15 @@ if (isset($_POST['register'])) {
         $_SESSION['msg_type'] = "warning";
         $_SESSION['remedy'] = "Choose another username and email";
         $_SESSION['btn'] = "Ok";
-        header('location: ../login');
+        header('location: ../signup');
     }
 
-    $password = substr(md5($password), 5);
+    $hash_password = substr(md5($password), 5);
 
-    move_uploaded_file($img_tmp, $target_file);
+    move_uploaded_file($img_tmp, $directory . $img_name);
 
     $sql = $conn->query("INSERT INTO $student_tbl (reg_date, fullname, username, class, gender, email, phone, password, adm_no, session, p_image, keyp) 
-         VALUES ('$reg_date', '$fullname', '$username', '$class', '$gender', '$email', '$phone', '$password', '$adm_no', '$current_session', '$target_file', '$keyp')");
+         VALUES ('$reg_date', '$fullname', '$username', '$class', '$gender', '$email', '$phone', '$hash_password', '$adm_no', '$current_session', '$target_file', '$password')");
     //login user
     $_SESSION["username"] =  $username;
     $_SESSION['email'] = $email;
@@ -69,7 +69,7 @@ if (isset($_POST['register'])) {
     $_SESSION['msg_type'] = "error";
     $_SESSION['remedy'] = "";
     $_SESSION['btn'] = "Ok";
-    header('location: ../login');
+    header('location: ../signup');
 }
 
 

@@ -23,6 +23,14 @@ if (isset($_POST['edit'])) {
     $quest_code = $_SESSION['quest_code'];
     $course_code = $_SESSION['course_code'];
 
+    if (!$_SESSION['position']) {
+      $_SESSION['message'] = 'Access denied!';
+      $_SESSION['msg_type'] = 'warning';
+      $_SESSION['remedy'] = 'Login to continue';
+      $_SESSION['msg_type'] = 'Okay';
+      header('location: admin-login');
+    }
+
     $query = $conn->query("SELECT * FROM $exam_table WHERE quest_code='$quest_code' AND course_code='$course_code'");
     while ($quest = $query->fetch_assoc()) {
       $question_num = $quest['question_number'];

@@ -20,6 +20,7 @@ if ($_GET['table'] == $answer_sheet) {
 
 
 if ($_GET['table'] == "evaluation") {
+     $class = $_GET['class'];
      header('Content-Type: text/csv; charset=utf-8');
      header("Content-Disposition: attachment; filename=Teacher's comment.csv");
      $output = fopen("php://output", "w");
@@ -29,7 +30,7 @@ if ($_GET['table'] == "evaluation") {
      ));
 
      $query = "SELECT fullname, adm_no, class, term, session, n_absent, n_present, punctuality, attentiveness,
- neatness, honesty, relationship, skills, sport, clubs, fluency, handwriting, position, t_comment, promoted_to FROM evaluation WHERE session='$current_session' AND term='$current_term' ORDER BY class ASC";
+ neatness, honesty, relationship, skills, sport, clubs, fluency, handwriting, position, t_comment, promoted_to FROM evaluation WHERE session='$current_session' AND term='$current_term' AND class='$class' ORDER BY class ASC";
      $result = mysqli_query($conn, $query);
      while ($row = mysqli_fetch_assoc($result)) {
           fputcsv($output, $row);
@@ -113,6 +114,32 @@ if ($_GET['table'] == 'instruction_tbl') {
      $output = fopen("php://output", "w");
      fputcsv($output, array('Instruction 1', 'Instruction 2', 'Instruction 3', 'Instruction 4', 'Instruction 5'));
      $query = "SELECT instruction1, instruction2, instruction3, instruction4, instruction5 FROM instruction_tbl";
+     $result = mysqli_query($conn, $query);
+     while ($row = mysqli_fetch_assoc($result)) {
+          fputcsv($output, $row);
+     }
+     fclose($output);
+}
+
+if ($_GET['students']) {
+     header('Content-Type: text/csv; charset=utf-8');
+     header('Content-Disposition: attachment; filename=Student-list.csv');
+     $output = fopen("php://output", "w");
+     fputcsv($output, array('Full name', 'Admission No', 'Class', 'Gender', 'Username', 'Phone', 'Email', 'Password'));
+     $query = "SELECT fullname, adm_no, class, gender, username, phone, email, keyp FROM $student_tbl";
+     $result = mysqli_query($conn, $query);
+     while ($row = mysqli_fetch_assoc($result)) {
+          fputcsv($output, $row);
+     }
+     fclose($output);
+}
+
+if ($_GET['staff']) {
+     header('Content-Type: text/csv; charset=utf-8');
+     header('Content-Disposition: attachment; filename=Staff-list.csv');
+     $output = fopen("php://output", "w");
+     fputcsv($output, array('Name', 'Surname', 'Email', 'Username', 'Phone', 'gender', 'Assigned Class', 'Password', 'Token'));
+     $query = "SELECT name, surname, email, username, phone, gender, assignedClass, keyp, token FROM $admin_tbl";
      $result = mysqli_query($conn, $query);
      while ($row = mysqli_fetch_assoc($result)) {
           fputcsv($output, $row);

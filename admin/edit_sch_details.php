@@ -1,5 +1,13 @@
 <?php
 require "../config/db.php";
+$position = "Proprietor";
+if ($_SESSION['position'] != $position) {
+    $_SESSION['message'] = 'Access denied!';
+    $_SESSION['msg_type'] = 'warning';
+    $_SESSION['remedy'] = 'Login to continue';
+    $_SESSION['msg_type'] = 'Okay';
+    header('location: admin-login');
+}
 ?>
 
 <!DOCTYPE html>

@@ -26,7 +26,13 @@ if ($logterm == "Third Term") {
 
 $tm_tbl = $conn->query("SELECT * FROM $dash_time_table WHERE class='$class' AND session = '$session'");
 $total_tm_tbl = $tm_tbl->num_rows;
-
+if (!$_SESSION['adm_no'] || !$logterm) {
+  $_SESSION['message'] = 'Access denied!';
+  $_SESSION['msg_type'] = 'warning';
+  $_SESSION['remedy'] = 'Login to continue';
+  $_SESSION['msg_type'] = 'Okay';
+  header('location:login');
+}
 
 ?>
 
