@@ -207,12 +207,18 @@ while ($row = $query->fetch_assoc()) {
     $obj = $row['obj_score'];
 }
 //IF OBJECTIVE SCORE IS NOT EMPTY     
-if ($obj != 0) {
-    $obj_score = $obj;
+if ($obj != $objective) {
+    $obj_score = $objective;
     //IF OBJECTIVE SCORE IS EMPTY THEN THE UPLOADED SCORE IS THE OBJECTIVE SCORE
 } else {
-    $obj_score = $objective;
+    $obj_score = $obj;
 }
+// if ($obj != 0) {
+//     $obj_score = $obj;
+//     //IF OBJECTIVE SCORE IS EMPTY THEN THE UPLOADED SCORE IS THE OBJECTIVE SCORE
+// } else {
+//     $obj_score = $objective;
+// }
 $test = ($CA1 + $CA2 + $CA3);
 $exam_output = ($obj_score + $essay_score);
 $total = ($exam_output + $test);

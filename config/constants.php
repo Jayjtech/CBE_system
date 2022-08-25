@@ -1,9 +1,9 @@
 <?php
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
-define('DB_PASS', '1234');
+define('DB_PASS', '');
 define('DB_NAME', 'cbe_system');
-define('BASE_URL', 'https://fulfilledchildrenschools.com/portal');
+define('BASE_URL', 'https://localhost/cbe_system-v1');
 
 $hostname = DB_HOST;
 $username = DB_USER;

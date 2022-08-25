@@ -27,7 +27,7 @@ if ($_SESSION['position'] != $position) {
         </nav>
         <!-- <End of Navbar> -->
         <div class="container mt-3">
-            <span><strong>Academic Period:</strong><?= $current_term; ?> [<?= $current_session; ?>]</span>
+            <span><strong>Academic Period: </strong><?= $current_term; ?> [<?= $current_session; ?>]</span>
             <h3 class="text-center" style="max-width:70%; margin:0 auto;">Control Panel</h3><br>
             <div class="row ftco-animate">
                 <div class="col-lg-6 ftco-animate" style="text-align:center;">

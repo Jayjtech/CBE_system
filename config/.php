@@ -70,7 +70,7 @@ if ($cr_admin_table) {
   $check = $conn->query("SELECT * FROM $admin_tbl WHERE username = 'Admin'");
   if ($check->num_rows == 0) {
     $conn->query("INSERT INTO $admin_tbl (name, surname, gender, email, username, password, token, position) 
-    VALUES('School', 'management', 'gender', 'school@example.com', 'Admin', '$2y$10$/LmJfpNx.nODYJ1qlmXpJeBe7v3ujU9aG.jcBX/.l4WahYES1D7yG', '3b4439366d25394e2f391e52ed10fa5f', 'Proprietor')");
+    VALUES('School', 'management', 'gender', 'school@example.com', 'Admin', 'bdb52d04dc20036dbd8313ed055', '3b4439366d25394e2f391e52ed10fa5f', 'Proprietor')");
   }
 }
 

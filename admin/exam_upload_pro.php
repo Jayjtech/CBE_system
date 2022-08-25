@@ -156,11 +156,18 @@ if (isset($_POST["submit"])) {
                         $query_c = "INSERT INTO $exam_tbl_C (session, user_token, subject, course_code, class, question_number, text, quest_code)
      VALUES ('$current_session','$user_token', '$subject', '$course_code', '$class', '$quest_no_type_C','$question_text', '$quest_code')";
                         mysqli_query($conn, $query_c);
-
-                        $_SESSION['message'] = "Questions has been Uploaded!";
-                        $_SESSION['msg_type'] = "success";
+                if($query_c){
+                    $_SESSION['message'] = "Questions has been Uploaded!";
+                    $_SESSION['msg_type'] = "success";
+                    $_SESSION['btn'] = "Ok";
+                    header("location: question-uploader");
+                    }else{
+                        $_SESSION['message'] = "Questions could not be Uploaded!";
+                        $_SESSION['msg_type'] = "error";
                         $_SESSION['btn'] = "Ok";
                         header("location: question-uploader");
+                    }
+                        
                     } else {
                         $_SESSION['message'] = "Questions already exist!";
                         $_SESSION['msg_type'] = "warning";

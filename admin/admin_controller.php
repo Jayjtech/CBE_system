@@ -137,10 +137,10 @@ if (isset($_POST['login-btn'])) {
 
         // if head Principal logs in...
         if ($position == $v_princ) {
-            $redirect = "vice-principal";
+            $redirect = "principal";
         }
         if ($position == $treasurer) {
-            $redirect = "treasurer";
+            $redirect = "teacher";
         }
         header('location: ' . $redirect . '');
     }

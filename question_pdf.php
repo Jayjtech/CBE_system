@@ -6,16 +6,16 @@ $time = time('h/m/s');
 $course_code = $_SESSION['course_code'];
 
 if($_SESSION['term'] == "First Term"){
-    $quest_tbl = "ft_exam_type_A";
-    $answer_tbl = "ft_answer_type_A";
+    $quest_tbl = "ft_exam_type_a";
+    $answer_tbl = "ft_answer_type_a";
   }
   if($_SESSION['term'] == "Second Term"){
-    $quest_tbl = "st_exam_type_A";
-    $answer_tbl = "st_answer_type_A";
+    $quest_tbl = "st_exam_type_a";
+    $answer_tbl = "st_answer_type_a";
   }
   if($_SESSION['term'] == "Third Term"){
-    $quest_tbl = "tt_exam_type_A";
-    $answer_tbl = "tt_answer_type_A";
+    $quest_tbl = "tt_exam_type_a";
+    $answer_tbl = "tt_answer_type_a";
   }
 //calling questtions from database
 $quest = $conn->query("SELECT * FROM $quest_tbl WHERE course_code = '$course_code'");

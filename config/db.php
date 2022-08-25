@@ -3,7 +3,7 @@ include 'constants.php';
 
 $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS);
 
-$query = "CREATE DATABASE IF NOT EXISTS cbe_system";
+$query = "CREATE DATABASE IF NOT EXISTS " . DB_NAME . "";
 
 $run = mysqli_query($conn, $query);
 
@@ -11,7 +11,7 @@ if ($run) {
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 }
 
-include "create_table.php";
+include ".php";
 
 //Declaration of Current School Terms
 $res = $conn->query("SELECT * FROM school_term");
@@ -54,15 +54,15 @@ $third_term = "Third Term";
 
 //DECLARATION OF QUESTION AND ANSWER TABLES FOR EACH TERM
 if ($current_term == "First Term") {
-    $exam_tbl_A = "ft_exam_type_A";
-    $exam_tbl_B = "ft_exam_type_B";
-    $exam_tbl_C = "ft_exam_type_C";
-    $answer_tbl_A = "ft_answer_type_A";
-    $answer_tbl_B = "ft_answer_type_B";
-    $answer_tbl_C = "ft_answer_type_C";
+    $exam_tbl_A = "ft_exam_type_a";
+    $exam_tbl_B = "ft_exam_type_b";
+    $exam_tbl_C = "ft_exam_type_c";
+    $answer_tbl_A = "ft_answer_type_a";
+    $answer_tbl_B = "ft_answer_type_b";
+    $answer_tbl_C = "ft_answer_type_c";
     // EXAM TABLES
-    $exam_table = "ft_exam_type_A";
-    $answer_table = "ft_answer_type_A";
+    $exam_table = "ft_exam_type_a";
+    $answer_table = "ft_answer_type_a";
     // ANSWER SHEET
     $answer_sheet = "ft_answer_sheet";
     $prev_answer_sheet = null;
@@ -71,15 +71,15 @@ if ($current_term == "First Term") {
 }
 
 if ($current_term == "Second Term") {
-    $exam_tbl_A = "st_exam_type_A";
-    $exam_tbl_B = "st_exam_type_B";
-    $exam_tbl_C = "st_exam_type_C";
-    $answer_tbl_A = "st_answer_type_A";
-    $answer_tbl_B = "st_answer_type_B";
-    $answer_tbl_C = "st_answer_type_C";
+    $exam_tbl_A = "st_exam_type_a";
+    $exam_tbl_B = "st_exam_type_b";
+    $exam_tbl_C = "st_exam_type_c";
+    $answer_tbl_A = "st_answer_type_a";
+    $answer_tbl_B = "st_answer_type_b";
+    $answer_tbl_C = "st_answer_type_c";
     // EXAM TABLES
-    $exam_table = "st_exam_type_A";
-    $answer_table = "st_answer_type_A";
+    $exam_table = "st_exam_type_a";
+    $answer_table = "st_answer_type_a";
     // ANSWER SHEET
     $answer_sheet = "st_answer_sheet";
     $prev_answer_sheet = "ft_answer_sheet";
@@ -88,15 +88,15 @@ if ($current_term == "Second Term") {
 }
 
 if ($current_term == "Third Term") {
-    $exam_tbl_A = "tt_exam_type_A";
-    $exam_tbl_B = "tt_exam_type_B";
-    $exam_tbl_C = "tt_exam_type_C";
-    $answer_tbl_A = "tt_answer_type_A";
-    $answer_tbl_B = "tt_answer_type_B";
-    $answer_tbl_C = "tt_answer_type_C";
+    $exam_tbl_A = "tt_exam_type_a";
+    $exam_tbl_B = "tt_exam_type_b";
+    $exam_tbl_C = "tt_exam_type_c";
+    $answer_tbl_A = "tt_answer_type_a";
+    $answer_tbl_B = "tt_answer_type_b";
+    $answer_tbl_C = "tt_answer_type_c";
     // EXAM TABLES
-    $exam_table = "tt_exam_type_A";
-    $answer_table = "tt_answer_type_A";
+    $exam_table = "tt_exam_type_a";
+    $answer_table = "tt_answer_type_a";
     // ANSWER SHEET
     $answer_sheet = "tt_answer_sheet";
     $prev_answer_sheet = "st_answer_sheet";
