@@ -9,7 +9,8 @@ $hostname = DB_HOST;
 $username = DB_USER;
 $password = DB_PASS;
 $db_name = DB_NAME;
-// error_reporting(0);
+
+error_reporting(0);
 session_start();
 // TABLES
 $evaluation_tbl = "evaluation";
@@ -25,5 +26,5 @@ $sch_session_tbl = "sch_session";
 $student_tbl = "student";
 $t_reg_key_tbl = "teacher_reg_key";
 
-$mailer_email = "fulfilledchildrenschools@gmail.com";
-$mailer_psw = "full2008filled";
+$mailer_email = "";
+$mailer_psw = "";
